@@ -4,4 +4,6 @@
 > 다음 행동 같은 상세 상태는 각 대작업의 `status.md`에 있습니다.
 > 대작업을 시작하고 마치는 절차는 `workstreams.md`에 있습니다.
 
-진행 중인 대작업이 없습니다.
+- **009-document-graph**
+  - 소개: `.agents/plans/workstreams/009-document-graph/README.md`
+  - 상태: `.agents/plans/workstreams/009-document-graph/status.md`
