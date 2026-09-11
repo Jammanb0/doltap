@@ -37,6 +37,7 @@
 | 무엇이 왜 정해졌는지 확인할 때 | 그 대작업에 `decisions.md`가 있으면 그 파일 |
 | 대작업을 만들거나 운영 방식을 바꾸거나 마칠 때 | `.doltap/plans/workstreams.md` |
 | 계획 문서의 구조를 확인할 때 | `.doltap/plans/README.md` |
+| 프로젝트 공통 결정과 전제를 볼 때 | `.doltap/plans/decisions.md` |
 | 향후 아이디어를 볼 때 | `.doltap/plans/ideas.md` |
 | 마친 대작업을 찾을 때 | `.doltap/plans/history.md` |
 <!-- 채우기: 이 프로젝트에만 있는 문서를 여기에 한 줄씩 더합니다.
@@ -147,21 +148,18 @@
 - 커밋 메시지에 `Co-Authored-By:` 트레일러를 기본적으로 붙이지 않습니다.
 
 - `indexes` [current.md](.doltap/plans/current.md#doltap-d-mv4e7sph-start)
-
 - `indexes` [history.md](.doltap/plans/history.md#doltap-d-s30erje9-start)
 
 - `indexes` [ideas.md](.doltap/plans/ideas.md#doltap-d-4d5k5j63-start)
-
 - `indexes` [README.md](.doltap/plans/README.md#doltap-d-1jx163t4-start)
 
 - `indexes` [workstreams.md](.doltap/plans/workstreams.md#doltap-d-9n1xyyne-start)
-
 - `indexes` [project.md](.doltap/project.md#doltap-d-f7wn4qdw-start)
 
 - `indexes` [communication.md](.doltap/rules/communication.md#doltap-d-vht1pg6m-start)
-
 - `indexes` [verification.md](.doltap/rules/verification.md#doltap-d-7eax2ctv-start)
 
 - `indexes` [ids.md](.doltap/ids.md#doltap-d-kjhnpmpa-start)
+- `indexes` [decisions.md](.doltap/plans/decisions.md#doltap-d-c0pdq70r-start)
 
 <a name="doltap-d-ghzk4mrf-end" id="doltap-d-ghzk4mrf-end"></a>

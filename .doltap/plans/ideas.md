@@ -34,10 +34,9 @@
 
 **안 하기로 정한 것은 여기 남기지 않습니다.** 이 파일은 후보 목록이지 판단
 기록장이 아닙니다. 기각한 이유는 그때의 결정 문서와 `docs/trials/README.md`의
-「알려진 제한」·「검증하지 않는 것」에 있습니다.
+시험별 해석 범위에 있습니다.
 
-- `assumes` [status.md](../archive/legacy/workstreams/007-first-impression/status.md#doltap-d-qzcaxr50-start)
 
-- `assumes` [README.md](workstreams/009-document-graph/README.md#doltap-b-js7yf5p8-start)
+- `assumes` [README.md](decisions.md#doltap-b-js7yf5p8-start)
 
 <a name="doltap-d-scm8gx88-end" id="doltap-d-scm8gx88-end"></a>

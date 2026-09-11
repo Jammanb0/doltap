@@ -423,14 +423,14 @@ doltap-d-claude-md ──imports──▶ AGENTS.md 의 문서 노드
 
 ```text
 doltap check [경로] [--json]
-doltap map [경로] [--json] [--include-legacy]
+doltap map [경로] [--json]
 doltap context <ID> [--depth N] [--budget N] [--json]
 doltap audit <경로> [--relation 유형] [--changed] [--budget N]
 doltap id <파일> --kind d|s|b --at <줄 또는 제목>
 doltap link <출발 ID> --to <도착 ID> --as <관계 유형>
 doltap move-fix [경로] [--apply]
 doltap recover <실행 ID> [--apply|--discard]
-doltap review <관계 ID> --as 반영함|영향없음|재검증함 --why "<이유>"
+doltap review <관계 ID> --as 반영함|영향없음|재검증함 --why "<이유>" --actor 사람|에이전트 [--apply]
 doltap migrate [경로] [--apply]
 doltap archive-check <워크스트림 경로>
 doltap delete <ID> --mode replace|tombstone|purge --why 이유 [--to ID] [--apply]
@@ -735,5 +735,11 @@ Codex     Stop 훅에서 같은 검사기를 부르는 어댑터
 않습니다.
 
 제거 방법을 같은 자리에 적습니다. 넣는 법만 적고 빼는 법을 안 적으면 남습니다.
+
+감사 후보는 검토 가능한 본문만 포함합니다. 발급·검토 파일, 삭제 표식, CLAUDE 특수 노드는 제외합니다.
+관계·상태 필터는 후보와 재검토 목록, 기존 제안 판단에 함께 적용합니다.
+관계는 선택 범위 안의 끝점 중 하나가 상태·레거시 조건을 만족할 때 포함합니다.
+구조 오류는 범위 기준으로 계속 보여줍니다. 미등록 외부 후보에는 상태·관계가 없으므로
+두 필터를 지정했을 때 포함하지 않습니다.
 
 <a name="doltap-d-r1s0r2zm-end" id="doltap-d-r1s0r2zm-end"></a>

@@ -45,6 +45,7 @@ AI 코딩 에이전트와 일할 때 쓰는 문서 골격입니다. 규칙의 �
 | 무엇이 왜 정해졌는지 확인할 때 | 그 대작업에 `decisions.md`가 있으면 그 파일 |
 | 대작업을 만들거나 운영 방식을 바꾸거나 마칠 때 | `.doltap/plans/workstreams.md` |
 | 계획 문서의 구조를 확인할 때 | `.doltap/plans/README.md` |
+| 프로젝트 공통 결정과 전제를 볼 때 | `.doltap/plans/decisions.md` |
 | 향후 아이디어를 볼 때 | `.doltap/plans/ideas.md` |
 | 마친 대작업을 찾을 때 | `.doltap/plans/history.md` |
 | 무엇이 검증됐는지 확인할 때 | `docs/trials/README.md` |
@@ -175,23 +176,23 @@ AI 코딩 에이전트와 일할 때 쓰는 문서 골격입니다. 규칙의 �
 - 커밋 메시지에 `Co-Authored-By:` 트레일러를 기본적으로 붙이지 않습니다.
 
 - `indexes` [current.md](.doltap/plans/current.md#doltap-d-pptm6e2n-start)
-
 - `indexes` [history.md](.doltap/plans/history.md#doltap-d-9tgvms63-start)
 
 - `indexes` [ideas.md](.doltap/plans/ideas.md#doltap-d-scm8gx88-start)
-
 - `indexes` [README.md](.doltap/plans/README.md#doltap-d-5mp1w6a0-start)
 
 - `indexes` [workstreams.md](.doltap/plans/workstreams.md#doltap-d-rc8m43dj-start)
-
 - `indexes` [project.md](.doltap/project.md#doltap-d-0c9e0fds-start)
 
 - `indexes` [communication.md](.doltap/rules/communication.md#doltap-d-6f9g0m6k-start)
-
 - `indexes` [verification.md](.doltap/rules/verification.md#doltap-d-594dnf3v-start)
 
 - `indexes` [ids.md](.doltap/ids.md#doltap-d-ypvp294p-start)
-
 - `indexes` [검토 기록](.doltap/reviews/2026.md#doltap-d-4n18ze4a-start)
+
+- `indexes` [decisions.md](.doltap/plans/decisions.md#doltap-d-6fcpmxet-start)
+- `indexes` [document-graph-design.md](docs/document-graph-design.md#doltap-d-knwnrg0q-start)
+
+- `indexes` [README.md](docs/trials/README.md#doltap-d-0kk90ace-start)
 
 <a name="doltap-d-wcqyb49m-end" id="doltap-d-wcqyb49m-end"></a>

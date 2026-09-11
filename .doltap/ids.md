@@ -8,7 +8,7 @@
 
 | ID | 종류 | 상태 | 경로 | 대체 | 삭제 이유 |
 | --- | --- | --- | --- | --- | --- |
-| doltap-b-js7yf5p8 | b | 활성 | .doltap/plans/workstreams/009-document-graph/README.md |  |  |
+| doltap-b-js7yf5p8 | b | 활성 | .doltap/plans/decisions.md |  |  |
 | doltap-d-0c9e0fds | d | 활성 | .doltap/project.md |  |  |
 | doltap-d-0kk90ace | d | 활성 | docs/trials/README.md |  |  |
 | doltap-d-0r8gvxp9 | d | 아카이브 | .doltap/archive/legacy/workstreams/004-safe-apply/findings.md |  |  |
@@ -19,6 +19,7 @@
 | doltap-d-594dnf3v | d | 활성 | .doltap/rules/verification.md |  |  |
 | doltap-d-5mp1w6a0 | d | 활성 | .doltap/plans/README.md |  |  |
 | doltap-d-6f9g0m6k | d | 활성 | .doltap/rules/communication.md |  |  |
+| doltap-d-6fcpmxet | d | 활성 | .doltap/plans/decisions.md |  |  |
 | doltap-d-6xjy09yq | d | 아카이브 | .doltap/archive/legacy/workstreams/008-approval-endpoint/plan.md |  |  |
 | doltap-d-7ay3ap4e | d | 아카이브 | .doltap/archive/legacy/workstreams/001-cairn-setup/README.md |  |  |
 | doltap-d-80ccq92z | d | 아카이브 | .doltap/archive/legacy/workstreams/003-verify-and-report/README.md |  |  |

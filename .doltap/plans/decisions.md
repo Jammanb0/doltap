@@ -1,0 +1,44 @@
+<a name="doltap-d-6fcpmxet-start" id="doltap-d-6fcpmxet-start"></a>
+
+# 프로젝트 공통 결정과 전제
+
+여러 작업에 계속 적용되는 결정과 그 이유의 현재 원본입니다. 규칙의 적용 문구는
+AGENTS.md와 rules에, 프로젝트 설명은 project.md에, 미착수 후보는 ideas.md에 둡니다.
+워크스트림 decisions.md에는 그 작업의 선택 과정과 당시 근거를 보존합니다.
+
+## 제품 이름
+
+공개 이름·패키지·CLI는 doltap, 운영 폴더는 .doltap, 임시 적용 폴더는
+.doltap-bootstrap입니다. GitHub 저장소 주소와 로컬 checkout 이름은 별도입니다.
+
+## 검토와 자동화
+
+문서와 명시 관계가 원본이고 지도는 파생물입니다. CLI는 AI API를 호출하지 않습니다.
+노드 내용 검토와 관계 영향 검토를 구분하고, 관계별 판단을 이유·주체와 함께 남깁니다.
+검토 기록은 사용자 승인이나 내용의 참을 증명하지 않습니다. 수동 검사가 기본이며
+Git·에이전트 훅은 사용자가 필요할 때 연결합니다.
+
+## 현재 정보와 과거 근거
+
+지금 따라야 하는 내용은 활성 문서만 읽어도 알 수 있어야 합니다. 작업에서 나온
+공통 규칙·전제는 종료를 기다리지 않고 담당 활성 원본에 반영합니다. 옮긴 항목은
+같은 ID를 유지하고 이전 위치를 현재 참조로 바꿉니다. 과거 원문을 보존해야 한다면
+현재 원본에는 별도 ID를 발급하고 출처 관계만 남깁니다. 같은 ID를 복제하지 않습니다.
+아카이브는 그때 왜 결정했는지 확인할 때 읽습니다. 현재 규칙이 자동으로 되지는 않습니다.
+특정 과거 결과 자체에 의존해야 할 때에만 그 관계를 명시합니다.
+
+## 외부 사용 여부
+
+<a name="doltap-b-js7yf5p8-start" id="doltap-b-js7yf5p8-start"></a>
+- `전제` **이 구조를 쓰는 외부 프로젝트가 있는지 확인되지 않았습니다.** 없다고
+  단정하지 않습니다. 확인되지 않았다는 것과 없다는 것을 섞어 쓴 것이 007에서
+  고친 실수입니다. 영구 호환 계층은 만들지 않되, 구형 구조를 만난 사람이 막히지
+  않게 이관 안내는 남깁니다.
+  - `상태` 미해결 — 외부 사용 여부를 확인하면 이 활성 원본을 갱신합니다.
+- `references` [007의 표현 수정 기록](../archive/legacy/workstreams/007-first-impression/status.md#doltap-d-qzcaxr50-start)
+
+<a name="doltap-b-js7yf5p8-end" id="doltap-b-js7yf5p8-end"></a>
+
+- `governs` [workstreams.md](workstreams.md#doltap-d-rc8m43dj-start)
+
+<a name="doltap-d-6fcpmxet-end" id="doltap-d-6fcpmxet-end"></a>

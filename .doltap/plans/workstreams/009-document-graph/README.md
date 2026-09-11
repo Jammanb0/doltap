@@ -2,7 +2,7 @@
 
 # 문서 그래프 기반
 
-[완료 조건으로 이동](#doltap-s-7qpp5x4m-start)
+[완료 조건으로 이동](README.md#doltap-s-7qpp5x4m-start)
 
 문서 사이의 의미 관계를 사람이 읽는 마크다운에 명시하고, 검사기가 그 관계를
 기계적으로 확인하고 탐색하게 만듭니다. 공개 이름을 바꾸는 것에서 시작해 운영
@@ -100,15 +100,7 @@
 <a name="doltap-s-7qpp5x4m-end" id="doltap-s-7qpp5x4m-end"></a>
 ## 전제
 
-<a name="doltap-b-js7yf5p8-start" id="doltap-b-js7yf5p8-start"></a>
-- `전제` **이 구조를 쓰는 외부 프로젝트가 있는지 확인되지 않았습니다.** 없다고
-  단정하지 않습니다. 확인되지 않았다는 것과 없다는 것을 섞어 쓴 것이 007에서
-  고친 실수입니다. 영구 호환 계층은 만들지 않되, 구형 구조를 만난 사람이 막히지
-  않게 이관 안내는 남깁니다.
-  - `상태` 이월 — 활성 아이디어가 이 전제를 계속 확인합니다.
-- `assumes` [status.md](../../../archive/legacy/workstreams/007-first-impression/status.md#doltap-d-qzcaxr50-start)
-
-<a name="doltap-b-js7yf5p8-end" id="doltap-b-js7yf5p8-end"></a>
+이 프로젝트에 계속 적용되는 전제는 `.doltap/plans/decisions.md`에서 관리합니다.
 - 이 저장소는 자기 자신에게 골격을 적용해 운영하므로, 규격 변경과 자기 이관이
   같은 대작업 안에서 함께 움직입니다. 배포하는 골격 원본은 `template/`입니다.
 - 새 이름이 정해지기 전에는 불변 ID를 발급하지 않습니다. 가칭 접두사로 먼저
@@ -137,5 +129,7 @@
 - `indexes` [status.md](status.md#doltap-d-n72qk3vj-start)
 
 - `references` [README.md](../../../../docs/trials/README.md#doltap-d-0kk90ace-start)
+
+- `assumes` [decisions.md](../../decisions.md#doltap-b-js7yf5p8-start)
 
 <a name="doltap-d-n0k25q71-end" id="doltap-d-n0k25q71-end"></a>
