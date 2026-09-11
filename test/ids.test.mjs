@@ -14,8 +14,10 @@ import {
   isStaleLock,
   nextId,
   parseRegistry,
+  pidAlive,
   readRegistry,
   registryPath,
+  release,
   setState,
   usedIds,
   writeRegistry,
@@ -211,4 +213,96 @@ test("읽지 못한 잠금을 오래된 것으로 보지 않는다", () => {
   assert.equal(isStaleLock(`1234 ${now - 1000}\n`, now), false, "방금 잡은 잠금을 빼앗았습니다");
   // 시각을 읽을 수 있고 정말 오래됐을 때만 걷어낸다.
   assert.equal(isStaleLock(`1234 ${now - 60_000}\n`, now), true);
+});
+
+// --- 두 번째 검토에서 드러난 누락. 각각 재현한 뒤 고쳤다. ---
+
+test("지운 ID 를 existingId 로 되살릴 수 없다", () => {
+  const dir = project();
+  const id = allocate({ root: dir, operatingDir: OP, kind: "s", path: "old.md" });
+  setState({ root: dir, operatingDir: OP, id, state: "삭제" });
+  assert.throws(
+    () => allocate({ root: dir, operatingDir: OP, kind: "s", path: "new.md", existingId: id }),
+    /지운 ID 는 다시 쓸 수 없습니다/
+  );
+  // 거절만 하는 것이 아니라 지운 줄을 건드리지도 않아야 한다.
+  const row = readRegistry(dir, OP).find((r) => r.id === id);
+  assert.equal(row.state, "삭제");
+  assert.equal(row.path, "(없음)");
+});
+
+test("아카이브한 범위가 다시 살아나면 활성으로 돌린다", () => {
+  const dir = project();
+  const id = allocate({ root: dir, operatingDir: OP, kind: "s", path: "a.md" });
+  setState({ root: dir, operatingDir: OP, id, state: "아카이브", path: "archive/a.md" });
+  assert.equal(allocate({ root: dir, operatingDir: OP, kind: "s", path: "a.md", existingId: id }), id);
+  const row = readRegistry(dir, OP)[0];
+  assert.equal(row.state, "활성");
+  assert.equal(row.path, "a.md");
+});
+
+test("한 글자가 아닌 종류를 받지 않는다", () => {
+  // `"dsb".includes(kind)` 로 보면 ds 와 빈 문자열이 통과해 doltap-ds-... 가 나온다.
+  for (const kind of ["ds", "sb", "dsb", "", "x", "D"]) {
+    assert.throws(() => nextId(kind, new Set()), /모르는 종류/, `nextId(${JSON.stringify(kind)})`);
+  }
+});
+
+test("형식이 아닌 existingId 를 받지 않는다", () => {
+  const dir = project();
+  // 그대로 넣으면 표에 들어갔다가 다시 읽을 때 사라진다.
+  assert.throws(
+    () => allocate({ root: dir, operatingDir: OP, kind: "s", path: "x.md", existingId: "not-an-id" }),
+    /ID 형식이 아닙니다/
+  );
+  assert.deepEqual(readRegistry(dir, OP), []);
+});
+
+test("ID 안의 종류와 다른 종류로 기록하지 않는다", () => {
+  const dir = project();
+  assert.throws(
+    () => allocate({ root: dir, operatingDir: OP, kind: "d", path: "y.md", existingId: "doltap-s-aaaaaaaa" }),
+    /ID 의 종류와 다릅니다/
+  );
+});
+
+test("주인이 살아 있는 잠금은 오래돼도 빼앗지 않는다", () => {
+  // 시간만 보면 오래 걸리는 작업이나 잠시 멈춘 프로세스의 잠금을 빼앗는다.
+  const now = Date.now();
+  assert.equal(isStaleLock(`${process.pid} ${now - 60_000}`, now), false, "살아 있는 주인의 잠금을 빼앗았습니다");
+  assert.equal(isStaleLock(`1234 ${now - 60_000}`, now, () => true), false);
+  // 주인이 없고 시각도 오래됐을 때만 걷어낸다.
+  assert.equal(isStaleLock(`1234 ${now - 60_000}`, now, () => false), true);
+  assert.equal(isStaleLock(`1234 ${now - 1_000}`, now, () => false), false, "방금 잡은 잠금을 빼앗았습니다");
+});
+
+test("PID 를 읽을 수 없으면 빼앗지 않는다", () => {
+  const now = Date.now();
+  assert.equal(isStaleLock(`알수없음 ${now - 60_000}`, now, () => false), false);
+  assert.equal(isStaleLock(`0 ${now - 60_000}`, now, () => false), false);
+});
+
+test("살아 있는 프로세스는 살아 있다고 본다", () => {
+  assert.equal(pidAlive(process.pid), true);
+  // 있을 법하지 않은 PID. 없으면 false 여야 한다.
+  assert.equal(pidAlive(0x7ffffff), false);
+});
+
+test("잠금을 풀지 못하면 false 를 돌려준다", () => {
+  // 지울 수 없는 자리를 만들어 해제 실패 자체를 본다. allocate 로 돌리면
+  // 잠금을 **얻지** 못해 실패하는 다른 경로를 타고, 대기 시간도 길다.
+  const dir = project();
+  const blocked = join(dir, OP, "ids.lock");
+  mkdirSync(join(blocked, "막음"), { recursive: true });
+  assert.equal(release(blocked), false, "지우지 못했는데 성공으로 봤습니다");
+});
+
+test("잠금을 풀면 true 를 돌려준다", () => {
+  const dir = project();
+  const path = join(dir, OP, "ids.lock");
+  writeFileSync(path, `1 ${Date.now()}\n`);
+  assert.equal(release(path), true);
+  assert.ok(!existsSync(path));
+  // 이미 없어도 성공으로 본다.
+  assert.equal(release(path), true);
 });
