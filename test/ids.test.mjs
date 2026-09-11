@@ -10,6 +10,7 @@ import { ID_PATTERN } from "../lib/graph.mjs";
 import {
   REGISTRY_FILE,
   allocate,
+  assertUniqueRegistryIds,
   formatRegistry,
   isStaleLock,
   nextId,
@@ -19,6 +20,7 @@ import {
   registryPath,
   release,
   setState,
+  tryCreateLock,
   usedIds,
   writeRegistry,
 } from "../lib/ids.mjs";
@@ -140,6 +142,10 @@ test("모르는 상태와 종류를 받지 않는다", () => {
   const dir = project();
   const id = allocate({ root: dir, operatingDir: OP, kind: "s", path: "AGENTS.md" });
   assert.throws(() => setState({ root: dir, operatingDir: OP, id, state: "폐기" }), /모르는 상태/);
+  assert.throws(
+    () => allocate({ root: dir, operatingDir: OP, kind: "d", path: "archive.md", initialState: "폐기" }),
+    /모르는 상태/
+  );
   assert.throws(() => nextId("x", new Set()), /모르는 종류/);
 });
 
@@ -194,6 +200,29 @@ test("같은 ID 를 두 줄로 적어 두면 읽을 때 드러난다", () => {
     ])
   );
   assert.equal(rows.length, 2);
+  assert.throws(() => assertUniqueRegistryIds(rows), /같은 ID 가 두 줄입니다/);
+});
+
+test("중복 행 가운데 삭제 표식이 있으면 ID 를 되살리지 않는다", () => {
+  const dir = project();
+  const id = "doltap-s-aaaaaaaa";
+  writeRegistry(dir, OP, [
+    { id, kind: "s", state: "활성", path: "live.md", replacedBy: null },
+    { id, kind: "s", state: "삭제", path: "(없음)", replacedBy: null },
+  ]);
+
+  assert.throws(
+    () => allocate({ root: dir, operatingDir: OP, kind: "s", path: "reused.md", existingId: id }),
+    /같은 ID 가 두 줄입니다/
+  );
+  assert.deepEqual(
+    readRegistry(dir, OP).map((row) => [row.state, row.path]),
+    [
+      ["활성", "live.md"],
+      ["삭제", "(없음)"],
+    ],
+    "거절하면서 기존 행을 바꾸면 안 됩니다"
+  );
 });
 
 test("빈 발급 기록도 읽힌다", () => {
@@ -231,14 +260,28 @@ test("지운 ID 를 existingId 로 되살릴 수 없다", () => {
   assert.equal(row.path, "(없음)");
 });
 
-test("아카이브한 범위가 다시 살아나면 활성으로 돌린다", () => {
+test("기존 ID 를 확인해도 아카이브 상태는 바뀌지 않는다", () => {
   const dir = project();
   const id = allocate({ root: dir, operatingDir: OP, kind: "s", path: "a.md" });
   setState({ root: dir, operatingDir: OP, id, state: "아카이브", path: "archive/a.md" });
-  assert.equal(allocate({ root: dir, operatingDir: OP, kind: "s", path: "a.md", existingId: id }), id);
+  assert.equal(allocate({ root: dir, operatingDir: OP, kind: "s", path: "archive/moved.md", existingId: id }), id);
   const row = readRegistry(dir, OP)[0];
-  assert.equal(row.state, "활성");
-  assert.equal(row.path, "a.md");
+  assert.equal(row.state, "아카이브");
+  assert.equal(row.path, "archive/moved.md");
+});
+
+test("새 아카이브 ID 를 처음부터 아카이브 상태로 기록한다", () => {
+  const dir = project();
+  const id = allocate({
+    root: dir,
+    operatingDir: OP,
+    kind: "d",
+    path: ".agents/archive/workstreams/001/README.md",
+    initialState: "아카이브",
+  });
+  const row = readRegistry(dir, OP)[0];
+  assert.equal(row.id, id);
+  assert.equal(row.state, "아카이브");
 });
 
 test("한 글자가 아닌 종류를 받지 않는다", () => {
@@ -286,6 +329,32 @@ test("살아 있는 프로세스는 살아 있다고 본다", () => {
   assert.equal(pidAlive(process.pid), true);
   // 있을 법하지 않은 PID. 없으면 false 여야 한다.
   assert.equal(pidAlive(0x7ffffff), false);
+});
+
+test("잠금 내용을 쓰지 못하면 핸들과 불완전한 파일을 치운다", () => {
+  const calls = [];
+  const writeFailure = new Error("쓸 수 없음");
+  assert.throws(
+    () =>
+      tryCreateLock("ids.lock", "123 456\n", {
+        openSync() {
+          calls.push("open");
+          return 7;
+        },
+        writeFileSync() {
+          calls.push("write");
+          throw writeFailure;
+        },
+        closeSync(fd) {
+          calls.push(`close:${fd}`);
+        },
+        unlinkSync(path) {
+          calls.push(`unlink:${path}`);
+        },
+      }),
+    (error) => error === writeFailure
+  );
+  assert.deepEqual(calls, ["open", "write", "close:7", "unlink:ids.lock"]);
 });
 
 test("잠금을 풀지 못하면 false 를 돌려준다", () => {
