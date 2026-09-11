@@ -5,7 +5,7 @@ import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 
 import { buildGraph, edgeId, parseDocument, relationsOf } from "../lib/graph.mjs";
-import { checkGraph, toJson } from "../lib/graph-check.mjs";
+import { CLAUDE_NODE, ENTRY_POINTS, checkGraph, collectDocuments, toJson } from "../lib/graph-check.mjs";
 
 // 8자 ID 를 짧게 만들기 위한 도우미. 문자 집합에 i l o u 가 없다.
 const ids = {
@@ -14,6 +14,7 @@ const ids = {
   secA: "doltap-s-c3d4e5f6",
   secB: "doltap-s-d4e5f6g7",
   blk: "doltap-b-e5f6g7h8",
+  blk2: "doltap-b-f6g7h8j9",
 };
 
 function anchor(id, role) {
@@ -81,7 +82,7 @@ test("name 과 id 의 값이 다르면 잡는다", () => {
 
 test("ID 문자 집합을 벗어나면 잡는다", () => {
   // i 는 Crockford Base32 에서 뺀 문자다.
-  const parsed = parseDocument(`<a name="doltap-s-iiiiiiii-start"></a>`, "AGENTS.md");
+  const parsed = parseDocument(`<a name="doltap-s-iiiiiiii-start" id="doltap-s-iiiiiiii-start"></a>`, "AGENTS.md");
   assert.match(parsed.problems[0].message, /ID 형식이 아닙니다/);
 });
 
@@ -298,4 +299,113 @@ test("관계 선언 전체가 코드 예시면 세지 않는다", () => {
   ].join("\n");
   const parsed = parseDocument(doc(ids.docA, body), "AGENTS.md");
   assert.equal(parsed.edges.length, 0);
+});
+
+// --- 검토에서 드러난 누락. 각각 재현한 뒤 고쳤다. ---
+
+test("name 만 있는 앵커를 잡는다", () => {
+  const text = [`<a name="${ids.docA}-start"></a>`, "본문", `<a name="${ids.docA}-end"></a>`].join("\n");
+  const parsed = parseDocument(text, "x.md");
+  assert.equal(parsed.ranges.length, 0);
+  assert.match(parsed.problems[0].message, /id 가 없습니다/);
+});
+
+test("id 만 있는 앵커도 잡는다", () => {
+  const parsed = parseDocument(`<a id="${ids.docA}-start"></a>`, "x.md");
+  assert.match(parsed.problems[0].message, /name 이 없습니다/);
+});
+
+test("외부 주소의 조각을 관계 대상으로 인정하지 않는다", () => {
+  // 남의 사이트 주소에 우리 ID 를 붙여도 이쪽 노드를 가리킬 수 없다.
+  const body = [
+    anchor(ids.secA, "start"),
+    `- \`supersedes\` [남의 사이트](https://example.com/#${ids.docA}-start)`,
+    anchor(ids.secA, "end"),
+  ].join("\n");
+  const result = run({ "AGENTS.md": doc(ids.docA, body) });
+  assert.match(messages(result), /관계 대상이 외부 주소입니다/);
+});
+
+test("b 안에 b 를 두면 잡는다", () => {
+  const inner = [anchor(ids.blk2, "start"), "안", anchor(ids.blk2, "end")].join("\n");
+  const text = doc(ids.docA, [anchor(ids.blk, "start"), inner, anchor(ids.blk, "end")].join("\n"));
+  const result = run({ "AGENTS.md": text });
+  assert.match(messages(result), /b 는 가장 작은 단위입니다/);
+});
+
+test("같은 단방향 관계를 두 번 적으면 잡는다", () => {
+  const line = `- \`references\` [저쪽](other.md#${ids.docB}-start)`;
+  const body = [anchor(ids.secA, "start"), line, line, anchor(ids.secA, "end")].join("\n");
+  const result = run({ "AGENTS.md": doc(ids.docA, body), "other.md": doc(ids.docB, "저쪽") });
+  assert.match(messages(result), /같은 관계를 두 번 적었습니다/);
+});
+
+test("출발점이 다르면 같은 대상을 가리켜도 중복이 아니다", () => {
+  const link = `- \`references\` [저쪽](other.md#${ids.docB}-start)`;
+  const body = [
+    anchor(ids.secA, "start"),
+    link,
+    anchor(ids.secA, "end"),
+    anchor(ids.secB, "start"),
+    link,
+    anchor(ids.secB, "end"),
+  ].join("\n");
+  const result = run({ "AGENTS.md": doc(ids.docA, body), "other.md": doc(ids.docB, "저쪽") });
+  assert.equal(result.problems.length, 0, messages(result));
+});
+
+test("CLAUDE.md 는 앵커 없이 연결 노드가 된다", () => {
+  const root = mkdtempSync(join(tmpdir(), "doltap-claude-"));
+  writeFileSync(join(root, "CLAUDE.md"), "@AGENTS.md\n");
+  const documents = [{ path: "AGENTS.md", text: doc(ids.docA, "규칙") }];
+  writeFileSync(join(root, "AGENTS.md"), documents[0].text);
+  const result = checkGraph({ root, documents, entryPoints: ENTRY_POINTS });
+
+  assert.equal(result.problems.length, 0, messages(result));
+  assert.ok(result.graph.byId.has(CLAUDE_NODE), "CLAUDE.md 노드가 없습니다");
+  const edge = result.graph.edges.find((e) => e.from === CLAUDE_NODE);
+  // mirror-of 로 이으면 한 줄짜리 파일이 언제나 불일치로 잡힌다.
+  assert.equal(edge.type, "imports");
+  assert.equal(edge.to, ids.docA);
+});
+
+test("관계로 가리킨 외부 문서를 관리 범위에 들인다", () => {
+  const root = mkdtempSync(join(tmpdir(), "doltap-external-"));
+  mkdirSync(join(root, ".agents"), { recursive: true });
+  mkdirSync(join(root, "docs"), { recursive: true });
+  const body = [
+    anchor(ids.secA, "start"),
+    `- \`verified-by\` [시험 기록](docs/trials.md#${ids.docB}-start)`,
+    anchor(ids.secA, "end"),
+  ].join("\n");
+  writeFileSync(join(root, "AGENTS.md"), doc(ids.docA, body));
+  writeFileSync(join(root, "docs/trials.md"), doc(ids.docB, "시험 기록"));
+
+  const collected = collectDocuments(root);
+  assert.ok(
+    collected.some((d) => d.path === "docs/trials.md"),
+    `외부 문서를 읽지 않았습니다: ${collected.map((d) => d.path).join(", ")}`
+  );
+  const result = checkGraph({ root, documents: collected, entryPoints: ["AGENTS.md"] });
+  assert.equal(result.problems.length, 0, messages(result));
+});
+
+test("가리키지 않은 외부 문서는 들이지 않는다", () => {
+  const root = mkdtempSync(join(tmpdir(), "doltap-unrelated-"));
+  mkdirSync(join(root, "docs"), { recursive: true });
+  writeFileSync(join(root, "AGENTS.md"), doc(ids.docA, "규칙"));
+  writeFileSync(join(root, "docs/unrelated.md"), "# 남의 문서\n");
+  const collected = collectDocuments(root);
+  assert.ok(!collected.some((d) => d.path === "docs/unrelated.md"));
+});
+
+test("운영 폴더 안의 숨김 폴더는 읽지 않는다", () => {
+  const root = mkdtempSync(join(tmpdir(), "doltap-hidden-"));
+  mkdirSync(join(root, ".agents/.hidden"), { recursive: true });
+  mkdirSync(join(root, ".agents/recovery"), { recursive: true });
+  writeFileSync(join(root, "AGENTS.md"), doc(ids.docA, "규칙"));
+  writeFileSync(join(root, ".agents/.hidden/note.md"), "# 숨김\n");
+  writeFileSync(join(root, ".agents/recovery/old.md"), "# 복구 사본\n");
+  const paths = collectDocuments(root).map((d) => d.path);
+  assert.deepEqual(paths, ["AGENTS.md"]);
 });
