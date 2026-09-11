@@ -1,3 +1,5 @@
+<a name="doltap-d-r1s0r2zm-start" id="doltap-d-r1s0r2zm-start"></a>
+
 # 문서 그래프 기반 — 설계
 
 > 왜 하는지는 `README.md`, 순서는 `plan.md`, 정한 것과 그 이유는 `decisions.md`에
@@ -7,9 +9,8 @@
 > 다시 설명하지 않고, 그 문서가 「구현 전에 확정하거나 시험할 것」으로 남겨 둔
 > 27개를 실제 값과 문법으로 고정합니다.
 
-이름은 `doltap`으로 정해졌습니다. 아래 문법은 그 이름을 씁니다. 다만 **실제
-폴더와 명령 이름은 `plan.md` 5단계에서 바꿉니다.** 지금 이 저장소의 운영 폴더는
-여전히 `.doltap/`입니다.
+이름과 운영 폴더는 5단계에서 `doltap`·`.doltap/`으로 옮겼습니다.
+현재 명령의 실행 예시는 GRAPH.md에 있습니다.
 
 ## 27개 항목의 처리 결과
 
@@ -30,7 +31,7 @@
 | 13 | 외부 문서 등록과 `CLAUDE.md` 표현 | 확정 | 아래 「관리 범위」 |
 | 14 | 탐색 제외 규칙 | 확정 | 아래 「관리 범위」 |
 | 15 | 기존 제목 조각 링크 정책 | 확정 | 아래 「링크」 |
-| 16 | 빈 앵커의 렌더러 동작 | 형식 확정 · GitHub 확인 · VS Code는 6단계 | 아래 「앵커」 |
+| 16 | 빈 앵커의 렌더러 동작 | 형식 확정 · GitHub와 VS Code 확인 | 아래 「앵커」 |
 | 17 | 이동 복구가 보여줄 diff 형식 | 확정 | 아래 「미리보기」 |
 | 18 | 운영 폴더를 커밋하지 않는 프로젝트 안내 | 확정 | 아래 「커밋하지 않는 프로젝트」 |
 | 19 | 적용할 때 ID를 어디까지 부여할지 | 확정 | 아래 「적용 범위」 |
@@ -43,9 +44,8 @@
 | 26 | 전환 옵션과 승격 조건 | 확정 | 아래 「전환」 |
 | 27 | 구형 구조 안내와 부분 실패 복구 | 확정 | 아래 「미리보기」 |
 
-**27개 모두 형식이 확정됐습니다.** 16번만 형식과 별개로 확인이 남아 있습니다 —
-GitHub는 확인했고 VS Code는 6단계에서 봅니다. 무엇을 어떻게 확인했는지는 그
-절에 있습니다.
+**27개 모두 형식이 확정됐습니다.** VS Code 확인은 6단계에서 실제 문서의
+section 링크를 눌러 마쳤습니다. 관찰은 decisions.md에 있습니다.
 
 ## 앵커
 
@@ -98,40 +98,17 @@ let e = getHash(location.hash),
 그래서 링크는 `#doltap-...`으로 씁니다. `#user-content-...`로 쓰지 않습니다 —
 그렇게 쓰면 GitHub 밖에서는 목적지를 찾지 못합니다.
 
-### 아직 확인하지 않은 지원 렌더러
+### 지원 렌더러와 최종 문법
 
-009가 동작을 보장하는 렌더러는 **GitHub 저장소 README와 VS Code 기본 마크다운
-미리보기 둘**입니다. 다른 렌더러는 호환성을 보장하는 범위에 넣지 않습니다.
+GitHub 저장소 README와 VS Code 기본 마크다운 미리보기를 대상으로 합니다.
+VS Code에서는 실제 009 README 첫머리에서 완료 조건 section으로 이동했습니다.
 
-VS Code 미리보기는 아직 **확인하지 않았습니다.** 이 세션에서 미리보기를 띄워
-결과를 볼 수단이 없었습니다. 마크다운 파서를 새 의존성으로 넣어 대신 판정하지도
-않습니다.
+앵커는 자기 줄에 name과 id를 같은 값으로 함께 둡니다.
 
-**6단계로 미룹니다.** 그때 실제 문서에 앵커가 들어가므로, 그 파일 하나를 VS Code
-미리보기로 열고 링크를 눌러 보면 끝납니다. 지금 따로 준비할 것이 없습니다.
-
-위험이 크지 않다고 보는 이유는 적어 둡니다. 사용자가 쓴 HTML을 위생 처리해 이름을
-바꾸는 것은 GitHub 쪽 사정이고, VS Code는 `id`를 그대로 둘 가능성이 큽니다.
-그러면 조각이 native로 맞습니다. **다만 이것은 추론이고 확인이 아닙니다.**
-
-### 형식
-
-```markdown
+```html
 <a name="doltap-s-3q8m5k2p-start" id="doltap-s-3q8m5k2p-start"></a>
-
-## 작업 전 승인
-
-- 커밋 전 승인을 받습니다.
-
 <a name="doltap-s-3q8m5k2p-end" id="doltap-s-3q8m5k2p-end"></a>
 ```
-
-`name`과 `id`를 함께 씁니다. `name`은 오래된 조각 이동 방식이고 `id`는 지금
-방식입니다. 둘을 같이 두면 지원 렌더러 사이의 호환 가능성이 넓어집니다. GitHub는
-둘 다 살아남는 것을 확인했고, VS Code는 6단계에서 확인합니다.
-
-앵커는 자기 줄에 혼자 둡니다. 제목 줄 끝에 붙이지 않습니다. 범위의 시작과 끝을
-같은 규칙으로 찾아야 하는데, 제목에 붙이면 끝 앵커가 놓일 자리가 없습니다.
 
 ## ID
 
@@ -445,7 +422,7 @@ doltap-d-claude-md ──imports──▶ AGENTS.md 의 문서 노드
 ## 명령
 
 ```text
-doltap check [경로] [--json] [--schema next]
+doltap check [경로] [--json]
 doltap map [경로] [--json] [--include-legacy]
 doltap context <ID> [--depth N] [--budget N] [--json]
 doltap audit <경로> [--relation 유형] [--changed] [--budget N]
@@ -454,6 +431,11 @@ doltap link <출발 ID> --to <도착 ID> --as <관계 유형>
 doltap move-fix [경로] [--apply]
 doltap recover <실행 ID> [--apply|--discard]
 doltap review <관계 ID> --as 반영함|영향없음|재검증함 --why "<이유>"
+doltap migrate [경로] [--apply]
+doltap archive-check <워크스트림 경로>
+doltap delete <ID> --mode replace|tombstone|purge --why 이유 [--to ID] [--apply]
+doltap review <노드 ID> --node --as 최신임|"고쳐야 함" --why 이유 --actor 사람|에이전트 [--apply]
+doltap suggest <출발 ID> --to ID --relation 유형 --as 반영|기각|보류 --evidence 근거 --why 이유 --actor 주체 [--apply]
 doltap init [경로]
 ```
 
@@ -474,6 +456,9 @@ doltap init [경로]
 | doltap-s-2v7m9q4r | s | 아카이브 | archive/approval.md | |
 | doltap-b-8x1c5tgh | b | 삭제 | (없음) | doltap-s-3q8m5k2p |
 ```
+
+레지스트리에는 삭제 이유 열을 추가합니다. 표식·완전 삭제 모두 마지막 경로와
+이유를 유지하며 이후 ID 발급에서도 지우지 않습니다.
 
 상태는 `활성` `아카이브` `삭제` 셋입니다. **삭제한 줄을 지우지 않습니다.** 지우면
 같은 ID가 다시 발급됩니다.
@@ -632,12 +617,14 @@ checkout이나 CI에서는 같은 검사를 할 수 없다는 것. 자동으로 
 doltap context doltap-s-3q8m5k2p --depth 2 --budget 4000
 ```
 
-예산은 **문자 수**로 셉니다. 모델별 tokenizer를 의존성으로 넣지 않습니다.
+예산은 **본문 문자 수**로 셉니다. ID·경로·관계와 JSON 형식은 별도 메타데이터라
+이 한도에 포함하지 않습니다. 루트도 넘치면 잘라 표시합니다. 모델별 tokenizer를
+의존성으로 넣지 않습니다.
 
 예산을 넘으면 자르는 순서가 있습니다.
 
 ```text
-1  대상 노드의 본문              끝까지 낸다
+1  대상 노드의 본문              본문 예산 안에서 낸다
 2  들어오고 나가는 관계 목록      끝까지 낸다
 3  깊이 1 이웃의 본문            예산이 닿는 만큼
 4  깊이 2 이상                   제목과 ID만
@@ -730,21 +717,9 @@ doltap context doltap-s-3q8m5k2p --depth 2 --budget 4000
 
 ## 전환
 
-```text
-doltap check .                  기존 규칙 위반 → 문제
-                                그래프 이관 상태 → 확인, 요약 한 줄
-doltap check . --schema next    그래프 규칙 위반 → 문제
-```
-
-기본 검사는 **문서마다 알림을 쏟지 않고 한 줄로 요약합니다.**
-
-```text
-확인  그래프 이관이 남았습니다 — 문서 12개, 범위 0개, 관계 0개 (자세히: --schema next)
-```
-
-승격 조건은 하나입니다. **이 저장소와 `template/`이 둘 다 `--schema next`를
-통과하면** 그것을 기본으로 올리고 `--schema next` 옵션을 없앱니다. 둘 중 하나만
-통과한 상태로 승격하지 않습니다.
+자기 적용 저장소와 template이 함께 엄격 검사를 통과한 뒤 새 그래프 검사를
+기본값으로 승격합니다. 최종 CLI에서는 임시 `--schema next` 옵션과 이관 NOTICE를
+제거합니다. 구형 구조는 오류와 APPLY.md 안내로 알립니다.
 
 ## 훅
 
@@ -752,11 +727,13 @@ doltap check . --schema next    그래프 규칙 위반 → 문제
 
 ```text
 Git       .git/hooks/pre-commit 에 넣을 두 줄
-Claude    설정에 넣을 Stop 훅 한 줄
-Codex     같은 명령을 부르는 한 줄
+Claude    Stop 훅에서 같은 검사기를 부르는 어댑터
+Codex     Stop 훅에서 같은 검사기를 부르는 어댑터
 ```
 
 셋 다 `doltap check .`를 부르는 것이 전부입니다. 훅마다 다른 검사 논리를 두지
 않습니다.
 
 제거 방법을 같은 자리에 적습니다. 넣는 법만 적고 빼는 법을 안 적으면 남습니다.
+
+<a name="doltap-d-r1s0r2zm-end" id="doltap-d-r1s0r2zm-end"></a>

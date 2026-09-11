@@ -1,3 +1,5 @@
+<a name="doltap-d-ghzk4mrf-start" id="doltap-d-ghzk4mrf-start"></a>
+
 <!-- 채우기: 프로젝트 이름 -->
 # 프로젝트 이름
 
@@ -143,3 +145,23 @@
 - 커밋 메시지 언어:
 - 커밋 메시지 형식:
 - 커밋 메시지에 `Co-Authored-By:` 트레일러를 기본적으로 붙이지 않습니다.
+
+- `indexes` [current.md](.doltap/plans/current.md#doltap-d-mv4e7sph-start)
+
+- `indexes` [history.md](.doltap/plans/history.md#doltap-d-s30erje9-start)
+
+- `indexes` [ideas.md](.doltap/plans/ideas.md#doltap-d-4d5k5j63-start)
+
+- `indexes` [README.md](.doltap/plans/README.md#doltap-d-1jx163t4-start)
+
+- `indexes` [workstreams.md](.doltap/plans/workstreams.md#doltap-d-9n1xyyne-start)
+
+- `indexes` [project.md](.doltap/project.md#doltap-d-f7wn4qdw-start)
+
+- `indexes` [communication.md](.doltap/rules/communication.md#doltap-d-vht1pg6m-start)
+
+- `indexes` [verification.md](.doltap/rules/verification.md#doltap-d-7eax2ctv-start)
+
+- `indexes` [ids.md](.doltap/ids.md#doltap-d-kjhnpmpa-start)
+
+<a name="doltap-d-ghzk4mrf-end" id="doltap-d-ghzk4mrf-end"></a>

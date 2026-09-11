@@ -2,7 +2,7 @@
 
 # doltap
 
-**Make your AI agent remember what you were in the middle of yesterday.**
+**Keep rules and progress in documents, and follow their relationships to find context again.**
 
 One source of rules in `AGENTS.md`. One place for progress.
 Codex and Claude Code read the same file.
@@ -71,6 +71,21 @@ instruction file before you make it.
 npx --yes github:Jammanb0/cairn check .
 ```
 
+## Document graph
+
+Stable IDs connect documents and smaller ranges. The CLI recovers moved links,
+tracks review freshness, and retrieves archived assumptions.
+
+```sh
+node bin/doltap.mjs map . --json
+node bin/doltap.mjs context <ID> --depth 2 --budget 4000
+node bin/doltap.mjs audit .doltap/rules --changed
+```
+
+Run these from this source checkout. The 009 changes are not released yet; the
+GitHub installation address still uses the existing `cairn` repository. The
+[graph guide](GRAPH.md) covers syntax, commands, recovery, and optional hooks.
+
 ## Rules live in exactly one place
 
 Each tool reads its own file. Codex reads `AGENTS.md`, Claude Code reads
@@ -127,9 +142,9 @@ Base branch, merge target, whether to leave a remote branch and PR — decided o
 
 </td><td width="33%" valign="top">
 
-**It leaves nothing behind**
+**Documents remain the source**
 
-No global CLI, no generation step, no background process. Markdown only.
+No mandatory global CLI or background process. Documents, IDs, and review records stay in Markdown.
 
 </td></tr>
 </table>
@@ -176,9 +191,8 @@ far you got**. Different layers, so they don't collide.
 
 <br>
 
-No. Leaving no hooks and no background process is the condition this tool is
-built on. Instead it makes things **checkable** — `doltap check` exits 1 when the
-documents stop linking up.
+No. Hooks are optional and never installed automatically. There is no background
+process. The same checker can run manually, from an optional hook, or in CI.
 
 </details>
 
@@ -187,15 +201,12 @@ documents stop linking up.
 
 <br>
 
-A finished workstream moves to `.doltap/archive/workstreams/` and stays as it
-is. It records the structure and the judgement of its own time, so **the checker
-does not look inside archives at all.** Neither a stale path nor a leftover
-reference to the temporary skeleton is reported. Archives are yours to manage.
-
-Only the folder names are read. A new workstream that reuses a past number is a
-problem, reported against the new folder since that is the one to fix. If you do
-delete an archived folder, drop its row from `history.md` too — an index that
-points at a folder which is gone is a problem.
+A finished workstream moves to `.doltap/archive/workstreams/` after approval.
+Its IDs and relationships stay searchable in the map and context output. Older
+records are frozen under `.doltap/archive/legacy/`: graph integrity is checked,
+but current writing rules and review freshness are not imposed retroactively.
+Unresolved assumptions and questions must be resolved, carried forward with an
+active relationship, or discarded with a reason before archiving.
 
 </details>
 
@@ -204,11 +215,9 @@ points at a folder which is gone is a problem.
 
 <br>
 
-The commands (`init`, `check`) run in CI on Windows, Ubuntu and macOS against
-Node 22 and 24. Whether an agent actually follows the docs was checked by running
-adoption, handover and wrap-up as one flow on a throwaway project — so far only
-with Claude Code, and the remote-branch/PR path hasn't been exercised. The full
-picture is in the [verification status](docs/trials/README.md).
+The 009 branch has local automated tests and an observed VS Code anchor-navigation
+check. Previous CI and agent-behavior trials are separate evidence, not proof of
+the new graph workflow. See [verification status](docs/trials/README.md).
 
 </details>
 
@@ -232,8 +241,8 @@ CLAUDE.md        the single line "@AGENTS.md"
     workstreams/<number>-<name>/    one folder per tracked piece of work
 ```
 
-There are two commands, `init` and `check`, and **you need neither.** Copying the
-files gives the same result, and you can check the links by eye.
+The CLI also provides map, context, audit, ID, relationship, review, migration,
+and recovery commands. Markdown remains readable without the tool.
 
 If you are browsing this repository and notice an `AGENTS.md` and an `.doltap/`
 at the root too, those are not part of what ships. **They are doltap applied to

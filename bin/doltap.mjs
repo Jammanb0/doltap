@@ -1,14 +1,19 @@
 #!/usr/bin/env node
-// 새 프로젝트 폴더를 만들고 template/ 을 그대로 복사한다.
-// 이 파일은 문서 내용을 갖지 않는다. 복사와 프로젝트 이름 치환만 한다.
+// 문서 골격과 그래프 명령의 CLI 진입점.
 
 import { cp, mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { basename, dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { check, format } from "../lib/check.mjs";
-import { ENTRY_POINTS, checkGraph, collectDocuments, toJson } from "../lib/graph-check.mjs";
+import { format } from "../lib/check.mjs";
+import { toJson } from "../lib/graph-check.mjs";
+import { fullCheck, inspect } from '../lib/runtime.mjs';
+import { migratePlan, idPlan, linkPlan, moveFixPlan } from '../lib/edit.mjs';
+import { mutate, preview, recover, safePath } from '../lib/transaction.mjs';
+import { reviewPlan, suggestionPlan } from '../lib/state.mjs';
+import { archiveCheck, deletePlan } from '../lib/lifecycle.mjs';
+import { mapResult, context, audit, formatQuery } from '../lib/query.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const TEMPLATE = join(ROOT, "template");
@@ -17,12 +22,24 @@ const USAGE = `doltap — AI 코딩 에이전트와 일할 때 쓰는 문서 골
 
   doltap init <폴더>   새 폴더를 만들고 골격을 넣습니다
   doltap check [폴더]  골격이 실제로 이어져 있는지 검사합니다 (기본값: 지금 폴더)
+  doltap migrate [폴더] [--apply]  문서 ID와 색인을 이관합니다
+  doltap id <파일> --kind d|s|b [--at 제목|줄] [--end 줄] [--apply]
+  doltap link <ID> --to <ID> --as <관계> [--apply]
+  doltap move-fix [폴더] [--apply]
+  doltap recover <실행 ID> [--apply|--discard]
+  doltap archive-check <폴더>  전제·열린 질문 처리 여부를 검사합니다
+  doltap delete <ID> --mode replace|tombstone|purge --why 이유 [--to ID] [--apply]
+  doltap review <ID> [--node] --as 판단 --why 이유 --actor 사람|에이전트 [--apply]
+  doltap map [폴더] [--json]
+  doltap context <ID> [--depth 2] [--budget 4000] [--json]
+  doltap audit <경로> [--changed] [--include-legacy] [--budget 8000] [--json]
+  doltap suggest <ID> --to ID --relation 유형 --evidence 근거 --as 반영|기각|보류 --why 이유 --actor 주체 [--apply]
+
+쓰기 명령은 기본 미리보기이며 --apply에서만 적용합니다. --root로 프로젝트를 지정합니다.
 
 검사 옵션
 
   --json           기계가 읽는 출력
-  --schema next    아직 이관 중인 문서 그래프 규칙을 엄격하게 봅니다
-                   이관이 끝나면 이것이 기본이 되고 옵션은 사라집니다
 
 이미 작업 중인 프로젝트에는 init 을 쓰지 않습니다. 기존 규칙과 기록을
 살리면서 합쳐야 하므로 APPLY.md의 절차를 따릅니다.
@@ -81,7 +98,7 @@ async function init(rawTarget) {
   if (!existsSync(TEMPLATE)) fail(`골격을 찾지 못했습니다: ${TEMPLATE}`);
 
   await mkdir(target, { recursive: true });
-  await cp(TEMPLATE, target, { recursive: true });
+  await cp(TEMPLATE, target, { recursive: true, filter: source => source !== join(TEMPLATE, '.doltap', 'recovery') && source !== join(TEMPLATE, '.doltap', 'ids.lock') });
   const named = await fillProjectName(target, name);
 
   process.stdout.write(
@@ -102,36 +119,75 @@ async function init(rawTarget) {
 }
 
 // 문서가 서로 이어져 있는지 검사한다. 문제가 있으면 종료 코드 1로 끝낸다.
-// `--schema next` 는 아직 이관하지 않은 그래프 규칙을 엄격하게 본다. 이관이
-// 끝나면 이것이 기본이 되고 옵션은 사라진다.
 function runCheck(args) {
+  for(const a of args.filter(a=>a.startsWith('--'))) if(a!=='--json') fail(`모르는 검사 옵션입니다: ${a}. 그래프 검사는 기본값입니다`);
   const flags = args.filter((a) => a.startsWith("--"));
-  const rawTarget = args.find((a) => !a.startsWith("--") && a !== "next");
+  const rawTarget = args.find((a) => !a.startsWith("--"));
   const target = resolve(process.cwd(), rawTarget ?? ".");
   if (!existsSync(target)) fail(`그런 폴더가 없습니다: ${rawTarget}`);
 
-  const at = args.indexOf("--schema");
-  const schema = at === -1 ? null : args[at + 1];
-  if (at !== -1 && schema !== "next") fail(`모르는 스키마입니다: ${schema ?? "(없음)"}`);
   const asJson = flags.includes("--json");
 
-  const result =
-    schema === "next"
-      ? checkGraph({
-          root: target,
-          documents: collectDocuments(target),
-          entryPoints: ENTRY_POINTS,
-        })
-      : check(target);
+  const result = fullCheck(target);
 
   // 사람용 출력과 기계용 출력은 같은 판정에서 만든다. 두 벌로 갈라지지 않게.
-  if (asJson) process.stdout.write(JSON.stringify(schema === "next" ? toJson(result) : result, null, 2) + "\n");
+  if (asJson) process.stdout.write(JSON.stringify(toJson(result), null, 2) + "\n");
   else process.stdout.write(format(result));
   if (result.problems.length) process.exit(1);
 }
 
 const [command, ...rest] = process.argv.slice(2);
 
+function options(args) {
+  const values = new Set(['--root','--kind','--at','--end','--to','--as','--why','--actor','--mode','--depth','--budget','--relation','--state','--evidence']);
+  const booleans = new Set(['--apply','--discard','--json','--node','--changed','--include-legacy']);
+  const out = { positional: [] };
+  for (let i = 0; i < args.length; i++) {
+    const arg = args[i];
+    if (values.has(arg)) { if (!args[i+1] || args[i+1].startsWith('--')) throw new Error(`${arg} 값이 필요합니다`); out[arg.slice(2)] = args[++i]; }
+    else if (booleans.has(arg)) out[arg.slice(2)] = true;
+    else if (arg.startsWith('-')) throw new Error(`모르는 옵션: ${arg}`);
+    else out.positional.push(arg);
+  }
+  return out;
+}
+function runGraph(command, args) {
+  if (!['recover','migrate','id','link','move-fix','map','context','audit','archive-check','delete','review','suggest'].includes(command)) throw new Error(`모르는 명령입니다: ${command}\n\n${USAGE}`);
+  const o = options(args), arg = o.positional[0];
+  const root = resolve(o.root ?? (['migrate','move-fix','map'].includes(command) ? arg ?? '.' : '.'));
+  const numeric = name => o[name] === undefined ? undefined : Number(o[name]);
+  let plan, output;
+  if (command === 'recover') output = recover(root, arg, { apply: o.apply, discard: o.discard });
+  else if (command === 'migrate') plan = () => migratePlan(root);
+  else if (command === 'id') plan = () => idPlan(root, arg, { kind: o.kind, at: o.at, end: o.end });
+  else if (command === 'link') plan = () => linkPlan(root, arg, o.to, o.as);
+  else if (command === 'move-fix') plan = () => moveFixPlan(root);
+  else {
+    const result = inspect(root), { graph, records } = result;
+    if (command === 'map') output = { ...mapResult(graph), problems: result.problems };
+    else if (command === 'context') output = context(graph, arg, { depth: numeric('depth'), budget: numeric('budget'), state: o.state, relation: o.relation });
+    else if (command === 'audit') output = audit(root, result, records, arg ?? '.', { budget: numeric('budget'), changed: o.changed, includeLegacy: o['include-legacy'], relation: o.relation, state: o.state });
+    else if (command === 'archive-check') {
+      if (!arg || !existsSync(safePath(root, arg))) throw new Error('검사할 워크스트림 경로가 필요합니다');
+      output = { problems: archiveCheck(graph, arg.replaceAll('\\', '/').replace(/\/$/, '')) };
+    }
+    else if (command === 'delete') plan = () => deletePlan(root, inspect(root).graph, arg, { mode: o.mode, replacement: o.to, why: o.why });
+    else if (command === 'review') plan = () => reviewPlan(root, inspect(root).graph, arg, { judgment: o.as, why: o.why, actor: o.actor, node: o.node });
+    else if (command === 'suggest') plan = () => suggestionPlan(root, inspect(root).graph, arg, o.to, o.relation, { judgment: o.as, why: o.why, actor: o.actor, evidence: o.evidence });
+    else throw new Error(`모르는 명령: ${command}`);
+    if (result.problems.length && ['map','context','audit'].includes(command)) process.exitCode = 1;
+  }
+  if (plan) {
+    let diff;
+    if (o.apply) output = mutate(root, () => { const changes = plan(); diff = preview(changes); if (!o.json) process.stdout.write(diff + '\n'); return changes; });
+    else { diff = preview(plan()); if (!o.json) process.stdout.write(diff + '\n'); output = { applied: false, message: '미리보기입니다. --apply에서 적용합니다' }; }
+    if (o.json) output = { ...output, preview: diff };
+  }
+  process.stdout.write(o.json ? JSON.stringify(output, null, 2) + '\n' : formatQuery(output));
+  if (output?.problems?.length || output?.errors?.length) process.exitCode = 1;
+}
+
+try {
 if (!command || command === "-h" || command === "--help" || command === "help") {
   process.stdout.write(USAGE);
 } else if (command === "init") {
@@ -139,5 +195,6 @@ if (!command || command === "-h" || command === "--help" || command === "help") 
 } else if (command === "check") {
   runCheck(rest);
 } else {
-  fail(`모르는 명령입니다: ${command}\n\n${USAGE}`);
+  runGraph(command, rest);
 }
+} catch (error) { fail(error.message); }

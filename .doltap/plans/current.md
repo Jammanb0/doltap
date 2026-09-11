@@ -1,3 +1,5 @@
+<a name="doltap-d-pptm6e2n-start" id="doltap-d-pptm6e2n-start"></a>
+
 # 현재 대작업
 
 > 진행 중인 대작업이 어디 있는지만 가리키는 색인입니다. 브랜치, 현재 단계,
@@ -7,3 +9,7 @@
 - **009-document-graph**
   - 소개: `.doltap/plans/workstreams/009-document-graph/README.md`
   - 상태: `.doltap/plans/workstreams/009-document-graph/status.md`
+
+- `indexes` [README.md](workstreams/009-document-graph/README.md#doltap-d-n0k25q71-start)
+
+<a name="doltap-d-pptm6e2n-end" id="doltap-d-pptm6e2n-end"></a>

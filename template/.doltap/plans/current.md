@@ -1,3 +1,5 @@
+<a name="doltap-d-mv4e7sph-start" id="doltap-d-mv4e7sph-start"></a>
+
 # 현재 대작업
 
 > 진행 중인 대작업이 어디 있는지만 가리키는 색인입니다. 브랜치, 현재 단계,
@@ -13,3 +15,5 @@
 -->
 
 현재 진행 중인 워크스트림은 없습니다.
+
+<a name="doltap-d-mv4e7sph-end" id="doltap-d-mv4e7sph-end"></a>

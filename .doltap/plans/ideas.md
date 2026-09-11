@@ -1,3 +1,5 @@
+<a name="doltap-d-scm8gx88-start" id="doltap-d-scm8gx88-start"></a>
+
 # 아이디어
 
 > 아직 착수를 약속하지 않은 기능과 선택적 개선 후보를 관리합니다.
@@ -24,14 +26,7 @@
 
 ## 고칠 거리
 
-- **아카이브에 있는 이름을 따로 알릴지.** `current.md`가 이미 아카이브로 옮긴
-  대작업을 워크스트림 경로나 굵은 글씨로 적어 두면 `그 폴더가 없습니다`로
-  잡힙니다. 폴더는 아카이브에 있으므로 메시지가 사실과 다릅니다. 아카이브
-  이름을 알아보고 다르게 알리는 방법을 살펴봅니다.
-- **`~~~` 울타리와 들여쓴 코드 블록.** 지금 검사기는 백틱 세 개 울타리만
-  코드 블록으로 봅니다. `~~~`나 네 칸 들여쓰기로 예시를 적으면 그 안의 경로를
-  실재해야 하는 링크로 잡습니다. 배포하는 골격은 모두 백틱을 쓰므로 지금
-  걸리는 곳은 없지만, 적용하는 프로젝트가 다른 서식을 쓰면 오탐이 됩니다.
+현재 후보 없음.
 
 새 후보가 생기면 기대 효과와 제약을 짧게 적습니다. 구현을 결정하면 이 파일에서
 지웁니다. 그다음은 `workstreams.md`의 「시작할 때」를 따릅니다 — 대작업이면
@@ -40,3 +35,9 @@
 **안 하기로 정한 것은 여기 남기지 않습니다.** 이 파일은 후보 목록이지 판단
 기록장이 아닙니다. 기각한 이유는 그때의 결정 문서와 `docs/trials/README.md`의
 「알려진 제한」·「검증하지 않는 것」에 있습니다.
+
+- `assumes` [status.md](../archive/legacy/workstreams/007-first-impression/status.md#doltap-d-qzcaxr50-start)
+
+- `assumes` [README.md](workstreams/009-document-graph/README.md#doltap-b-js7yf5p8-start)
+
+<a name="doltap-d-scm8gx88-end" id="doltap-d-scm8gx88-end"></a>

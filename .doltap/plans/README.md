@@ -1,3 +1,5 @@
+<a name="doltap-d-5mp1w6a0-start" id="doltap-d-5mp1w6a0-start"></a>
+
 # 계획 문서
 
 이 폴더는 진행 중인 대작업, 완료 기록, 아직 착수하지 않은 아이디어를 서로 섞지
@@ -104,3 +106,5 @@
   저장소 루트 기준 경로와 `/`를 사용합니다.
 - 계획 문서에는 코딩 규칙이나 도메인 지식을 다시 기록하지 않습니다. 관련
   원본은 저장소 `AGENTS.md`의 문서 안내표를 따릅니다.
+
+<a name="doltap-d-5mp1w6a0-end" id="doltap-d-5mp1w6a0-end"></a>

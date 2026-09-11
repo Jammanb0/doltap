@@ -1,3 +1,5 @@
+<a name="doltap-d-594dnf3v-start" id="doltap-d-594dnf3v-start"></a>
+
 # 검증
 
 작업을 완료했다고 보고하기 전에 아래 기준으로 확인합니다.
@@ -46,3 +48,9 @@
 - 문서의 절차나 경로를 고쳤으면 `template/`, `setup-workstream/`, `APPLY.md`,
   README 두 벌, 그리고 이 저장소의 `.doltap/`까지 함께 봅니다. 같은 내용이
   여러 곳에 있으면 한쪽만 고쳐서 갈라집니다.
+
+- 문서 ID·관계를 바꿨으면 `doltap check`로 무결성과 재검토 필요 관계를 확인합니다.
+  필요한 범위는 `doltap context <ID>`로 읽고, 실제 검토한 대상만 이유와 주체를
+  기록합니다. 기계 판정·의미 검토·사용자 승인을 구분합니다.
+
+<a name="doltap-d-594dnf3v-end" id="doltap-d-594dnf3v-end"></a>

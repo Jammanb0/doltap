@@ -1,3 +1,5 @@
+<a name="doltap-d-vht1pg6m-start" id="doltap-d-vht1pg6m-start"></a>
+
 # 소통 방식
 
 - 합리적인 선택지가 여러 개면 길게 나열하지 않고, 핵심 트레이드오프와 추천안을
@@ -15,3 +17,5 @@
   정확하고 검증 가능한 표현을 우선합니다.
 <!-- 지우거나 바꾸기: 아래는 한국어로 쓸 때만 해당합니다. -->
 - 번역투를 피하고 자연스러운 한국어를 씁니다.
+
+<a name="doltap-d-vht1pg6m-end" id="doltap-d-vht1pg6m-end"></a>

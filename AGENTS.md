@@ -1,3 +1,5 @@
+<a name="doltap-d-wcqyb49m-start" id="doltap-d-wcqyb49m-start"></a>
+
 # doltap
 
 AI 코딩 에이전트와 일할 때 쓰는 문서 골격입니다. 규칙의 원본을 `AGENTS.md` 한
@@ -171,3 +173,25 @@ AI 코딩 에이전트와 일할 때 쓰는 문서 골격입니다. 규칙의 �
   기존 회원가입 로직과 충돌이 없도록 계정 매핑 테이블을 새로 생성함.
   ```
 - 커밋 메시지에 `Co-Authored-By:` 트레일러를 기본적으로 붙이지 않습니다.
+
+- `indexes` [current.md](.doltap/plans/current.md#doltap-d-pptm6e2n-start)
+
+- `indexes` [history.md](.doltap/plans/history.md#doltap-d-9tgvms63-start)
+
+- `indexes` [ideas.md](.doltap/plans/ideas.md#doltap-d-scm8gx88-start)
+
+- `indexes` [README.md](.doltap/plans/README.md#doltap-d-5mp1w6a0-start)
+
+- `indexes` [workstreams.md](.doltap/plans/workstreams.md#doltap-d-rc8m43dj-start)
+
+- `indexes` [project.md](.doltap/project.md#doltap-d-0c9e0fds-start)
+
+- `indexes` [communication.md](.doltap/rules/communication.md#doltap-d-6f9g0m6k-start)
+
+- `indexes` [verification.md](.doltap/rules/verification.md#doltap-d-594dnf3v-start)
+
+- `indexes` [ids.md](.doltap/ids.md#doltap-d-ypvp294p-start)
+
+- `indexes` [검토 기록](.doltap/reviews/2026.md#doltap-d-4n18ze4a-start)
+
+<a name="doltap-d-wcqyb49m-end" id="doltap-d-wcqyb49m-end"></a>

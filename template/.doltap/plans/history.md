@@ -1,3 +1,5 @@
+<a name="doltap-d-s30erje9-start" id="doltap-d-s30erje9-start"></a>
+
 # 대작업 이력
 
 > 완료하거나 취소한 대작업의 결과와 기록 위치를 찾기 위한 짧은 색인입니다.
@@ -11,3 +13,5 @@
      예) | 2026-09-04 | 다국어 문서 | 취소 — 구조가 자주 바뀌어 번역이 계속 어긋남 | `.doltap/archive/workstreams/003-i18n-docs/README.md` | -->
 
 아직 마친 대작업이 없습니다.
+
+<a name="doltap-d-s30erje9-end" id="doltap-d-s30erje9-end"></a>

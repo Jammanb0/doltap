@@ -1,3 +1,5 @@
+<a name="doltap-d-4d5k5j63-start" id="doltap-d-4d5k5j63-start"></a>
+
 # 아이디어
 
 > 아직 착수를 약속하지 않은 기능과 선택적 개선 후보를 관리합니다.
@@ -8,3 +10,5 @@
 새 후보가 생기면 기대 효과와 제약을 짧게 적습니다. 구현을 결정하면 이 파일에서
 지웁니다. 그다음은 `workstreams.md`의 「시작할 때」를 따릅니다 — 대작업이면
 `workstreams/<번호>-<이름>/`을 만들고, 아니면 그냥 합니다.
+
+<a name="doltap-d-4d5k5j63-end" id="doltap-d-4d5k5j63-end"></a>

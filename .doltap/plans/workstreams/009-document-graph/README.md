@@ -1,4 +1,8 @@
+<a name="doltap-d-n0k25q71-start" id="doltap-d-n0k25q71-start"></a>
+
 # 문서 그래프 기반
+
+[완료 조건으로 이동](#doltap-s-7qpp5x4m-start)
 
 문서 사이의 의미 관계를 사람이 읽는 마크다운에 명시하고, 검사기가 그 관계를
 기계적으로 확인하고 탐색하게 만듭니다. 공개 이름을 바꾸는 것에서 시작해 운영
@@ -9,9 +13,9 @@
 
 ## 배경
 
-지금 문서 사이의 실제 관계는 대부분 에이전트가 글을 읽고 기억해서 복원합니다.
-`doltap check`가 보는 것은 백틱으로 감싼 경로가 실재하는지까지이고, 어느 규칙이
-어느 결정과 검증에 근거하는지는 보지 않습니다.
+009 시작 당시 문서 사이의 실제 관계는 대부분 에이전트가 글을 읽고 기억해서 복원합니다.
+당시 `cairn check`가 보던 것은 백틱으로 감싼 경로가 실재하는지까지이고, 어느 규칙이
+어느 결정과 검증에 근거하는지는 보지 않았습니다.
 
 문서가 적을 때는 그래도 굴러갑니다. 문제는 아카이브가 쌓일 때입니다. 007을
 아카이브한 뒤에 실제로 한 번 새어 나갔습니다. 그 워크스트림의 `status.md`에
@@ -20,7 +24,7 @@
 만 읽고 그 파일을 열지 않아 이미 고친 단정을 다시 썼습니다.
 
 읽은 것을 잊은 게 아니라 **읽어야 할 범위를 애초에 고르지 못한 것**입니다.
-검사기는 아카이브를 탐색에서 빼므로 이 누락을 드러내지 못합니다. 관계를
+당시 검사기는 아카이브를 탐색에서 빼므로 이 누락을 드러내지 못했습니다. 관계를
 문서에 명시하고 기계가 따라갈 수 있게 만드는 것이 이 대작업의 목적입니다.
 
 ## 이 작업의 범위
@@ -61,6 +65,7 @@
   있는 호스트 에이전트가 맡습니다.
 - 하지 않기로 한 것의 원본은 설계 기록의 「하지 않을 것」입니다.
 
+<a name="doltap-s-7qpp5x4m-start" id="doltap-s-7qpp5x4m-start"></a>
 ## 완료 조건
 
 설계 기록의 「009 워크스트림의 완료 조건」을 **그대로 이 대작업의 완료 조건으로
@@ -72,7 +77,7 @@
 
 아래는 그 목록에 더해 이 대작업이 스스로 만족해야 하는 조건입니다.
 
-- 새 공개 이름이 정해지고, 가칭 `doltap`이 npm 패키지명·CLI·운영 폴더·앵커
+- 새 공개 이름이 정해지고, 옛 이름 `cairn`이 npm 패키지명·CLI·운영 폴더·앵커
   접두사에 남아 있지 않다. 역사와 출처를 설명하는 문장은 예외다.
 - 설계 기록의 「구현 전에 확정하거나 시험할 것」 27개가 각각
   확정·시험 완료·범위 밖 중 하나로 처리되고, 그 결과가 `design.md`와
@@ -90,12 +95,20 @@
 - 이 대작업에서 확인한 사실이 설계 기록과 다르면 `docs/document-graph-design.md`
   의 상태 표기와 해당 절을 함께 갱신한다.
 
+- `derived-from` [document-graph-design.md](../../../../docs/document-graph-design.md#doltap-d-knwnrg0q-start)
+
+<a name="doltap-s-7qpp5x4m-end" id="doltap-s-7qpp5x4m-end"></a>
 ## 전제
 
-- **이 구조를 쓰는 외부 프로젝트가 있는지 확인되지 않았습니다.** 없다고
+<a name="doltap-b-js7yf5p8-start" id="doltap-b-js7yf5p8-start"></a>
+- `전제` **이 구조를 쓰는 외부 프로젝트가 있는지 확인되지 않았습니다.** 없다고
   단정하지 않습니다. 확인되지 않았다는 것과 없다는 것을 섞어 쓴 것이 007에서
   고친 실수입니다. 영구 호환 계층은 만들지 않되, 구형 구조를 만난 사람이 막히지
   않게 이관 안내는 남깁니다.
+  - `상태` 이월 — 활성 아이디어가 이 전제를 계속 확인합니다.
+- `assumes` [status.md](../../../archive/legacy/workstreams/007-first-impression/status.md#doltap-d-qzcaxr50-start)
+
+<a name="doltap-b-js7yf5p8-end" id="doltap-b-js7yf5p8-end"></a>
 - 이 저장소는 자기 자신에게 골격을 적용해 운영하므로, 규격 변경과 자기 이관이
   같은 대작업 안에서 함께 움직입니다. 배포하는 골격 원본은 `template/`입니다.
 - 새 이름이 정해지기 전에는 불변 ID를 발급하지 않습니다. 가칭 접두사로 먼저
@@ -114,3 +127,15 @@
 
 큰 방향은 설계 기록에, 그 방향이 남겨 둔 값과 문법은 `design.md`에 있습니다. 둘이
 어긋나면 뒤늦게 정한 `design.md`가 맞고, 설계 기록 쪽 문장을 함께 고칩니다.
+
+- `indexes` [decisions.md](decisions.md#doltap-d-94atrh3b-start)
+
+- `indexes` [design.md](design.md#doltap-d-r1s0r2zm-start)
+
+- `indexes` [plan.md](plan.md#doltap-d-y6rvrj98-start)
+
+- `indexes` [status.md](status.md#doltap-d-n72qk3vj-start)
+
+- `references` [README.md](../../../../docs/trials/README.md#doltap-d-0kk90ace-start)
+
+<a name="doltap-d-n0k25q71-end" id="doltap-d-n0k25q71-end"></a>

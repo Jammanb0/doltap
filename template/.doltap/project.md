@@ -1,3 +1,5 @@
+<a name="doltap-d-f7wn4qdw-start" id="doltap-d-f7wn4qdw-start"></a>
+
 # 프로젝트
 
 > 이 프로젝트가 전체로서 무엇인지 설명합니다. 진행 중인 작업과 다음 행동은
@@ -53,3 +55,5 @@
 품질과 보안 규칙은 저장소 `AGENTS.md`, 완료 전 검증 기준은
 `.doltap/rules/verification.md`가 원본입니다. 이 문서에서는 같은 규칙을
 반복하지 않습니다. 아직 착수하지 않은 개선 후보는 `plans/ideas.md`에 있습니다.
+
+<a name="doltap-d-f7wn4qdw-end" id="doltap-d-f7wn4qdw-end"></a>

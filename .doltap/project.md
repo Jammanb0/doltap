@@ -1,3 +1,5 @@
+<a name="doltap-d-0c9e0fds-start" id="doltap-d-0c9e0fds-start"></a>
+
 # 프로젝트
 
 > 이 프로젝트가 전체로서 무엇인지 설명합니다. 진행 중인 작업과 다음 행동은
@@ -37,8 +39,8 @@ Codex와 Claude Code를 함께 쓰며 며칠씩 이어지는 작업을 하는 �
 - `template/` — 복사해서 쓰는 문서 골격. 이 저장소의 진짜 산출물입니다.
 - `setup-workstream/` — 기존 프로젝트에 얹을 때 쓰는 세팅 워크스트림 골격.
 - `APPLY.md` — 기존 프로젝트에 적용하기 시작하는 절차.
-- `bin/doltap.mjs`와 `lib/check.mjs` — `doltap init`(새 폴더에 골격 넣기)과
-  `doltap check`(연결 검사).
+- `bin/doltap.mjs`와 `lib/` — 초기화, ID·관계 편집, 무결성 검사, 지도·맥락·감사,
+  검토 기록과 이관·복구. 문법과 실행 예시는 루트 `GRAPH.md`에 있습니다.
 - npm 배포물. `package.json`의 `files`가 무엇이 나가는지 정합니다.
 
 ## 책임지지 않는 범위와 그 이유
@@ -80,7 +82,8 @@ Codex와 Claude Code를 함께 쓰며 며칠씩 이어지는 작업을 하는 �
 
 - Node.js 22 이상, JavaScript(ESM). 런타임 의존성 없음.
 - 시험은 Node 기본 러너(`node --test`), CI는 GitHub Actions에서 Node 22와 24를
-  Ubuntu·macOS·Windows에서 돌립니다.
+  Ubuntu·macOS·Windows에서 돌리도록 구성되어 있습니다. 현재 브랜치의 실제
+  실행 결과와 과거 CI 결과는 `docs/trials/README.md`에서 구분합니다.
 - 배포는 GitHub 저장소에서 바로(`npx github:Jammanb0/cairn`). npm 레지스트리에는
   올리지 않았습니다.
 
@@ -93,3 +96,5 @@ Codex와 Claude Code를 함께 쓰며 며칠씩 이어지는 작업을 하는 �
 
 이 문서에서는 위 규칙을 반복하지 않습니다. 아직 착수하지 않은 개선 후보는
 `plans/ideas.md`에 있습니다.
+
+<a name="doltap-d-0c9e0fds-end" id="doltap-d-0c9e0fds-end"></a>

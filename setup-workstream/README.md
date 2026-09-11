@@ -25,6 +25,7 @@
 ## 완료 조건
 
 - `CLAUDE.md` → `AGENTS.md` → 안내표 → `.doltap/`의 각 문서로 실제로 이어진다.
+- 문서 ID·관계·발급 기록이 일치하고 `doltap check`가 문제 0이다.
 - 적용 전에 있던 규칙 중 사라진 것이 없다. 옮긴 것은 옮긴 자리에 있다.
 - 같은 규칙이 두 곳에 원본으로 중복되어 있지 않다.
 - `.doltap/project.md`와 `.doltap/plans/current.md`가 빈 틀이 아니다.
