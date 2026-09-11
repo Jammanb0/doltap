@@ -449,7 +449,8 @@ test("관계가 저장소 밖을 가리켜도 외부 문서로 읽지 않는다"
   const collected = collectDocuments(root);
   assert.deepEqual(collected.map((d) => d.path), ["AGENTS.md"]);
   const result = checkGraph({ root, documents: collected, entryPoints: ["AGENTS.md"] });
-  assert.match(messages(result), /관계가 가리키는 파일이 없습니다/);
+  // 파일은 실재하므로 「없습니다」가 아니라 「밖입니다」로 알린다.
+  assert.match(messages(result), /관계 대상이 저장소 밖입니다/);
 });
 
 test("관계로 가리켜도 숨김 폴더 문서는 관리 범위에 들이지 않는다", () => {
@@ -502,4 +503,28 @@ test("운영 폴더 안의 숨김 폴더는 읽지 않는다", () => {
   writeFileSync(join(root, ".agents/recovery/old.md"), "# 복구 사본\n");
   const paths = collectDocuments(root).map((d) => d.path);
   assert.deepEqual(paths, ["AGENTS.md"]);
+});
+
+test("저장소 밖을 가리키면 없다고 하지 않고 밖이라고 한다", () => {
+  // 파일은 실재한다. 「없습니다」라고 하면 사실과 다르고 왜 막혔는지 알 수 없다.
+  const base = mkdtempSync(join(tmpdir(), "doltap-escape-"));
+  const proj = join(base, "proj");
+  mkdirSync(proj, { recursive: true });
+  writeFileSync(join(base, "outside.md"), doc(ids.docB, "밖"));
+  const body = [
+    anchor(ids.secA, "start"),
+    `- \`references\` [밖](../outside.md#${ids.docB}-start)`,
+    anchor(ids.secA, "end"),
+  ].join("\n");
+  writeFileSync(join(proj, "AGENTS.md"), doc(ids.docA, body));
+
+  const result = checkGraph({ root: proj, documents: collectDocuments(proj), entryPoints: ["AGENTS.md"] });
+  assert.match(messages(result), /저장소 밖입니다/);
+  assert.doesNotMatch(messages(result), /가리키는 파일이 없습니다/);
+});
+
+test("정말 없는 파일은 없다고 한다", () => {
+  const result = run({ "AGENTS.md": doc(ids.docA, "[없음](진짜없음.md)") });
+  assert.match(messages(result), /가리키는 파일이 없습니다/);
+  assert.doesNotMatch(messages(result), /저장소 밖입니다/);
 });
