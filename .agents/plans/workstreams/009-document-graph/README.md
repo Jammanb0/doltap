@@ -104,9 +104,11 @@
 
 ## 문서
 
-- 설계의 원본: `docs/document-graph-design.md`
+- 설계의 원본과 큰 방향: `docs/document-graph-design.md`
+- 구현이 따를 형식: `design.md`
 - 현재 상태와 다음 행동: `status.md`
 - 단계와 검증 방법: `plan.md`
 - 이 대작업을 운영하며 정한 것: `decisions.md`
 
-`design.md`는 형식을 확정하는 2단계에서 만듭니다. 지금 만들면 빈 틀만 남습니다.
+큰 방향은 설계 기록에, 그 방향이 남겨 둔 값과 문법은 `design.md`에 있습니다. 둘이
+어긋나면 뒤늦게 정한 `design.md`가 맞고, 설계 기록 쪽 문장을 함께 고칩니다.
