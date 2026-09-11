@@ -7,8 +7,8 @@
 - 코드를 바꿨으면 아래 명령을 실행합니다.
   ```bash
   npm test                            # 시험 전체
-  node bin/cairn.mjs check template   # 배포하는 골격이 검사를 통과하는지
-  node bin/cairn.mjs check .          # 이 저장소 자신이 통과하는지
+  node bin/doltap.mjs check template   # 배포하는 골격이 검사를 통과하는지
+  node bin/doltap.mjs check .          # 이 저장소 자신이 통과하는지
   ```
 
   타입 체크와 린트 도구는 두지 않았습니다. 빌드 단계도 없습니다.
@@ -36,13 +36,13 @@
   넓히지 않습니다.
 - 보고에 쓰는 파일 내용, 숫자, 도구 동작은 원본이나 실행 결과와 대조합니다.
   이전 답변을 근거로 삼지 않습니다.
-- `template/`을 고쳤으면 `cairn init`으로 실제 새 프로젝트를 만들어 보고, 그
-  결과가 `cairn check`를 통과하는지 확인합니다. 골격 문서만 읽고 판단하지
+- `template/`을 고쳤으면 `doltap init`으로 실제 새 프로젝트를 만들어 보고, 그
+  결과가 `doltap check`를 통과하는지 확인합니다. 골격 문서만 읽고 판단하지
   않습니다.
 - 검사 규칙을 고쳤으면 잡아야 할 경우와 잡으면 안 되는 경우를 모두 시험으로
   고정합니다. 오탐을 내는 검사는 아무도 보지 않게 됩니다.
 - 릴리즈를 냈으면 태그 tarball을 실제로 내려받아 들어가야 할 파일이 들어갔는지
   확인합니다. `package.json`의 `files`만 읽고 판단하지 않습니다.
 - 문서의 절차나 경로를 고쳤으면 `template/`, `setup-workstream/`, `APPLY.md`,
-  README 두 벌, 그리고 이 저장소의 `.agents/`까지 함께 봅니다. 같은 내용이
+  README 두 벌, 그리고 이 저장소의 `.doltap/`까지 함께 봅니다. 같은 내용이
   여러 곳에 있으면 한쪽만 고쳐서 갈라집니다.

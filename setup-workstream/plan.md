@@ -1,14 +1,14 @@
-# cairn 구조 적용 — 단계
+# doltap 구조 적용 — 단계
 
 <!-- 이 문서는 골격 위치의 `setup-workstream/`에서 복사해 온 것입니다.
-     `.agents/plans/workstreams/<번호>-cairn-setup/plan.md`에 놓습니다. -->
+     `.doltap/plans/workstreams/<번호>-doltap-setup/plan.md`에 놓습니다. -->
 
 > 배경과 완료 조건은 `README.md`, 지금 어디까지 왔는지는 `status.md`에
 > 있습니다. 여기는 무엇을 어떤 순서로 하는지만 다룹니다.
 
-이 프로젝트에는 아직 cairn의 워크스트림 규칙이 자리 잡지 않았습니다. 그래서 이
+이 프로젝트에는 아직 doltap의 워크스트림 규칙이 자리 잡지 않았습니다. 그래서 이
 대작업만은 일반 규칙 대신 아래 단계를 따릅니다. 적용이 끝나 이 워크스트림을
-아카이브한 뒤부터는 `.agents/plans/README.md`와 `.agents/plans/workstreams.md`가
+아카이브한 뒤부터는 `.doltap/plans/README.md`와 `.doltap/plans/workstreams.md`가
 원본입니다.
 
 아래 명령의 `<골격 위치>`와 `<임시 골격 경로>`는 `status.md`의 「골격 위치」에
@@ -23,28 +23,28 @@
 
 기존 지시 파일에 아래 성격의 내용이 섞여 있으면 해당 파일로 옮깁니다.
 
-- 완료 전 확인 방법, 테스트·빌드 명령 → `.agents/rules/verification.md`
-- 답변 방식, 설명 태도 → `.agents/rules/communication.md`
-- 목적, 배경, 장기 방향, 범위의 상세 설명 → `.agents/project.md`
+- 완료 전 확인 방법, 테스트·빌드 명령 → `.doltap/rules/verification.md`
+- 답변 방식, 설명 태도 → `.doltap/rules/communication.md`
+- 목적, 배경, 장기 방향, 범위의 상세 설명 → `.doltap/project.md`
 
 **항상 지켜야 하는 제약은 `AGENTS.md`에 남깁니다.** 옮기는 것은 상세 설명이지
 제약 자체가 아닙니다. 특히 「하지 않는 것」은 작업 중에 매번 걸리는 선이라
-`AGENTS.md`에 짧게 남기고, 그렇게 정한 배경만 `.agents/project.md`로 옮깁니다.
+`AGENTS.md`에 짧게 남기고, 그렇게 정한 배경만 `.doltap/project.md`로 옮깁니다.
 
 | 성격 | 어디에 |
 | --- | --- |
 | 작업할 때마다 걸리는 제약, 금지 사항, 승인 규칙 | `AGENTS.md`에 짧게 |
-| 그 제약을 왜 정했는지, 배경과 장기 방향 | `.agents/project.md` |
+| 그 제약을 왜 정했는지, 배경과 장기 방향 | `.doltap/project.md` |
 | 특정 작업을 할 때만 필요한 절차와 체크리스트 | 해당 문서에 두고 `AGENTS.md` 안내표에서 가리킴 |
 
-기존 `.agents/`가 cairn과 다른 구조라면 폴더를 지우지 말고 위 기준으로 내용만
+기존 `.doltap/`가 doltap과 다른 구조라면 폴더를 지우지 말고 위 기준으로 내용만
 옮깁니다. 어디에 넣을지 애매한 것은 사용자에게 묻습니다.
 
 ## 2. 기록을 옮긴다
 
 기존에 진행 기록을 담은 문서(`TODO.md`, `NOTES.md`, 핸드오프 문서 등)가 있으면
-성격에 따라 나눠 옮깁니다. `.agents/plans/current.md`는 위치만 가리키는 색인이고
-`.agents/plans/history.md`는 짧은 색인이라, 상세 내용을 여기에 쌓지 않습니다.
+성격에 따라 나눠 옮깁니다. `.doltap/plans/current.md`는 위치만 가리키는 색인이고
+`.doltap/plans/history.md`는 짧은 색인이라, 상세 내용을 여기에 쌓지 않습니다.
 
 | 무엇 | 어디로 |
 | --- | --- |
@@ -52,10 +52,10 @@
 | 그 작업이 지금 어디까지 왔는지 | 같은 폴더의 `status.md` |
 | 남은 단계와 검증 방법 | 같은 폴더의 `plan.md` (필요할 때만) |
 | 그 작업에서 정한 것과 이유 | 같은 폴더의 `decisions.md` (필요할 때만) |
-| 진행 중인 작업이 어디 있는지 가리키는 줄 | `.agents/plans/current.md` |
-| 이미 끝난 작업의 원문 기록 | 폴더로 관리할 만하면 `.agents/archive/workstreams/` 아래 그 폴더. 한 줄짜리 완료 메모는 만들지 않습니다 |
-| 끝난 작업의 한 줄 요약과 보관 위치 | `.agents/plans/history.md` |
-| 아직 착수를 약속하지 않은 것 | `.agents/plans/ideas.md` |
+| 진행 중인 작업이 어디 있는지 가리키는 줄 | `.doltap/plans/current.md` |
+| 이미 끝난 작업의 원문 기록 | 폴더로 관리할 만하면 `.doltap/archive/workstreams/` 아래 그 폴더. 한 줄짜리 완료 메모는 만들지 않습니다 |
+| 끝난 작업의 한 줄 요약과 보관 위치 | `.doltap/plans/history.md` |
+| 아직 착수를 약속하지 않은 것 | `.doltap/plans/ideas.md` |
 
 워크스트림 폴더 이름은 `<세 자리 번호>-<영문 소문자 이름>`입니다. 여기서 새로
 만드는 워크스트림의 번호는 이 세팅 다음 번호부터 씁니다.
@@ -63,7 +63,7 @@
 **한 줄짜리 기록까지 워크스트림으로 만들지 않습니다.** "무엇을 붙였다" 정도의
 완료 메모는 배경도 완료 조건도 없어서, 폴더를 만들면 없는 내용을 지어내야
 합니다. 원본에 그대로 두거나 `history.md`에 한 줄로 남깁니다. 무엇을
-워크스트림으로 볼지는 `.agents/plans/workstreams.md`의 「무엇을 대작업으로
+워크스트림으로 볼지는 `.doltap/plans/workstreams.md`의 「무엇을 대작업으로
 보는가」가 원본입니다.
 
 **여기서 만드는 워크스트림은 골격 위치의 `APPLY.md` 3번에서 이미 승인받았습니다.**
@@ -81,12 +81,12 @@
 - `AGENTS.md`에 문서 안내표를 넣습니다. 기존 안내가 있으면 항목을 더합니다.
 - `CLAUDE.md`가 없으면 `@AGENTS.md` 한 줄로 만듭니다. 본문이 직접 들어 있으면
   그 내용을 `AGENTS.md`로 옮기고 한 줄로 줄일지 사람에게 묻습니다.
-- `.agents/` 커밋 여부는 세팅을 시작할 때 정했습니다. 커밋하지 않기로 했으면
+- `.doltap/` 커밋 여부는 세팅을 시작할 때 정했습니다. 커밋하지 않기로 했으면
   `.gitignore`에 들어가 있는지 확인합니다.
 
 ## 4. 현재 상태를 채운다
 
-`.agents/project.md`와 `.agents/plans/current.md`를 빈 틀로 두지 않습니다.
+`.doltap/project.md`와 `.doltap/plans/current.md`를 빈 틀로 두지 않습니다.
 README, 코드, `git log`, 열린 이슈에서 확인되는 것으로 채웁니다. 확인되지 않는
 것은 `<!-- 확인 필요: 무엇을 -->`로 남기고 사람에게 무엇이 비었는지 알립니다.
 
@@ -103,7 +103,7 @@ README, 코드, `git log`, 열린 이슈에서 확인되는 것으로 채웁니�
 
 ## 6. 새 규칙을 다시 읽는다
 
-**적용으로 바뀐 `AGENTS.md`와 `.agents/rules/`의 문서를 전부 다시 읽습니다.**
+**적용으로 바뀐 `AGENTS.md`와 `.doltap/rules/`의 문서를 전부 다시 읽습니다.**
 지금 세션이 파일 변경을 자동으로 다시 읽는다고 가정하지 않습니다. 이 단계부터는
 방금 놓은 규칙이 적용됩니다.
 
@@ -114,11 +114,11 @@ README, 코드, `git log`, 열린 이슈에서 확인되는 것으로 채웁니�
 **명령으로 확인**
 
 ```text
-node <골격 위치>/bin/cairn.mjs check
+node <골격 위치>/bin/doltap.mjs check
 ```
 
-기본값이면 `node .cairn/bin/cairn.mjs check`, 골격이 이 저장소 자신이면
-`node bin/cairn.mjs check .` 입니다.
+기본값이면 `node .doltap-bootstrap/bin/doltap.mjs check`, 골격이 이 저장소 자신이면
+`node bin/doltap.mjs check .` 입니다.
 
 안내표가 가리키는 경로가 실재하는지, `CLAUDE.md`가 `AGENTS.md`로 이어지는지,
 필수 문서가 다 있는지, 남은 채우기 자리와 워크스트림 상태가 어떤지를 한 번에
@@ -127,9 +127,9 @@ node <골격 위치>/bin/cairn.mjs check
 
 **문서로 확인**
 
-- `grep -rn "채우기\|고르기\|확인 필요" AGENTS.md .agents/` 결과에 남은 것이
+- `grep -rn "채우기\|고르기\|확인 필요" AGENTS.md .doltap/` 결과에 남은 것이
   무엇인지 사람에게 알렸는가
-- `CLAUDE.md`에서 `AGENTS.md`로, `AGENTS.md`의 안내표에서 `.agents/`의 각
+- `CLAUDE.md`에서 `AGENTS.md`로, `AGENTS.md`의 안내표에서 `.doltap/`의 각
   파일로 실제로 이어지는가. 안내표에 적힌 경로가 실재하는가
 - 적용 전에 있던 규칙 중 사라진 것이 없는가. 옮겼다면 옮긴 자리에 실제로 있는가
 - 같은 규칙이 두 곳에 원본으로 중복되어 있지 않은가
@@ -139,14 +139,14 @@ node <골격 위치>/bin/cairn.mjs check
   정상입니다. 골격 위치가 저장소 루트면 지울 폴더가 없으므로 **해당 없음**입니다.
 
   ```text
-  grep -rnF --exclude-dir='*-cairn-setup' -- \
-    <현재 셸에 맞게 인용한 임시 골격 경로> AGENTS.md CLAUDE.md .agents/
+  grep -rnF --exclude-dir='*-doltap-setup' -- \
+    <현재 셸에 맞게 인용한 임시 골격 경로> AGENTS.md CLAUDE.md .doltap/
   ```
 
-  기본값이면 찾을 문자열은 `.cairn` 입니다.
+  기본값이면 찾을 문자열은 `.doltap-bootstrap` 입니다.
 
-  **`cairn check`는 이 검사를 대신하지 못합니다.** 검사기는 골격이 어디에 어떤
-  이름으로 있는지 알 방법이 없어 기본값 `.cairn` 뒤에 경로가 이어진 것만
+  **`doltap check`는 이 검사를 대신하지 못합니다.** 검사기는 골격이 어디에 어떤
+  이름으로 있는지 알 방법이 없어 기본값 `.doltap-bootstrap` 뒤에 경로가 이어진 것만
   봅니다. 적용이 진행 중이면 검사기가 그 사실을 확인 항목으로 알려 줍니다.
   다른 이름이나 경로에 두었거나 경로 없이 폴더만 가리켰으면 위 `grep`이
   유일한 확인 수단입니다.
@@ -154,12 +154,12 @@ node <골격 위치>/bin/cairn.mjs check
 **실제로 확인**
 
 - 새 세션에서 "지금 뭐 하던 중이었지?"라고 물었을 때 에이전트가
-  `.agents/plans/current.md`를 찾아 읽고 답하는가
+  `.doltap/plans/current.md`를 찾아 읽고 답하는가
 
 ## 8. 임시 골격을 정리한다
 
 **`status.md`의 「골격 위치」에 정리 대상이 `예`로 적힌 임시 클론일 때만
-합니다.** 골격이 대상 저장소 자신이면(포크했거나 cairn 저장소 자신이면) 지울
+합니다.** 골격이 대상 저장소 자신이면(포크했거나 doltap 저장소 자신이면) 지울
 것이 없으므로 건너뜁니다. 아래 명령의 경로를 저장소 루트로 바꿔 읽으면 **저장소
 자체를 지우게 됩니다.**
 
@@ -171,7 +171,7 @@ node <골격 위치>/bin/cairn.mjs check
   안전해 보이게 만들므로, 이 질문이 먼저입니다
 - 「골격 위치」에 정리 대상으로 기록되어 있는가
 - 그 경로를 해석한 절대 경로가 대상 저장소 루트나 그 상위 폴더가 **아닌가**
-- 그 경로 안에 `APPLY.md`, `template/`, `setup-workstream/`이 있어 실제 cairn
+- 그 경로 안에 `APPLY.md`, `template/`, `setup-workstream/`이 있어 실제 doltap
   골격이 맞는가. 잘못 기록된 경로가 남의 저장소를 가리킬 수 있습니다
 - 7번의 임시 골격 경로 참조 검사가 통과했는가
 - 폴더 안의 파일을 사용자가 고친 것이 없는가
@@ -204,7 +204,7 @@ rm -rf -- <현재 셸에 맞게 인용한 임시 골격 경로>
 일반 흐름에는 최종 커밋이 들어 있으니, **세팅에만 해당하는 정리를 먼저 끝낸 뒤에
 들어갑니다.** 순서가 뒤바뀌면 정리 내용이 커밋에서 빠집니다.
 
-**8번에서 임시 골격을 지우면 그 안의 `cairn check`도 함께 사라집니다.** 아래
+**8번에서 임시 골격을 지우면 그 안의 `doltap check`도 함께 사라집니다.** 아래
 5항이 가리키는 일반 흐름은 `history.md`와 `current.md`, 아카이브 폴더를 바꾼
 **뒤에** 검사를 다시 돌리라고 합니다. 그 검사는 종료 과정에서 생긴 끊긴 연결을
 잡는 자리이므로, **바꾸기 전에 미리 돌려 두는 것으로 대신할 수 없습니다.**
@@ -229,14 +229,14 @@ rm -rf -- <현재 셸에 맞게 인용한 임시 골격 경로>
 
 1. 골격 위치의 `APPLY.md` 5단계에서 기존 지시 파일에 넣었던 임시 연결 문구를 위
    3번의 정식 안내표로 대체합니다.
-2. `.agents/plans/current.md`에서 이 세팅을 뺄 때, 2번에서 옮긴 기록으로 만든
+2. `.doltap/plans/current.md`에서 이 세팅을 뺄 때, 2번에서 옮긴 기록으로 만든
    다른 워크스트림이 있으면 그것은 남긴다는 것을 확인합니다.
 3. `README.md`의 완료 조건을 하나씩 대조합니다.
 4. **`status.md`의 「골격 위치」에 절대 경로가 들어가지 않았는지 봅니다.**
    들어갔다면 지우는 것만으로는 부족합니다 — 부트스트랩 커밋에 이미 남아
    있습니다. 저장소가 공개이거나 공개될 예정이면 사용자에게 알리고 어떻게 할지
    정합니다. 이력을 다시 쓰는 것은 사용자가 정할 일입니다.
-5. **`.agents/plans/workstreams.md`의 「마칠 때」와 「반영할 때」를 그대로
+5. **`.doltap/plans/workstreams.md`의 「마칠 때」와 「반영할 때」를 그대로
    따릅니다.** 반영부터 최종 확인과 브랜치 정리까지 거기 있고, 아카이브로
    옮기는 것은 사용자 허락을 받고 합니다. 순서를 여기에 다시 적지 않습니다 —
    두 곳에 적으면 한쪽만 고쳐져 어긋납니다.

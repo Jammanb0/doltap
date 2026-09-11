@@ -1,6 +1,6 @@
 <div align="center">
 
-# cairn
+# doltap
 
 **Make your AI agent remember what you were in the middle of yesterday.**
 
@@ -31,7 +31,7 @@ AI:  There's no such rule in CLAUDE.md
 You: I wrote it in AGENTS.md
 ```
 
-**With cairn applied**
+**With doltap applied**
 
 ```text
 You: what was I working on?
@@ -54,13 +54,13 @@ npx --yes github:Jammanb0/cairn init my-project
 **Project already in flight** — nothing gets overwritten, and you see every change first
 
 ```bash
-git clone --depth 1 https://github.com/Jammanb0/cairn .cairn
+git clone --depth 1 https://github.com/Jammanb0/cairn .doltap-bootstrap
 ```
 
 Paste this to your agent.
 
 ```text
-Read .cairn/APPLY.md and apply it to this project.
+Read .doltap-bootstrap/APPLY.md and apply it to this project.
 Preserve the existing rules and notes, and show me any change to an
 instruction file before you make it.
 ```
@@ -81,7 +81,7 @@ Make `CLAUDE.md` a one-line signpost and both tools read the same file.
 
 ```text
   Codex  ────────────────────────────┐
-                                     ├──►  AGENTS.md  ──►  .agents/
+                                     ├──►  AGENTS.md  ──►  .doltap/
   Claude Code  ──►  CLAUDE.md  ──────┘     rule source      detailed rules
                     "@AGENTS.md"                            and progress
                     that one line is all of it
@@ -95,12 +95,12 @@ Anything worth tracking on its own gets a folder. A fresh session only has to
 read that folder to know where things stand.
 
 ```text
-  Starting     .agents/plans/workstreams/002-length-limit/
+  Starting     .doltap/plans/workstreams/002-length-limit/
                   README.md     what this is and why
                   status.md     how far it got, what comes next
                   plan.md       the order of the work (only when useful)
 
-  Finished     .agents/archive/workstreams/002-length-limit/
+  Finished     .doltap/archive/workstreams/002-length-limit/
                   moved once the work has landed and you say so
                   moved, not deleted; one line stays behind in history.md
 ```
@@ -142,10 +142,10 @@ No global CLI, no generation step, no background process. Markdown only.
 <br>
 
 Honestly, yes — for many projects that's enough, and plenty of people work
-exactly that way. cairn adds three things on top.
+exactly that way. doltap adds three things on top.
 
 1. A **procedure for carrying over** the rules and notes you already have
-2. A **command that checks** the documents actually link up (`cairn check`, exits 1 so CI can use it)
+2. A **command that checks** the documents actually link up (`doltap check`, exits 1 so CI can use it)
 3. It records **which branch a larger piece of work lives on**
 
 </details>
@@ -166,7 +166,7 @@ tool's own format — [rulesync](https://github.com/dyoshikawa/rulesync) and
 
 <br>
 
-Those cover **what to build** (requirements). cairn covers **how you work and how
+Those cover **what to build** (requirements). doltap covers **how you work and how
 far you got**. Different layers, so they don't collide.
 
 </details>
@@ -177,7 +177,7 @@ far you got**. Different layers, so they don't collide.
 <br>
 
 No. Leaving no hooks and no background process is the condition this tool is
-built on. Instead it makes things **checkable** — `cairn check` exits 1 when the
+built on. Instead it makes things **checkable** — `doltap check` exits 1 when the
 documents stop linking up.
 
 </details>
@@ -187,7 +187,7 @@ documents stop linking up.
 
 <br>
 
-A finished workstream moves to `.agents/archive/workstreams/` and stays as it
+A finished workstream moves to `.doltap/archive/workstreams/` and stays as it
 is. It records the structure and the judgement of its own time, so **the checker
 does not look inside archives at all.** Neither a stale path nor a leftover
 reference to the temporary skeleton is reported. Archives are yours to manage.
@@ -214,13 +214,13 @@ picture is in the [verification status](docs/trials/README.md).
 
 ## What's in it
 
-This is what `cairn init` gives you. The original lives in `template/` in this
+This is what `doltap init` gives you. The original lives in `template/` in this
 repository, and most of it arrives blank — you fill it in as you go.
 
 ```text
 AGENTS.md        rules that always apply, plus a table pointing to the rest
 CLAUDE.md        the single line "@AGENTS.md"
-.agents/
+.doltap/
   project.md     what the project is as a whole
   rules/         verification and communication
   plans/
@@ -235,17 +235,17 @@ CLAUDE.md        the single line "@AGENTS.md"
 There are two commands, `init` and `check`, and **you need neither.** Copying the
 files gives the same result, and you can check the links by eye.
 
-If you are browsing this repository and notice an `AGENTS.md` and an `.agents/`
-at the root too, those are not part of what ships. **They are cairn applied to
-cairn itself** — real operating documents, where you can read the work in
-progress and the record of what came before. CI runs `cairn check .` against
+If you are browsing this repository and notice an `AGENTS.md` and an `.doltap/`
+at the root too, those are not part of what ships. **They are doltap applied to
+doltap itself** — real operating documents, where you can read the work in
+progress and the record of what came before. CI runs `doltap check .` against
 them on every push. What you get is the `template/` copy.
 
 ---
 
 <div align="center">
 
-A cairn is a stack of stones left along a mountain trail.<br>
+A doltap is a stack of stones left along a mountain trail.<br>
 It doesn't make the path for you, but it tells the next person — or you, coming back — how far things got.<br>
 You don't knock down the ones you passed, either. Leaving them standing is what shows how far you've walked.
 

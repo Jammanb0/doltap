@@ -1,6 +1,6 @@
 <div align="center">
 
-# cairn
+# doltap
 
 **AI 에이전트가 어제 뭘 하다 말았는지 기억하게 만듭니다.**
 
@@ -31,7 +31,7 @@ AI: CLAUDE.md에는 그런 규칙이 없는데요
 나: AGENTS.md에 적었는데?
 ```
 
-**cairn을 적용하면**
+**doltap을 적용하면**
 
 ```text
 나: 지금 뭐 하던 중이었지?
@@ -54,13 +54,13 @@ npx --yes github:Jammanb0/cairn init my-project
 **이미 하던 프로젝트** — 기존 파일을 덮어쓰지 않고, 바꿀 내용은 먼저 보여줍니다
 
 ```bash
-git clone --depth 1 https://github.com/Jammanb0/cairn .cairn
+git clone --depth 1 https://github.com/Jammanb0/cairn .doltap-bootstrap
 ```
 
 에이전트에게 그대로 붙여 넣으세요.
 
 ```text
-.cairn/APPLY.md를 읽고 이 프로젝트에 적용해줘.
+.doltap-bootstrap/APPLY.md를 읽고 이 프로젝트에 적용해줘.
 기존 규칙과 기록은 보존하고, 지시 파일 변경안은 적용 전에 보여줘.
 ```
 
@@ -80,7 +80,7 @@ npx --yes github:Jammanb0/cairn check .
 
 ```text
   Codex  ─────────────────────────────┐
-                                      ├──►  AGENTS.md  ──►  .agents/
+                                      ├──►  AGENTS.md  ──►  .doltap/
   Claude Code  ──►  CLAUDE.md  ───────┘     규칙 원본        상세 규칙과
                     "@AGENTS.md"                             진행 기록
                     이 한 줄이 전부
@@ -94,12 +94,12 @@ npx --yes github:Jammanb0/cairn check .
 폴더만 보면 어디까지 왔는지 압니다.
 
 ```text
-  시작하면    .agents/plans/workstreams/002-length-limit/
+  시작하면    .doltap/plans/workstreams/002-length-limit/
                  README.md     무엇을 왜 하는가
                  status.md     어디까지 했고 다음은 무엇인가
                  plan.md       어떤 순서로 할 것인가 (필요할 때만)
 
-  끝나면      .agents/archive/workstreams/002-length-limit/
+  끝나면      .doltap/archive/workstreams/002-length-limit/
                  반영과 확인이 끝난 뒤, 사용자 확인을 받고 옮깁니다
                  지우지 않고 그대로 옮기고 history.md 에 한 줄만 남습니다
 ```
@@ -140,10 +140,10 @@ npx --yes github:Jammanb0/cairn check .
 <br>
 
 맞습니다. 많은 경우 그걸로 충분하고, 실제로 그렇게 쓰는 분이 많습니다.
-cairn은 거기에 세 가지를 더합니다.
+doltap은 거기에 세 가지를 더합니다.
 
 1. 기존에 쓰던 규칙과 메모를 **버리지 않고 옮기는 절차**가 있습니다
-2. 문서끼리 실제로 연결됐는지 **검사하는 명령**이 있습니다 (`cairn check`, CI에 넣을 수 있음)
+2. 문서끼리 실제로 연결됐는지 **검사하는 명령**이 있습니다 (`doltap check`, CI에 넣을 수 있음)
 3. 큰 작업을 **어느 브랜치에서 하기로 했는지까지** 남깁니다
 
 </details>
@@ -164,7 +164,7 @@ cairn은 거기에 세 가지를 더합니다.
 
 <br>
 
-그쪽은 **무엇을 만들지**(요구사항)를 다루고, cairn은 **어떻게 일하고 어디까지 왔는지**를
+그쪽은 **무엇을 만들지**(요구사항)를 다루고, doltap은 **어떻게 일하고 어디까지 왔는지**를
 다룹니다. 층이 다르니 같이 써도 충돌하지 않습니다.
 
 </details>
@@ -175,7 +175,7 @@ cairn은 거기에 세 가지를 더합니다.
 <br>
 
 아니요. 훅도 상주 프로세스도 두지 않는 것이 이 도구의 성립 조건입니다.
-대신 **확인할 수 있게** 만들었습니다 — `cairn check`가 연결이 끊긴 것을 종료 코드 1로 알립니다.
+대신 **확인할 수 있게** 만들었습니다 — `doltap check`가 연결이 끊긴 것을 종료 코드 1로 알립니다.
 
 </details>
 
@@ -184,7 +184,7 @@ cairn은 거기에 세 가지를 더합니다.
 
 <br>
 
-마친 대작업은 `.agents/archive/workstreams/`로 옮기고 그대로 둡니다. 그때의
+마친 대작업은 `.doltap/archive/workstreams/`로 옮기고 그대로 둡니다. 그때의
 구조와 그때의 판단을 담고 있는 것이 정상이라, **검사기는 아카이브 안을
 들여다보지 않습니다.** 끊긴 옛 경로도, 그때 쓰던 임시 골격 참조도 잡지
 않습니다. 아카이브 관리는 사용자 몫입니다.
@@ -209,13 +209,13 @@ cairn은 거기에 세 가지를 더합니다.
 
 ## 들어 있는 것
 
-`cairn init`이 만들어 주는 것입니다. 원본은 이 저장소의 `template/`에 있고,
+`doltap init`이 만들어 주는 것입니다. 원본은 이 저장소의 `template/`에 있고,
 받으면 대부분 빈 자리라 채워 넣으며 씁니다.
 
 ```text
 AGENTS.md        항상 적용되는 규칙과 문서 안내표
 CLAUDE.md        "@AGENTS.md" 한 줄
-.agents/
+.doltap/
   project.md     이 프로젝트가 전체로서 무엇인가
   rules/         검증 · 소통 방식
   plans/
@@ -230,16 +230,16 @@ CLAUDE.md        "@AGENTS.md" 한 줄
 명령은 `init`과 `check` 둘뿐이고, **둘 다 없어도 됩니다.** 복사만 해도 같은
 결과이고 검사는 눈으로 해도 됩니다.
 
-이 저장소를 둘러보다 루트에도 `AGENTS.md`와 `.agents/`가 있는 것을 보셨다면,
-그건 배포물이 아닙니다. **cairn을 cairn 자신에게 적용한 실제 운영
+이 저장소를 둘러보다 루트에도 `AGENTS.md`와 `.doltap/`가 있는 것을 보셨다면,
+그건 배포물이 아닙니다. **doltap을 doltap 자신에게 적용한 실제 운영
 문서입니다.** 여기서 진행 중인 작업과 지난 기록을 그대로 볼 수 있고, CI가
-매번 `cairn check .`으로 검사합니다. 받는 것은 `template/` 쪽입니다.
+매번 `doltap check .`으로 검사합니다. 받는 것은 `template/` 쪽입니다.
 
 ---
 
 <div align="center">
 
-케른(cairn)은 산길에 쌓아 두는 돌탑입니다.<br>
+케른(doltap)은 산길에 쌓아 두는 돌탑입니다.<br>
 길을 만들어 주지는 않지만, 다음 사람이 — 혹은 다시 온 내가 — 어디까지 왔는지 알 수 있게 합니다.<br>
 지나온 돌탑도 치우지 않습니다. 그 자리에 그대로 두어야 어디서부터 걸어왔는지가 남습니다.
 

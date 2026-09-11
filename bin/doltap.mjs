@@ -13,10 +13,10 @@ import { ENTRY_POINTS, checkGraph, collectDocuments, toJson } from "../lib/graph
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const TEMPLATE = join(ROOT, "template");
 
-const USAGE = `cairn — AI 코딩 에이전트와 일할 때 쓰는 문서 골격
+const USAGE = `doltap — AI 코딩 에이전트와 일할 때 쓰는 문서 골격
 
-  cairn init <폴더>   새 폴더를 만들고 골격을 넣습니다
-  cairn check [폴더]  골격이 실제로 이어져 있는지 검사합니다 (기본값: 지금 폴더)
+  doltap init <폴더>   새 폴더를 만들고 골격을 넣습니다
+  doltap check [폴더]  골격이 실제로 이어져 있는지 검사합니다 (기본값: 지금 폴더)
 
 검사 옵션
 
@@ -27,7 +27,7 @@ const USAGE = `cairn — AI 코딩 에이전트와 일할 때 쓰는 문서 골�
 이미 작업 중인 프로젝트에는 init 을 쓰지 않습니다. 기존 규칙과 기록을
 살리면서 합쳐야 하므로 APPLY.md의 절차를 따릅니다.
 
-  git clone --depth 1 https://github.com/Jammanb0/cairn .cairn
+  git clone --depth 1 https://github.com/Jammanb0/cairn .doltap-bootstrap
 `;
 
 // 셸에 그대로 붙여 넣을 수 있게 경로를 인용한다.
@@ -74,7 +74,7 @@ async function init(rawTarget) {
       `${rawTarget} 안에 이미 파일이 있습니다. 아무것도 바꾸지 않았습니다.\n\n` +
         "작업 중인 프로젝트라면 기존 규칙과 기록을 살리면서 합쳐야 합니다.\n" +
         "아래로 골격을 받은 뒤 APPLY.md의 절차를 따르세요.\n\n" +
-        "  git clone --depth 1 https://github.com/Jammanb0/cairn .cairn"
+        "  git clone --depth 1 https://github.com/Jammanb0/cairn .doltap-bootstrap"
     );
   }
 
@@ -88,15 +88,15 @@ async function init(rawTarget) {
     `${rawTarget}/ 에 골격을 만들었습니다.\n\n` +
       "  AGENTS.md      항상 적용되는 규칙과 문서 안내표\n" +
       "  CLAUDE.md      \"@AGENTS.md\" 한 줄\n" +
-      "  .agents/       규칙과 계획 문서\n\n" +
+      "  .doltap/       규칙과 계획 문서\n\n" +
       (named
         ? `프로젝트 이름은 ${name} 으로 넣었습니다. `
         : "프로젝트 이름 자리를 찾지 못해 그대로 두었습니다. ") +
       "나머지는 직접 채웁니다. 아래는 bash 같은 POSIX 셸 기준입니다.\n\n" +
       `  cd ${shellQuote(rawTarget)}\n` +
-      '  grep -rnE "채우기|고르기" AGENTS.md .agents/\n\n' +
+      '  grep -rnE "채우기|고르기" AGENTS.md .doltap/\n\n' +
       "에이전트에게 맡기려면 이렇게 말하면 됩니다.\n\n" +
-      "  AGENTS.md와 .agents/의 채우기 자리를 이 프로젝트에 맞게 채워줘.\n" +
+      "  AGENTS.md와 .doltap/의 채우기 자리를 이 프로젝트에 맞게 채워줘.\n" +
       "  확인되지 않는 것은 지어내지 말고 확인 필요로 남겨줘.\n"
   );
 }

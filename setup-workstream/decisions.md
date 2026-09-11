@@ -1,7 +1,7 @@
-# cairn 구조 적용 — 결정
+# doltap 구조 적용 — 결정
 
 <!-- 이 문서는 골격 위치의 `setup-workstream/`에서 복사해 온 것입니다.
-     `.agents/plans/workstreams/<번호>-cairn-setup/decisions.md`에 놓습니다.
+     `.doltap/plans/workstreams/<번호>-doltap-setup/decisions.md`에 놓습니다.
      정한 것이 하나도 없으면 이 파일을 두지 않아도 됩니다. -->
 
 > 적용하면서 정한 것과 그 이유를 남깁니다. 특히 `plan.md` 5번에서 기존 규칙과
@@ -9,4 +9,4 @@
 
 <!-- 채우기: 한 줄씩 적습니다.
      예) 커밋 메시지는 기존 git log를 따라 영어로 유지한다.
-     예) `.agents/`는 커밋한다. 다른 기기에서 이어받을 수 있어야 한다. -->
+     예) `.doltap/`는 커밋한다. 다른 기기에서 이어받을 수 있어야 한다. -->

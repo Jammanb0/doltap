@@ -51,5 +51,5 @@
      예) 구조 설명: `docs/architecture.md` -->
 
 품질과 보안 규칙은 저장소 `AGENTS.md`, 완료 전 검증 기준은
-`.agents/rules/verification.md`가 원본입니다. 이 문서에서는 같은 규칙을
+`.doltap/rules/verification.md`가 원본입니다. 이 문서에서는 같은 규칙을
 반복하지 않습니다. 아직 착수하지 않은 개선 후보는 `plans/ideas.md`에 있습니다.

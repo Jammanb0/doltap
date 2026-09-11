@@ -12,7 +12,7 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 
 // 골격을 복사한 임시 프로젝트를 만든다. 테스트마다 독립이다.
 function project(setup) {
-  const dir = mkdtempSync(join(tmpdir(), "cairn-test-"));
+  const dir = mkdtempSync(join(tmpdir(), "doltap-test-"));
   cpSync(join(ROOT, "template"), dir, { recursive: true });
   if (setup) setup(dir);
   return dir;
@@ -20,7 +20,7 @@ function project(setup) {
 
 // 새 규격의 최소 워크스트림 — README.md 와 status.md 만 둔다.
 function makeWorkstream(dir, name, extra = []) {
-  const path = join(dir, ".agents/plans/workstreams", name);
+  const path = join(dir, ".doltap/plans/workstreams", name);
   mkdirSync(path, { recursive: true });
   writeFileSync(join(path, "README.md"), "# 대작업\n");
   writeFileSync(join(path, "status.md"), "# 상태\n");
@@ -30,7 +30,7 @@ function makeWorkstream(dir, name, extra = []) {
 
 // 아카이브로 옮긴 워크스트림. 파일 내용은 그때의 기록이라 자유 형식이다.
 function makeArchived(dir, name, files = {}) {
-  const path = join(dir, ".agents/archive/workstreams", name);
+  const path = join(dir, ".doltap/archive/workstreams", name);
   mkdirSync(path, { recursive: true });
   writeFileSync(join(path, "README.md"), "# 지난 대작업\n");
   for (const [file, body] of Object.entries(files)) writeFileSync(join(path, file), body);
@@ -43,11 +43,11 @@ function listCurrent(dir, ...names) {
     .map(
       (name) =>
         `- **${name}**\n` +
-        `  - 소개: \`.agents/plans/workstreams/${name}/README.md\`\n` +
-        `  - 상태: \`.agents/plans/workstreams/${name}/status.md\`\n`
+        `  - 소개: \`.doltap/plans/workstreams/${name}/README.md\`\n` +
+        `  - 상태: \`.doltap/plans/workstreams/${name}/status.md\`\n`
     )
     .join("");
-  writeFileSync(join(dir, ".agents/plans/current.md"), `# 현재 대작업\n\n${body}`);
+  writeFileSync(join(dir, ".doltap/plans/current.md"), `# 현재 대작업\n\n${body}`);
 }
 
 function messages(result) {
@@ -79,7 +79,7 @@ test("CLAUDE.md가 AGENTS.md로 이어지지 않으면 잡는다", () => {
 
 test("안내표가 없는 파일을 가리키면 잡는다", () => {
   const dir = project((d) =>
-    appendFileSync(join(d, "AGENTS.md"), "\n| 배포할 때 | `.agents/rules/deploy.md` |\n")
+    appendFileSync(join(d, "AGENTS.md"), "\n| 배포할 때 | `.doltap/rules/deploy.md` |\n")
   );
   try {
     const result = check(dir);
@@ -118,12 +118,12 @@ test("코드 블록과 주석 안의 경로는 검사하지 않는다", () => {
 // 새 규격의 필수 문서
 
 test("필수 문서가 빠지면 그 자리를 잡는다", () => {
-  const dir = project((d) => rmSync(join(d, ".agents/plans/ideas.md")));
+  const dir = project((d) => rmSync(join(d, ".doltap/plans/ideas.md")));
   try {
     const result = check(dir);
     assert.ok(
       result.problems.some(
-        (f) => f.where === ".agents/plans/ideas.md" && /필수 문서/.test(f.message)
+        (f) => f.where === ".doltap/plans/ideas.md" && /필수 문서/.test(f.message)
       ),
       messages(result)
     );
@@ -135,7 +135,7 @@ test("필수 문서가 빠지면 그 자리를 잡는다", () => {
 
 test("워크스트림에 status.md가 없고 current.md에도 안 적혔으면 둘 다 잡는다", () => {
   const dir = project((d) => {
-    const path = join(d, ".agents/plans/workstreams/004-search-rework");
+    const path = join(d, ".doltap/plans/workstreams/004-search-rework");
     mkdirSync(path, { recursive: true });
     writeFileSync(join(path, "README.md"), "# 대작업\n");
   });
@@ -170,8 +170,8 @@ test("plan.md·design.md·decisions.md는 없어도 문제가 아니고 있어�
 
 test("여러 줄짜리 안내는 메시지 열에 맞춰 들여쓴다", () => {
   const dir = project((d) => {
-    makeWorkstream(d, "001-cairn-setup");
-    listCurrent(d, "001-cairn-setup");
+    makeWorkstream(d, "001-doltap-setup");
+    listCurrent(d, "001-doltap-setup");
   });
   try {
     const lines = format(check(dir)).split("\n");
@@ -191,7 +191,7 @@ test("워크스트림 번호가 겹치면 잡는다", () => {
   const dir = project((d) => {
     makeWorkstream(d, "001-first");
     listCurrent(d, "001-first");
-    const path = join(d, ".agents/archive/workstreams/001-second");
+    const path = join(d, ".doltap/archive/workstreams/001-second");
     mkdirSync(path, { recursive: true });
     writeFileSync(join(path, "README.md"), "# 대작업\n");
   });
@@ -200,7 +200,7 @@ test("워크스트림 번호가 겹치면 잡는다", () => {
     assert.equal(result.problems.length, 1, messages(result));
     assert.match(result.problems[0].message, /번호 001 가/);
     assert.ok(
-      result.problems[0].where.startsWith(".agents/plans/workstreams/001-first"),
+      result.problems[0].where.startsWith(".doltap/plans/workstreams/001-first"),
       result.problems[0].where
     );
   } finally {
@@ -225,7 +225,7 @@ test("current.md에 적힌 워크스트림 폴더가 없으면 잡는다", () =>
 test("current.md의 주석 속 작성 예시는 적힌 것으로 세지 않는다", () => {
   const dir = project((d) =>
     writeFileSync(
-      join(d, ".agents/plans/current.md"),
+      join(d, ".doltap/plans/current.md"),
       "# 현재 대작업\n\n<!-- 예) - **004-search-rework** -->\n\n현재 진행 중인 워크스트림은 없습니다.\n"
     )
   );
@@ -240,7 +240,7 @@ test("current.md의 날짜는 대작업 번호로 세지 않는다", () => {
   const dir = project((d) => {
     makeWorkstream(d, "004-search-rework");
     listCurrent(d, "004-search-rework");
-    appendFileSync(join(d, ".agents/plans/current.md"), "\n2026-09-10 기준입니다.\n");
+    appendFileSync(join(d, ".doltap/plans/current.md"), "\n2026-09-10 기준입니다.\n");
   });
   try {
     assert.deepEqual(check(dir).problems, [], messages(check(dir)));
@@ -254,7 +254,7 @@ test("current.md가 지나간 대작업을 말로 언급해도 활성으로 세�
     makeWorkstream(d, "004-search-rework");
     listCurrent(d, "004-search-rework");
     appendFileSync(
-      join(d, ".agents/plans/current.md"),
+      join(d, ".doltap/plans/current.md"),
       "\n003-old-thing 은 지난달에 마쳤고 여기서 뺐습니다.\n"
     );
   });
@@ -270,7 +270,7 @@ test("current.md가 형식 없이 이름만 적어도 적힌 것으로 본다", 
   const dir = project((d) => {
     makeWorkstream(d, "004-search-rework");
     writeFileSync(
-      join(d, ".agents/plans/current.md"),
+      join(d, ".doltap/plans/current.md"),
       "# 현재 대작업\n\n지금은 004-search-rework 하나만 진행 중입니다.\n"
     );
   });
@@ -287,7 +287,7 @@ test("이름이 다른 이름의 일부로만 나오면 적힌 것으로 보지 
   const dir = project((d) => {
     makeWorkstream(d, "004-search");
     writeFileSync(
-      join(d, ".agents/plans/current.md"),
+      join(d, ".doltap/plans/current.md"),
       "# 현재 대작업\n\n지금은 004-search-rework 를 준비 중입니다.\n"
     );
   });
@@ -339,14 +339,14 @@ test("채우기 자리를 다 채우면 통과에 들어간다", () => {
   const dir = project((d) => {
     for (const file of [
       "AGENTS.md",
-      ".agents/project.md",
-      ".agents/plans/README.md",
-      ".agents/plans/current.md",
-      ".agents/plans/workstreams.md",
-      ".agents/plans/history.md",
-      ".agents/plans/ideas.md",
-      ".agents/rules/verification.md",
-      ".agents/rules/communication.md",
+      ".doltap/project.md",
+      ".doltap/plans/README.md",
+      ".doltap/plans/current.md",
+      ".doltap/plans/workstreams.md",
+      ".doltap/plans/history.md",
+      ".doltap/plans/ideas.md",
+      ".doltap/rules/verification.md",
+      ".doltap/rules/communication.md",
     ]) {
       const path = join(d, file);
       writeFileSync(path, readFileSync(path, "utf8").replace(/채우기|고르기|확인 필요/g, "정함"));
@@ -380,7 +380,7 @@ test("활성 문서에서 표식 모양을 인용해도 자리표시자로 세�
   try {
     const before = check(dir).notices.length;
     appendFileSync(
-      join(dir, ".agents/rules/communication.md"),
+      join(dir, ".doltap/rules/communication.md"),
       "\n실제 자리는 `<!-- 채우기: 무엇을 -->` 형태입니다.\n"
     );
     const after = check(dir);
@@ -396,7 +396,7 @@ test("아카이브 안의 문서는 검사하지 않는다", () => {
   const dir = project((d) =>
     makeArchived(d, "001-old", {
       "status.md":
-        "# 상태\n\n<!-- 채우기: 그때 채우던 자리 -->\n\n당시에는 `.agents/plans/gone.md` 와 .cairn 을 보고 있었습니다.\n",
+        "# 상태\n\n<!-- 채우기: 그때 채우던 자리 -->\n\n당시에는 `.doltap/plans/gone.md` 와 .doltap-bootstrap 을 보고 있었습니다.\n",
     })
   );
   try {
@@ -455,9 +455,9 @@ test("아카이브만 있고 진행 중인 대작업이 없어도 통과한다",
 test("history.md 가 없어진 아카이브를 가리키면 잡는다", () => {
   const dir = project((d) =>
     writeFileSync(
-      join(d, ".agents/plans/history.md"),
+      join(d, ".doltap/plans/history.md"),
       "# 대작업 이력\n\n| 기간 | 대작업 | 결과 | 기록 |\n| --- | --- | --- | --- |\n" +
-        "| 2026-01-01 | 지난 일 | 완료 | `.agents/archive/workstreams/001-gone/README.md` |\n"
+        "| 2026-01-01 | 지난 일 | 완료 | `.doltap/archive/workstreams/001-gone/README.md` |\n"
     )
   );
   try {
@@ -475,15 +475,15 @@ test("활성 문서가 지울 골격 안의 경로를 가리키면 알린다", (
     makeWorkstream(d, "004-search-rework");
     listCurrent(d, "004-search-rework");
     appendFileSync(
-      join(d, ".agents/plans/workstreams/004-search-rework/status.md"),
-      "\n원문은 `.cairn/APPLY.md` 에 있습니다.\n"
+      join(d, ".doltap/plans/workstreams/004-search-rework/status.md"),
+      "\n원문은 `.doltap-bootstrap/APPLY.md` 에 있습니다.\n"
     );
   });
   try {
     const result = check(dir);
-    const hit = result.notices.find((f) => /`\.cairn` 참조가/.test(f.message));
+    const hit = result.notices.find((f) => /`\.doltap-bootstrap` 참조가/.test(f.message));
     assert.ok(hit, messages(result));
-    assert.equal(hit.where, ".agents/plans/workstreams/004-search-rework/status.md");
+    assert.equal(hit.where, ".doltap/plans/workstreams/004-search-rework/status.md");
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
@@ -496,14 +496,14 @@ test("활성 문서가 골격 이름을 말로 설명하기만 하면 알리지 
     makeWorkstream(d, "004-search-rework");
     listCurrent(d, "004-search-rework");
     appendFileSync(
-      join(d, ".agents/plans/workstreams/004-search-rework/status.md"),
-      "\n줄에 `.cairn` 이 들어 있기만 하면 세던 것을 고쳤습니다.\n"
+      join(d, ".doltap/plans/workstreams/004-search-rework/status.md"),
+      "\n줄에 `.doltap-bootstrap` 이 들어 있기만 하면 세던 것을 고쳤습니다.\n"
     );
   });
   try {
     const result = check(dir);
     assert.ok(
-      !result.notices.some((f) => /`\.cairn` 참조가/.test(f.message)),
+      !result.notices.some((f) => /`\.doltap-bootstrap` 참조가/.test(f.message)),
       messages(result)
     );
   } finally {
@@ -511,12 +511,12 @@ test("활성 문서가 골격 이름을 말로 설명하기만 하면 알리지 
   }
 });
 
-test("적용을 마치고 지운 `.cairn` 을 세팅 기록이 가리켜도 문제가 아니다", () => {
+test("적용을 마치고 지운 `.doltap-bootstrap` 을 세팅 기록이 가리켜도 문제가 아니다", () => {
   const dir = project((d) => {
-    const path = join(d, ".agents/archive/workstreams/001-cairn-setup");
+    const path = join(d, ".doltap/archive/workstreams/001-doltap-setup");
     mkdirSync(path, { recursive: true });
-    writeFileSync(join(path, "README.md"), "# 대작업: cairn 구조 적용\n");
-    writeFileSync(join(path, "status.md"), "`.cairn/APPLY.md` 5단계의 문구를 정리했습니다.\n");
+    writeFileSync(join(path, "README.md"), "# 대작업: doltap 구조 적용\n");
+    writeFileSync(join(path, "status.md"), "`.doltap-bootstrap/APPLY.md` 5단계의 문구를 정리했습니다.\n");
   });
   try {
     const result = check(dir);
@@ -528,7 +528,7 @@ test("적용을 마치고 지운 `.cairn` 을 세팅 기록이 가리켜도 문�
 
 // 진입점
 
-test("AGENTS.md가 .agents/로 안내하지 않으면 잡는다", () => {
+test("AGENTS.md가 .doltap/로 안내하지 않으면 잡는다", () => {
   const dir = project((d) => writeFileSync(join(d, "AGENTS.md"), "# 프로젝트\n\n규칙만 여기 적었다.\n"));
   try {
     const result = check(dir);
@@ -569,7 +569,7 @@ test("문제가 있으면 종료 코드 1로 끝낸다", () => {
   const dir = project((d) => writeFileSync(join(d, "CLAUDE.md"), "빈 파일\n"));
   try {
     assert.throws(
-      () => execFileSync(process.execPath, [join(ROOT, "bin/cairn.mjs"), "check", dir], { encoding: "utf8" }),
+      () => execFileSync(process.execPath, [join(ROOT, "bin/doltap.mjs"), "check", dir], { encoding: "utf8" }),
       (error) => error.status === 1 && /AGENTS.md로 이어지지 않습니다/.test(error.stdout)
     );
   } finally {
@@ -581,16 +581,16 @@ test("문제가 있으면 종료 코드 1로 끝낸다", () => {
 
 test("세팅 워크스트림이 활성이면 골격 참조 검사의 한계를 알린다", () => {
   const dir = project((d) => {
-    makeWorkstream(d, "001-cairn-setup");
-    listCurrent(d, "001-cairn-setup");
+    makeWorkstream(d, "001-doltap-setup");
+    listCurrent(d, "001-doltap-setup");
   });
   try {
     const result = check(dir);
     assert.deepEqual(result.problems, [], messages(result));
     const hit = result.notices.find((f) => /적용이 진행 중입니다/.test(f.message));
     assert.ok(hit, messages(result));
-    assert.match(hit.message, /`\.cairn` 뒤에 경로가 이어진 것만 봅니다/);
-    assert.equal(hit.where, ".agents/plans/workstreams/001-cairn-setup");
+    assert.match(hit.message, /`\.doltap-bootstrap` 뒤에 경로가 이어진 것만 봅니다/);
+    assert.equal(hit.where, ".doltap/plans/workstreams/001-doltap-setup");
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
@@ -615,9 +615,9 @@ test("세팅 워크스트림이 없으면 그 안내를 내지 않는다", () =>
 
 test("아카이브로 옮긴 세팅 워크스트림은 그 안내를 내지 않는다", () => {
   const dir = project((d) => {
-    const path = join(d, ".agents/archive/workstreams/001-cairn-setup");
+    const path = join(d, ".doltap/archive/workstreams/001-doltap-setup");
     mkdirSync(path, { recursive: true });
-    writeFileSync(join(path, "README.md"), "# 대작업: cairn 구조 적용\n");
+    writeFileSync(join(path, "README.md"), "# 대작업: doltap 구조 적용\n");
     writeFileSync(join(path, "status.md"), "# 상태\n");
   });
   try {
@@ -630,4 +630,18 @@ test("아카이브로 옮긴 세팅 워크스트림은 그 안내를 내지 않�
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
+});
+
+test("current.md가 경로 형식만으로 적어도 적힌 것으로 본다", () => {
+  // 굵은 글씨와 경로 두 형식을 함께 쓰면 한쪽이 깨져도 다른 쪽이 가려 준다.
+  // 경로만 적어 그 형식 하나만으로도 읽히는지 본다.
+  const dir = project((d) => {
+    writeFileSync(
+      join(d, ".doltap/plans/current.md"),
+      "# 현재 대작업\n\n" +
+        "- 소개: `.doltap/plans/workstreams/004-gone/README.md`\n"
+    );
+  });
+  const found = messages(check(dir));
+  assert.match(found, /004-gone 이 적혀 있는데 그 폴더가 없습니다/);
 });

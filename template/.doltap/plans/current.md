@@ -8,8 +8,8 @@
      없으면 "현재 진행 중인 워크스트림은 없습니다."만 남깁니다.
 
 - **004-search-rework**
-  - 소개: `.agents/plans/workstreams/004-search-rework/README.md`
-  - 상태: `.agents/plans/workstreams/004-search-rework/status.md`
+  - 소개: `.doltap/plans/workstreams/004-search-rework/README.md`
+  - 상태: `.doltap/plans/workstreams/004-search-rework/status.md`
 -->
 
 현재 진행 중인 워크스트림은 없습니다.

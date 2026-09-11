@@ -26,7 +26,7 @@ import {
 } from "../lib/ids.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const OP = ".agents";
+const OP = ".doltap";
 
 function project() {
   const dir = mkdtempSync(join(tmpdir(), "doltap-ids-"));
@@ -276,7 +276,7 @@ test("새 아카이브 ID 를 처음부터 아카이브 상태로 기록한다",
     root: dir,
     operatingDir: OP,
     kind: "d",
-    path: ".agents/archive/workstreams/001/README.md",
+    path: ".doltap/archive/workstreams/001/README.md",
     initialState: "아카이브",
   });
   const row = readRegistry(dir, OP)[0];

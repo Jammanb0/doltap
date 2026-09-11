@@ -409,7 +409,7 @@ test("CLAUDE.md 에 다른 본문이 있으면 연결 노드를 만들지 않는
 
 test("관계로 가리킨 외부 문서를 관리 범위에 들인다", () => {
   const root = mkdtempSync(join(tmpdir(), "doltap-external-"));
-  mkdirSync(join(root, ".agents"), { recursive: true });
+  mkdirSync(join(root, ".doltap"), { recursive: true });
   mkdirSync(join(root, "docs"), { recursive: true });
   const body = [
     anchor(ids.secA, "start"),
@@ -468,7 +468,7 @@ test("관계로 가리켜도 숨김 폴더 문서는 관리 범위에 들이지 
 });
 
 test("관계로 가리켜도 복구와 의존성 폴더 문서는 관리 범위에 들이지 않는다", () => {
-  for (const target of [".agents/recovery/old.md", "node_modules/pkg/note.md"]) {
+  for (const target of [".doltap/recovery/old.md", "node_modules/pkg/note.md"]) {
     const root = mkdtempSync(join(tmpdir(), "doltap-skipped-target-"));
     mkdirSync(dirname(join(root, target)), { recursive: true });
     writeFileSync(join(root, target), doc(ids.docB, "제외 대상"));
@@ -496,11 +496,11 @@ test("관계로 가리켜도 마크다운이 아닌 파일은 관리 범위에 �
 
 test("운영 폴더 안의 숨김 폴더는 읽지 않는다", () => {
   const root = mkdtempSync(join(tmpdir(), "doltap-hidden-"));
-  mkdirSync(join(root, ".agents/.hidden"), { recursive: true });
-  mkdirSync(join(root, ".agents/recovery"), { recursive: true });
+  mkdirSync(join(root, ".doltap/.hidden"), { recursive: true });
+  mkdirSync(join(root, ".doltap/recovery"), { recursive: true });
   writeFileSync(join(root, "AGENTS.md"), doc(ids.docA, "규칙"));
-  writeFileSync(join(root, ".agents/.hidden/note.md"), "# 숨김\n");
-  writeFileSync(join(root, ".agents/recovery/old.md"), "# 복구 사본\n");
+  writeFileSync(join(root, ".doltap/.hidden/note.md"), "# 숨김\n");
+  writeFileSync(join(root, ".doltap/recovery/old.md"), "# 복구 사본\n");
   const paths = collectDocuments(root).map((d) => d.path);
   assert.deepEqual(paths, ["AGENTS.md"]);
 });

@@ -1,42 +1,42 @@
 # 적용 절차
 
-이 문서는 `cairn` 골격을 **이미 작업 중인 프로젝트**에 얹기 시작하는 안내입니다.
+이 문서는 `doltap` 골격을 **이미 작업 중인 프로젝트**에 얹기 시작하는 안내입니다.
 에이전트에게 읽혀도 되고, 사람이 직접 읽고 따라 해도 됩니다.
 
 에이전트에게 시킬 때는 이렇게 말하면 됩니다.
 
-> `.cairn/APPLY.md`를 읽고 이 프로젝트에 적용해줘. 기존 규칙과 기록은 보존하고,
+> `.doltap-bootstrap/APPLY.md`를 읽고 이 프로젝트에 적용해줘. 기존 규칙과 기록은 보존하고,
 > 지시 파일 변경안은 적용 전에 보여줘.
 
 ## 골격 위치
 
-이 문서가 쓰는 `.cairn/`은 **골격 위치**의 기본값입니다. 안내대로 대상 저장소
-옆에 클론했으면 그대로 따릅니다. 다른 이름이나 위치에 받았으면 `.cairn/`을 그
-경로로 바꿔 읽습니다. 포크했거나 cairn 저장소 자신에게 적용한다면 골격 위치는
-**대상 저장소 루트**이고, `.cairn/template/`은 `template/`으로 읽습니다.
+이 문서가 쓰는 `.doltap-bootstrap/`은 **골격 위치**의 기본값입니다. 안내대로 대상 저장소
+옆에 클론했으면 그대로 따릅니다. 다른 이름이나 위치에 받았으면 `.doltap-bootstrap/`을 그
+경로로 바꿔 읽습니다. 포크했거나 doltap 저장소 자신에게 적용한다면 골격 위치는
+**대상 저장소 루트**이고, `.doltap-bootstrap/template/`은 `template/`으로 읽습니다.
 
 형태에 따라 두 동작이 갈립니다.
 
 | 골격 위치의 형태 | `.gitignore` 등록 | 정리(삭제) |
 | --- | --- | --- |
-| 대상 저장소 안의 임시 클론 (기본 `.cairn/`) | 한다 | 한다 |
-| 대상 저장소 밖의 임시 클론 (예: `../cairn/`) | 안 한다 — 추적 대상이 아닙니다 | 한다 |
+| 대상 저장소 안의 임시 클론 (기본 `.doltap-bootstrap/`) | 한다 | 한다 |
+| 대상 저장소 밖의 임시 클론 (예: `../doltap/`) | 안 한다 — 추적 대상이 아닙니다 | 한다 |
 | 대상 저장소 밖에 원래 있던 골격 | 안 한다 | **하지 않습니다** |
 | 대상 저장소 자신 (포크·자기 적용) | 안 한다 | **하지 않습니다** |
 
 **정리 대상은 「이번 적용을 위해 받아 왔는가」로만 가릅니다.** 대상 저장소 밖에
-있다는 것은 근거가 되지 않습니다. 이미 있던 클론이나 사용자가 계속 쓰는 cairn
+있다는 것은 근거가 되지 않습니다. 이미 있던 클론이나 사용자가 계속 쓰는 doltap
 개발 저장소를 가리키고 있을 수 있습니다. 이번 적용을 위해 마련한 임시 골격이
 아니면 정리 대상이 아닙니다.
 
 **대상 저장소 루트를 정리 대상으로 삼지 않습니다.** 경로를 기계적으로 치환하면
-`rm -rf .cairn`이 `rm -rf .`이 되고 `git -C .cairn`이 `git -C .`이 됩니다.
+`rm -rf .doltap-bootstrap`이 `rm -rf .`이 되고 `git -C .doltap-bootstrap`이 `git -C .`이 됩니다.
 
 정한 값은 4번에서 세팅 워크스트림 문서에 적습니다. 그래야 이어받는 세션이 다시
 판단하지 않습니다. **경로는 개인정보가 들어가지 않는 상대 경로만 적습니다.**
 
 상대 경로라고 안전한 것이 아닙니다. 프로젝트가 `C:/work/app`이고 골격이
-`C:/Users/이름/cairn`이면 상대 경로는 `../Users/이름/cairn`이 되어 사용자
+`C:/Users/이름/doltap`이면 상대 경로는 `../Users/이름/doltap`이 되어 사용자
 이름이 그대로 들어갑니다. 경로에 사람 이름이나 계정 이름이 보이면 적지 말고
 비웁니다.
 
@@ -68,7 +68,7 @@
 빼면 판정할 것이 남지 않습니다.
 
 - 대상 루트에 실제 파일이 있는가 — 코드, 설정, 문서 무엇이든
-- 지시 파일이 있는가 — `AGENTS.md`, `CLAUDE.md`, `.agents/`, `.cursorrules`,
+- 지시 파일이 있는가 — `AGENTS.md`, `CLAUDE.md`, `.doltap/`, `.cursorrules`,
   `.github/copilot-instructions.md`, `.claude/rules/`
 - 진행 기록이 있는가 — `TODO.md`, `NOTES.md`, `ROADMAP.md`, `docs/` 아래 계획
   문서, 핸드오프 문서
@@ -84,7 +84,7 @@
 npx --yes github:Jammanb0/cairn init <폴더>
 ```
 
-이미 만들어 둔 빈 폴더 안이라면 `.cairn/template/`을 그대로 복사해도 같습니다.
+이미 만들어 둔 빈 폴더 안이라면 `.doltap-bootstrap/template/`을 그대로 복사해도 같습니다.
 그다음 `<!-- 채우기: -->` 자리를 채우면 끝입니다. 아래 절차는 밟지 않습니다.
 
 ### 기존 프로젝트라면 더 확인한다
@@ -92,7 +92,7 @@ npx --yes github:Jammanb0/cairn init <폴더>
 아래는 판정 근거가 아니라 **어떻게 적용할지 정하는 정보**입니다.
 
 - 지시 파일이 있다면 그 내용 — `CLAUDE.md`는 `@AGENTS.md` 한 줄인가 본문이
-  들어 있는가, `.agents/`는 cairn 구조인가 전혀 다른 구조인가
+  들어 있는가, `.doltap/`는 doltap 구조인가 전혀 다른 구조인가
 - 골격을 어디에 두었는가. 위의 네 형태 중 무엇인가
 - 현재 브랜치와 upstream, 원격 기본 브랜치
 - 작업 트리에 커밋하지 않은 변경이 있는가
@@ -102,22 +102,22 @@ npx --yes github:Jammanb0/cairn init <폴더>
 
 ## 1. 브랜치 후보와 다음 번호를 확인한다
 
-후보를 확인하는 방법은 `.cairn/template/.agents/plans/workstreams.md`의
+후보를 확인하는 방법은 `.doltap-bootstrap/template/.doltap/plans/workstreams.md`의
 「작업 위치를 정할 때」가 원본입니다. 0번에서 본 현재 브랜치와 upstream, 원격
 기본 브랜치를 근거로 삼습니다. 이 단계에서는 아직 작업 위치를 정하지 않고,
 근거가 부족하거나 후보가 여럿이면 2번의 질문에 선택지를 함께 보여줍니다.
 
-**다음 번호**는 `.agents/plans/workstreams/`와 `.agents/archive/workstreams/`
+**다음 번호**는 `.doltap/plans/workstreams/`와 `.doltap/archive/workstreams/`
 양쪽에 이미 쓰인 번호를 모두 확인해서 정합니다. 둘 다 없으면 `001`입니다. 세팅
-워크스트림의 이름은 `<번호>-cairn-setup`입니다.
+워크스트림의 이름은 `<번호>-doltap-setup`입니다.
 
 ---
 
 ## 2. 작업 위치와 원격 작업 흔적을 묻는다
 
-무엇을 어떤 순서로 묻는지는 `.cairn/template/.agents/plans/workstreams.md`의
+무엇을 어떤 순서로 묻는지는 `.doltap-bootstrap/template/.doltap/plans/workstreams.md`의
 「작업 위치를 정할 때」가 원본입니다. 그대로 따르되, 작업 브랜치 이름 자리에는
-`workstream/<번호>-cairn-setup`을 넣습니다.
+`workstream/<번호>-doltap-setup`을 넣습니다.
 
 **문서를 만들기 전에 묻습니다.** 그래야 정한 작업 위치와 기준·반영 대상 브랜치,
 원격 작업 흔적 여부가 4번의 부트스트랩 커밋에 함께 들어갑니다.
@@ -134,7 +134,7 @@ npx --yes github:Jammanb0/cairn init <폴더>
 
 - 0번 조사 결과 — 무엇이 이미 있고 무엇이 없는지
 - 새로 만들 파일과 기존 파일에서 고칠 부분
-- 기존 문서에서 `.agents/`로 옮길 내용의 개요
+- 기존 문서에서 `.doltap/`로 옮길 내용의 개요
 - **기록 이관으로 만들어질 워크스트림.** 진행 중인 작업이 있으면 그 수만큼
   워크스트림 폴더가 생깁니다. 몇 개가 어떤 이름으로 생기는지 여기서 함께
   승인받습니다. 이 승인이 `workstreams.md`가 요구하는 생성 허락을 대신합니다
@@ -165,7 +165,7 @@ npx --yes github:Jammanb0/cairn init <폴더>
 상태를 두 곳에 두는 것이 아닙니다.** 원본은 이정표가 되고 내용의 원본은
 옮긴 자리입니다. 그 줄에 어느 쪽이 원본인지 분명히 적습니다.
 
-### `.agents/`를 커밋할지 여기서 정합니다
+### `.doltap/`를 커밋할지 여기서 정합니다
 
 4번의 부트스트랩 커밋에 무엇이 들어갈지가 여기에 달려 있고, 두 선택은 결과가 다릅니다.
 
@@ -192,19 +192,19 @@ npx --yes github:Jammanb0/cairn init <폴더>
 기준 브랜치에서 아래를 배치합니다.
 
 1. 골격 문서를 놓습니다. 기존 파일은 덮어쓰지 않습니다.
-   - 없는 것만 `.cairn/template/`에서 가져옵니다.
-   - 이미 있는 `AGENTS.md`, `CLAUDE.md`, `.agents/`는 손대지 않고 그대로 둡니다.
+   - 없는 것만 `.doltap-bootstrap/template/`에서 가져옵니다.
+   - 이미 있는 `AGENTS.md`, `CLAUDE.md`, `.doltap/`는 손대지 않고 그대로 둡니다.
      이관은 세팅 워크스트림에서 합니다. 예외는 아래 5번의 연결 문구뿐입니다.
-   - 복사한 `AGENTS.md`가 있다면 `.agents/` 커밋 여부의 「고르기」 자리를 3번에서
+   - 복사한 `AGENTS.md`가 있다면 `.doltap/` 커밋 여부의 「고르기」 자리를 3번에서
      정한 결과로 바꿉니다.
 2. 세팅 워크스트림 폴더를 만듭니다. 이 워크스트림과 2단계에서 기록 이관으로
    생길 워크스트림은 모두 3번에서 승인받았습니다. 승인 목록에 없던 것을 새로
    만들어야 하면 그때는 따로 묻습니다.
 
    ```bash
-   mkdir -p .agents/plans/workstreams/<번호>-cairn-setup
-   cp .cairn/setup-workstream/*.md \
-      .agents/plans/workstreams/<번호>-cairn-setup/
+   mkdir -p .doltap/plans/workstreams/<번호>-doltap-setup
+   cp .doltap-bootstrap/setup-workstream/*.md \
+      .doltap/plans/workstreams/<번호>-doltap-setup/
    ```
 
    네 문서가 들어갑니다. `README.md`는 배경과 완료 조건, `status.md`는 골격
@@ -225,10 +225,10 @@ npx --yes github:Jammanb0/cairn init <폴더>
    경로는 셸 따옴표 없이 있는 그대로 적고, 인용은 명령을 만들 때 지금 쓰는
    셸에 맞게 합니다. 작업 위치와 기준·반영 대상 브랜치, 원격 작업 흔적도 `status.md`에
    적습니다. 대상 브랜치에서 직접 작업하면 원격 작업 흔적은 `해당 없음`입니다.
-4. 세팅이 어디 있는지 가리키는 줄을 `.agents/plans/current.md`에 넣습니다.
+4. 세팅이 어디 있는지 가리키는 줄을 `.doltap/plans/current.md`에 넣습니다.
    그 파일의 상태에 따라 갈라집니다.
-   - **없으면** `.cairn/template/`에서 가져와 만들고 이 세팅을 적습니다.
-   - **있고 cairn 형식이면** 항목을 더합니다.
+   - **없으면** `.doltap-bootstrap/template/`에서 가져와 만들고 이 세팅을 적습니다.
+   - **있고 doltap 형식이면** 항목을 더합니다.
    - **진행 상태를 다른 형식으로 이미 관리하고 있으면** 덮어쓰지 않습니다.
      어디에 어떻게 적을지 3번에서 승인받은 최소 방법을 씁니다. 정해진 것이
      없으면 사용자에게 묻습니다.
@@ -236,7 +236,7 @@ npx --yes github:Jammanb0/cairn init <폴더>
    어느 쪽이든 `README.md`와 `status.md`의 위치를 가리킵니다. 상세 상태는
    여기에 옮겨 적지 않습니다.
 5. **지금 쓰는 자동 지시 진입점 전부에서 세팅 워크스트림까지 이어지는지
-   확인합니다.** 부트스트랩 커밋이 있어도 진입점이 `.agents/`를 안내하지
+   확인합니다.** 부트스트랩 커밋이 있어도 진입점이 `.doltap/`를 안내하지
    않으면 새 세션은 세팅이 진행 중이라는 것을 모릅니다. 이 구조는 Codex와
    Claude Code를 함께 쓰므로 둘 다 봐야 합니다.
 
@@ -247,8 +247,8 @@ npx --yes github:Jammanb0/cairn init <폴더>
 
    이어지지 않는 진입점에 한 줄을 넣습니다.
 
-   > cairn 구조 적용이 진행 중입니다. 현재 상태는
-   > `.agents/plans/workstreams/<번호>-cairn-setup/status.md`에 있습니다.
+   > doltap 구조 적용이 진행 중입니다. 현재 상태는
+   > `.doltap/plans/workstreams/<번호>-doltap-setup/status.md`에 있습니다.
 
    지시 파일을 고치는 것이므로 3번에서 어느 파일에 무슨 문구를 넣을지까지
    승인받아 둡니다. 이 줄은 세팅이 끝날 때 정식 안내표로 정리합니다.
@@ -256,9 +256,9 @@ npx --yes github:Jammanb0/cairn init <폴더>
    부릅니다. 작업 위치, 기준 브랜치, 반영 대상 브랜치와 원격 작업 흔적 결정이
    이 커밋에 들어가야 나중에 이어받는 세션이 같은 방향으로 작업할 수 있습니다.
 
-   `.agents/`를 커밋하기로 했으면 계획 문서까지 이 커밋에 들어갑니다. 커밋하지
+   `.doltap/`를 커밋하기로 했으면 계획 문서까지 이 커밋에 들어갑니다. 커밋하지
    않기로 했어도 **부트스트랩 커밋 자체는 생깁니다.** 5번의 연결 문구,
-   `.gitignore`에 넣었다면 `.agents/`와 임시 골격 폴더, 새로 만든 `AGENTS.md`나
+   `.gitignore`에 넣었다면 `.doltap/`와 임시 골격 폴더, 새로 만든 `AGENTS.md`나
    `CLAUDE.md`는 추적되기 때문입니다. 빠지는 것은 계획 문서뿐이고, 그래서 이
    경우에는 5번의 연결 문구가 유일한 발견 경로가 됩니다.
 
@@ -267,14 +267,14 @@ npx --yes github:Jammanb0/cairn init <폴더>
    따릅니다. 별도 규칙이 없으면 스테이징된 파일과 커밋 메시지를 먼저 보여주고
    승인받은 뒤 커밋합니다. 3번의 파일 변경 승인이 커밋 승인까지 대신하지
    않습니다.
-7. 작업 브랜치를 만들기로 했으면 부트스트랩 커밋에서 `workstream/<번호>-cairn-setup`을
+7. 작업 브랜치를 만들기로 했으면 부트스트랩 커밋에서 `workstream/<번호>-doltap-setup`을
    만듭니다. 반영 대상 브랜치에서 직접 하기로 했으면 만들지 않습니다.
 
 ---
 
 ## 5. 나머지는 세팅 워크스트림을 따른다
 
-여기서부터는 `.agents/plans/workstreams/<번호>-cairn-setup/plan.md`가
+여기서부터는 `.doltap/plans/workstreams/<번호>-doltap-setup/plan.md`가
 안내합니다. 이관, 연결, 확인, 정리, 완료와 아카이브가 거기 있습니다. 진행하면서
 같은 폴더의 `status.md`를 갱신합니다.
 
@@ -284,9 +284,9 @@ npx --yes github:Jammanb0/cairn init <폴더>
 
 ## 적용 전과 적용 후
 
-cairn이 아직 놓이기 전에는 이 프로젝트에 워크스트림 규칙이 없습니다. 그래서
+doltap이 아직 놓이기 전에는 이 프로젝트에 워크스트림 규칙이 없습니다. 그래서
 0~4번은 이 문서가 직접 안내합니다.
 
-`.agents/plans/README.md`와 `.agents/plans/workstreams.md`가 자리를 잡고, 세팅
-워크스트림이 아카이브되고, 새 `AGENTS.md`와 `.agents/rules/`를 다시 읽은
+`.doltap/plans/README.md`와 `.doltap/plans/workstreams.md`가 자리를 잡고, 세팅
+워크스트림이 아카이브되고, 새 `AGENTS.md`와 `.doltap/rules/`를 다시 읽은
 뒤부터는 그 문서들이 원본입니다. 그 시점 이후로는 이 문서를 보지 않습니다.

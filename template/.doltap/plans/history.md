@@ -7,7 +7,7 @@
 | --- | --- | --- | --- |
 <!-- 채우기: 대작업을 마칠 때마다 한 줄씩 더합니다. 결과는 완료일 수도 취소일
      수도 있고, 어느 쪽이든 남깁니다.
-     예) | 2026-09-02~03 | 초기 파이프라인 구축 | 완료 — 무엇이 가능해졌는지 한 줄 | `.agents/archive/workstreams/001-initial-pipeline/README.md` |
-     예) | 2026-09-04 | 다국어 문서 | 취소 — 구조가 자주 바뀌어 번역이 계속 어긋남 | `.agents/archive/workstreams/003-i18n-docs/README.md` | -->
+     예) | 2026-09-02~03 | 초기 파이프라인 구축 | 완료 — 무엇이 가능해졌는지 한 줄 | `.doltap/archive/workstreams/001-initial-pipeline/README.md` |
+     예) | 2026-09-04 | 다국어 문서 | 취소 — 구조가 자주 바뀌어 번역이 계속 어긋남 | `.doltap/archive/workstreams/003-i18n-docs/README.md` | -->
 
 아직 마친 대작업이 없습니다.

@@ -9,7 +9,7 @@
 
 이름은 `doltap`으로 정해졌습니다. 아래 문법은 그 이름을 씁니다. 다만 **실제
 폴더와 명령 이름은 `plan.md` 5단계에서 바꿉니다.** 지금 이 저장소의 운영 폴더는
-여전히 `.agents/`입니다.
+여전히 `.doltap/`입니다.
 
 ## 27개 항목의 처리 결과
 
@@ -561,8 +561,8 @@ ID 발급과 상태 전환은 분리합니다. 기존 ID를 다시 확인하거�
 고칠 파일 3개, 줄 7개
 
 AGENTS.md:42
-- [작업 전 승인](.agents/rules/old.md#doltap-s-3q8m5k2p-start)
-+ [작업 전 승인](.agents/rules/verification.md#doltap-s-3q8m5k2p-start)
+- [작업 전 승인](.doltap/rules/old.md#doltap-s-3q8m5k2p-start)
++ [작업 전 승인](.doltap/rules/verification.md#doltap-s-3q8m5k2p-start)
 ```
 
 경로만 바꾸고 표시 이름은 건드리지 않습니다.

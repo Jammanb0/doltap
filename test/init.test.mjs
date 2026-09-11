@@ -9,14 +9,14 @@ import { fileURLToPath } from "node:url";
 import { check } from "../lib/check.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const CLI = join(ROOT, "bin/cairn.mjs");
+const CLI = join(ROOT, "bin/doltap.mjs");
 
 function run(args, options = {}) {
   return execFileSync(process.execPath, [CLI, ...args], { encoding: "utf8", ...options });
 }
 
 function workspace() {
-  return mkdtempSync(join(tmpdir(), "cairn-init-"));
+  return mkdtempSync(join(tmpdir(), "doltap-init-"));
 }
 
 test("골격을 만들고 프로젝트 이름을 채운다", () => {
@@ -34,14 +34,14 @@ test("골격을 만들고 프로젝트 이름을 채운다", () => {
 
     // 골격 문서가 빠짐없이 들어간다
     assert.deepEqual(
-      readdirSync(join(target, ".agents/rules")).sort(),
+      readdirSync(join(target, ".doltap/rules")).sort(),
       ["communication.md", "verification.md"]
     );
     assert.deepEqual(
-      readdirSync(join(target, ".agents/plans")).sort(),
+      readdirSync(join(target, ".doltap/plans")).sort(),
       ["README.md", "current.md", "history.md", "ideas.md", "workstreams.md"]
     );
-    assert.ok(existsSync(join(target, ".agents/project.md")));
+    assert.ok(existsSync(join(target, ".doltap/project.md")));
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }

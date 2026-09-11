@@ -27,9 +27,9 @@ Codex와 Claude Code를 함께 쓰며 며칠씩 이어지는 작업을 하는 �
 이미 돌아가는 프로젝트
   → APPLY.md: 조사 → 질문 → 승인 → 세팅 워크스트림 생성
   → 이관과 연결: 규칙은 AGENTS.md 하나, CLAUDE.md 는 "@AGENTS.md" 한 줄
-  → 따로 관리할 일은 .agents/plans/workstreams/<번호>-<이름>/ 에서 관리
-  → cairn check: 문서가 실제로 이어져 있는지 확인
-  → 마치면 history.md 에 한 줄, 폴더는 .agents/archive/ 로
+  → 따로 관리할 일은 .doltap/plans/workstreams/<번호>-<이름>/ 에서 관리
+  → doltap check: 문서가 실제로 이어져 있는지 확인
+  → 마치면 history.md 에 한 줄, 폴더는 .doltap/archive/ 로
 ```
 
 ## 책임지는 범위
@@ -37,21 +37,21 @@ Codex와 Claude Code를 함께 쓰며 며칠씩 이어지는 작업을 하는 �
 - `template/` — 복사해서 쓰는 문서 골격. 이 저장소의 진짜 산출물입니다.
 - `setup-workstream/` — 기존 프로젝트에 얹을 때 쓰는 세팅 워크스트림 골격.
 - `APPLY.md` — 기존 프로젝트에 적용하기 시작하는 절차.
-- `bin/cairn.mjs`와 `lib/check.mjs` — `cairn init`(새 폴더에 골격 넣기)과
-  `cairn check`(연결 검사).
+- `bin/doltap.mjs`와 `lib/check.mjs` — `doltap init`(새 폴더에 골격 넣기)과
+  `doltap check`(연결 검사).
 - npm 배포물. `package.json`의 `files`가 무엇이 나가는지 정합니다.
 
 ## 책임지지 않는 범위와 그 이유
 
-**적용된 프로젝트에 cairn 전용 런타임이나 상주 프로세스를 남기지 않습니다.**
-`cairn init`과 `cairn check`는 필요할 때 부르는 명령이고, 프로젝트에 남는 것은
+**적용된 프로젝트에 doltap 전용 런타임이나 상주 프로세스를 남기지 않습니다.**
+`doltap init`과 `doltap check`는 필요할 때 부르는 명령이고, 프로젝트에 남는 것은
 마크다운 문서뿐입니다. 이것이 성립 조건입니다 — 도구가 사라져도 문서는 남고,
 사람이 직접 읽고 관리할 수 있습니다.
 
 여기서 세 가지를 포기했습니다.
 
 - **다른 도구 형식으로 변환하지 않습니다.** Cursor나 Copilot이 읽는 형식으로
-  규칙을 생성·동기화하는 도구는 이미 있고 지원 범위도 넓습니다. cairn이 그
+  규칙을 생성·동기화하는 도구는 이미 있고 지원 범위도 넓습니다. doltap이 그
   자리에서 이길 이유가 없고, 생성 단계를 두는 순간 "원본이 하나라 어긋날 수가
   없다"는 장점을 스스로 버립니다. 대신 `AGENTS.md`와 `CLAUDE.md`를 읽는 도구로
   범위를 좁혔습니다.
@@ -62,7 +62,7 @@ Codex와 Claude Code를 함께 쓰며 며칠씩 이어지는 작업을 하는 �
   `AGENTS.md`의 「하지 않는 것」에도 적었습니다. 나머지 둘은 상황이 바뀌면
   다시 볼 수 있는 판단입니다.
 
-강제하지 않는 대신 **확인할 수 있게** 만들었습니다. `cairn check`가 그
+강제하지 않는 대신 **확인할 수 있게** 만들었습니다. `doltap check`가 그
 자리입니다. 연결이 끊긴 것은 종료 코드 1로 알리고, 사람이 판단할 것은 구분해서
 보여줍니다.
 
@@ -73,7 +73,7 @@ Codex와 Claude Code를 함께 쓰며 며칠씩 이어지는 작업을 하는 �
 - **문서마다 역할이 하나.** 프로젝트 설명, 대작업 소개, 현재 상태, 작업 계획,
   운영 절차를 한 파일에 섞지 않습니다. 어떤 파일이 무엇을 담는지는
   `plans/README.md`에 있습니다.
-- **자기 자신에게 적용한다.** 이 저장소의 `AGENTS.md`와 `.agents/`는 배포물이
+- **자기 자신에게 적용한다.** 이 저장소의 `AGENTS.md`와 `.doltap/`는 배포물이
   아니라 실제 운영 문서입니다. 골격을 고치면 여기서 먼저 씁니다.
 
 ## 기술 기반
@@ -89,7 +89,7 @@ Codex와 Claude Code를 함께 쓰며 며칠씩 이어지는 작업을 하는 �
 - 사용자용 소개와 설치 안내: 저장소 루트의 `README.md`, `README.en.md`
 - 무엇이 어디까지 검증됐는지: `docs/trials/README.md`
 - 품질·보안 규칙과 승인 범위: 저장소 `AGENTS.md`
-- 완료 전 검증 기준: `.agents/rules/verification.md`
+- 완료 전 검증 기준: `.doltap/rules/verification.md`
 
 이 문서에서는 위 규칙을 반복하지 않습니다. 아직 착수하지 않은 개선 후보는
 `plans/ideas.md`에 있습니다.

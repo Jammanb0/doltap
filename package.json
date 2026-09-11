@@ -1,10 +1,10 @@
 {
-  "name": "cairn-agents",
+  "name": "doltap",
   "version": "0.3.1",
   "description": "A markdown skeleton that keeps rules and context in place while working with AI coding agents",
   "type": "module",
   "bin": {
-    "cairn": "bin/cairn.mjs"
+    "doltap": "bin/doltap.mjs"
   },
   "files": [
     "bin",
