@@ -315,6 +315,25 @@ test("id 만 있는 앵커도 잡는다", () => {
   assert.match(parsed.problems[0].message, /name 이 없습니다/);
 });
 
+test("data-name 과 data-id 를 앵커 속성으로 오인하지 않는다", () => {
+  const text = [
+    `<a data-name="${ids.docA}-start" data-id="${ids.docA}-start"></a>`,
+    "본문",
+    `<a data-name="${ids.docA}-end" data-id="${ids.docA}-end"></a>`,
+  ].join("\n");
+  const parsed = parseDocument(text, "x.md");
+  assert.equal(parsed.ranges.length, 0);
+  assert.match(parsed.problems[0].message, /허용되지 않은 속성/);
+});
+
+test("같은 앵커 속성을 두 번 쓰면 잡는다", () => {
+  const parsed = parseDocument(
+    `<a name="${ids.docB}-start" name="${ids.docA}-start" id="${ids.docA}-start"></a>`,
+    "x.md"
+  );
+  assert.match(parsed.problems[0].message, /name 속성이 중복됐습니다/);
+});
+
 test("외부 주소의 조각을 관계 대상으로 인정하지 않는다", () => {
   // 남의 사이트 주소에 우리 ID 를 붙여도 이쪽 노드를 가리킬 수 없다.
   const body = [
@@ -369,6 +388,25 @@ test("CLAUDE.md 는 앵커 없이 연결 노드가 된다", () => {
   assert.equal(edge.to, ids.docA);
 });
 
+test("CLAUDE.md 가 없으면 새 스키마에서도 잡는다", () => {
+  const root = mkdtempSync(join(tmpdir(), "doltap-no-claude-"));
+  const documents = [{ path: "AGENTS.md", text: doc(ids.docA, "규칙") }];
+  writeFileSync(join(root, "AGENTS.md"), documents[0].text);
+  const result = checkGraph({ root, documents, entryPoints: ENTRY_POINTS });
+  assert.match(messages(result), /Claude Code가 규칙을 읽을 길이 없습니다/);
+  assert.ok(!result.graph.byId.has(CLAUDE_NODE));
+});
+
+test("CLAUDE.md 에 다른 본문이 있으면 연결 노드를 만들지 않는다", () => {
+  const root = mkdtempSync(join(tmpdir(), "doltap-bad-claude-"));
+  const documents = [{ path: "AGENTS.md", text: doc(ids.docA, "규칙") }];
+  writeFileSync(join(root, "AGENTS.md"), documents[0].text);
+  writeFileSync(join(root, "CLAUDE.md"), "@AGENTS.md\n별도 규칙\n");
+  const result = checkGraph({ root, documents, entryPoints: ENTRY_POINTS });
+  assert.match(messages(result), /한 줄이 아닙니다/);
+  assert.ok(!result.graph.byId.has(CLAUDE_NODE));
+});
+
 test("관계로 가리킨 외부 문서를 관리 범위에 들인다", () => {
   const root = mkdtempSync(join(tmpdir(), "doltap-external-"));
   mkdirSync(join(root, ".agents"), { recursive: true });
@@ -397,6 +435,62 @@ test("가리키지 않은 외부 문서는 들이지 않는다", () => {
   writeFileSync(join(root, "docs/unrelated.md"), "# 남의 문서\n");
   const collected = collectDocuments(root);
   assert.ok(!collected.some((d) => d.path === "docs/unrelated.md"));
+});
+
+test("관계가 저장소 밖을 가리켜도 외부 문서로 읽지 않는다", () => {
+  const parent = mkdtempSync(join(tmpdir(), "doltap-outside-"));
+  const root = join(parent, "repo");
+  mkdirSync(root);
+  writeFileSync(join(parent, "outside.md"), doc(ids.docB, "저장소 밖"));
+  writeFileSync(
+    join(root, "AGENTS.md"),
+    doc(ids.docA, `- \`references\` [밖](../outside.md#${ids.docB}-start)`)
+  );
+  const collected = collectDocuments(root);
+  assert.deepEqual(collected.map((d) => d.path), ["AGENTS.md"]);
+  const result = checkGraph({ root, documents: collected, entryPoints: ["AGENTS.md"] });
+  assert.match(messages(result), /관계가 가리키는 파일이 없습니다/);
+});
+
+test("관계로 가리켜도 숨김 폴더 문서는 관리 범위에 들이지 않는다", () => {
+  const root = mkdtempSync(join(tmpdir(), "doltap-hidden-target-"));
+  mkdirSync(join(root, ".secret"));
+  writeFileSync(join(root, ".secret/private.md"), doc(ids.docB, "비공개"));
+  writeFileSync(
+    join(root, "AGENTS.md"),
+    doc(ids.docA, `- \`references\` [숨김](.secret/private.md#${ids.docB}-start)`)
+  );
+  const collected = collectDocuments(root);
+  assert.deepEqual(collected.map((d) => d.path), ["AGENTS.md"]);
+  const result = checkGraph({ root, documents: collected, entryPoints: ["AGENTS.md"] });
+  assert.match(messages(result), /그래프 관리 범위 밖입니다/);
+});
+
+test("관계로 가리켜도 복구와 의존성 폴더 문서는 관리 범위에 들이지 않는다", () => {
+  for (const target of [".agents/recovery/old.md", "node_modules/pkg/note.md"]) {
+    const root = mkdtempSync(join(tmpdir(), "doltap-skipped-target-"));
+    mkdirSync(dirname(join(root, target)), { recursive: true });
+    writeFileSync(join(root, target), doc(ids.docB, "제외 대상"));
+    writeFileSync(
+      join(root, "AGENTS.md"),
+      doc(ids.docA, `- \`references\` [제외](${target}#${ids.docB}-start)`)
+    );
+    const collected = collectDocuments(root);
+    assert.deepEqual(collected.map((d) => d.path), ["AGENTS.md"], target);
+  }
+});
+
+test("관계로 가리켜도 마크다운이 아닌 파일은 관리 범위에 들이지 않는다", () => {
+  const root = mkdtempSync(join(tmpdir(), "doltap-non-markdown-"));
+  writeFileSync(join(root, "data.txt"), doc(ids.docB, "마크다운 아님"));
+  writeFileSync(
+    join(root, "AGENTS.md"),
+    doc(ids.docA, `- \`references\` [자료](data.txt#${ids.docB}-start)`)
+  );
+  const collected = collectDocuments(root);
+  assert.deepEqual(collected.map((d) => d.path), ["AGENTS.md"]);
+  const result = checkGraph({ root, documents: collected, entryPoints: ["AGENTS.md"] });
+  assert.match(messages(result), /그래프 관리 범위 밖입니다/);
 });
 
 test("운영 폴더 안의 숨김 폴더는 읽지 않는다", () => {
