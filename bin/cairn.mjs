@@ -8,6 +8,7 @@ import { basename, dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { check, format } from "../lib/check.mjs";
+import { ENTRY_POINTS, checkGraph, collectDocuments, toJson } from "../lib/graph-check.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const TEMPLATE = join(ROOT, "template");
@@ -16,6 +17,12 @@ const USAGE = `cairn — AI 코딩 에이전트와 일할 때 쓰는 문서 골�
 
   cairn init <폴더>   새 폴더를 만들고 골격을 넣습니다
   cairn check [폴더]  골격이 실제로 이어져 있는지 검사합니다 (기본값: 지금 폴더)
+
+검사 옵션
+
+  --json           기계가 읽는 출력
+  --schema next    아직 이관 중인 문서 그래프 규칙을 엄격하게 봅니다
+                   이관이 끝나면 이것이 기본이 되고 옵션은 사라집니다
 
 이미 작업 중인 프로젝트에는 init 을 쓰지 않습니다. 기존 규칙과 기록을
 살리면서 합쳐야 하므로 APPLY.md의 절차를 따릅니다.
@@ -95,12 +102,31 @@ async function init(rawTarget) {
 }
 
 // 문서가 서로 이어져 있는지 검사한다. 문제가 있으면 종료 코드 1로 끝낸다.
-function runCheck(rawTarget) {
+// `--schema next` 는 아직 이관하지 않은 그래프 규칙을 엄격하게 본다. 이관이
+// 끝나면 이것이 기본이 되고 옵션은 사라진다.
+function runCheck(args) {
+  const flags = args.filter((a) => a.startsWith("--"));
+  const rawTarget = args.find((a) => !a.startsWith("--") && a !== "next");
   const target = resolve(process.cwd(), rawTarget ?? ".");
   if (!existsSync(target)) fail(`그런 폴더가 없습니다: ${rawTarget}`);
 
-  const result = check(target);
-  process.stdout.write(format(result));
+  const at = args.indexOf("--schema");
+  const schema = at === -1 ? null : args[at + 1];
+  if (at !== -1 && schema !== "next") fail(`모르는 스키마입니다: ${schema ?? "(없음)"}`);
+  const asJson = flags.includes("--json");
+
+  const result =
+    schema === "next"
+      ? checkGraph({
+          root: target,
+          documents: collectDocuments(target),
+          entryPoints: ENTRY_POINTS,
+        })
+      : check(target);
+
+  // 사람용 출력과 기계용 출력은 같은 판정에서 만든다. 두 벌로 갈라지지 않게.
+  if (asJson) process.stdout.write(JSON.stringify(schema === "next" ? toJson(result) : result, null, 2) + "\n");
+  else process.stdout.write(format(result));
   if (result.problems.length) process.exit(1);
 }
 
@@ -111,7 +137,7 @@ if (!command || command === "-h" || command === "--help" || command === "help") 
 } else if (command === "init") {
   await init(rest[0]);
 } else if (command === "check") {
-  runCheck(rest[0]);
+  runCheck(rest);
 } else {
   fail(`모르는 명령입니다: ${command}\n\n${USAGE}`);
 }
