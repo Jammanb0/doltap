@@ -168,6 +168,20 @@ test('아카이브 검사는 문법 설명을 선언으로 세지 않고 자식 
  const r=inspect(root),problems=archiveCheck(r.graph,'.doltap/plans/workstreams/009-x');
  assert.equal(problems.length,1);assert.match(problems[0].message,/처리하지 않은.*doltap-s-/);
 });
+test('아카이브 검사는 결정마다 수명 표식을 요구하고 예시는 세지 않는다',()=>{
+ const path='.doltap/plans/workstreams/009-x/decisions.md',scope='.doltap/plans/workstreams/009-x';
+ const node=(p,body)=>({byId:new Map([['doltap-d-23456789',{id:'doltap-d-23456789',kind:'d',path:p,body,startLine:1,bodyStartLine:2,state:'active'}]]),incoming:new Map()});
+ const one=body=>{const problems=archiveCheck(node(path,body),scope);assert.equal(problems.length,1);return problems[0];};
+ const missing=one('## 한 결정\n\n본문만 있다');
+ assert.match(missing.message,/하나 선언하세요: 한 결정/);assert.equal(missing.where,path+':2');
+ assert.match(one('## 한 결정\n\n- `계속 유효` 활성 원본: GRAPH.md\n- `이번만` 겹친 선언').message,/하나 선언하세요/);
+ assert.match(one('## 한 결정\n\n- `계속 유효`').message,/담당 활성 원본을 같은 줄에/);
+ assert.match(one('## 한 결정\n\n```markdown\n- `이번만` 문법 예시\n```').message,/하나 선언하세요/);
+ for(const body of ['## 한 결정\n\n- `이번만` 이 대작업에서만 필요한 판단이다',
+  '## 한 결정\n\n- `계속 유효` 옮길 곳: GRAPH.md 「ID와 관계」\n\n```markdown\n- `이번만` 문법 예시\n```',
+  '# 결정\n\n머리말만 있고 결정 절이 없다']) assert.equal(archiveCheck(node(path,body),scope).length,0);
+ assert.equal(archiveCheck(node(scope+'/status.md','## 현재 단계\n\n진행 중'),scope).length,0);
+});
 test('project 설명 이관은 ID와 안팎의 상대 링크를 보존하고 반복 실행할 수 있다',()=>{
  const root=project(), old='.doltap/project.md', fresh='.doltap/plans/project.md';
  const before=inspect(root), id=documentId(before,fresh), idea=documentId(before,'.doltap/plans/ideas.md');
