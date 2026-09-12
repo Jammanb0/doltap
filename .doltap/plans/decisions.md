@@ -41,4 +41,11 @@ Git·에이전트 훅은 사용자가 필요할 때 연결합니다.
 
 - `governs` [workstreams.md](workstreams.md#doltap-d-rc8m43dj-start)
 
+## 프로젝트 설명의 위치
+
+프로젝트 방향과 작업을 한곳에서 찾도록 project.md를 plans/ 안에 둡니다.
+기존 ID는 유지합니다. 계획·공통 결정·아이디어·이력을 이미 이 폴더에서 관리하므로
+프로젝트 목적과 범위도 함께 찾도록 하는 사용자 결정입니다. 각 문서의 역할은 유지합니다.
+
+
 <a name="doltap-d-6fcpmxet-end" id="doltap-d-6fcpmxet-end"></a>

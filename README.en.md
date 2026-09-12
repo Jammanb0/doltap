@@ -43,7 +43,7 @@ Preserve the existing rules and records, and show me instruction-file changes fi
 | Location | Role |
 | --- | --- |
 | AGENTS.md · CLAUDE.md | Shared rules and tool entry points |
-| .doltap/project.md · rules/ | Project overview and detailed rules |
+| .doltap/plans/project.md · .doltap/rules/ | Project overview and detailed rules |
 | .doltap/plans/current.md | Active workstream locations |
 | .doltap/plans/decisions.md · ideas.md | Current project decisions, assumptions, and unstarted candidates |
 | .doltap/plans/workstreams/ | Workstream scope, status, and plans |

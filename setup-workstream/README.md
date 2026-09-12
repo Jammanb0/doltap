@@ -28,7 +28,7 @@
 - 문서 ID·관계·발급 기록이 일치하고 `doltap check`가 문제 0이다.
 - 적용 전에 있던 규칙 중 사라진 것이 없다. 옮긴 것은 옮긴 자리에 있다.
 - 같은 규칙이 두 곳에 원본으로 중복되어 있지 않다.
-- `.doltap/project.md`와 `.doltap/plans/current.md`가 빈 틀이 아니다.
+- `.doltap/plans/project.md`와 `.doltap/plans/current.md`가 빈 틀이 아니다.
   확인되지 않는 것은 `확인 필요`로 표시되어 있다.
 - 새 세션이 `.doltap/plans/current.md`를 스스로 찾아 읽고 진행 상황을 답한다.
 - 임시 골격을 클론했다면 정리되었고, 앞으로 계속 쓰는 활성 문서에 그 경로

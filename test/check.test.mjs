@@ -339,7 +339,7 @@ test("채우기 자리를 다 채우면 통과에 들어간다", () => {
   const dir = project((d) => {
     for (const file of [
       "AGENTS.md",
-      ".doltap/project.md",
+      ".doltap/plans/project.md",
       ".doltap/plans/README.md",
       ".doltap/plans/current.md",
       ".doltap/plans/workstreams.md",

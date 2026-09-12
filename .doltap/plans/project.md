@@ -3,7 +3,7 @@
 # 프로젝트
 
 > 이 프로젝트가 전체로서 무엇인지 설명합니다. 진행 중인 작업과 다음 행동은
-> `plans/current.md`가, 개별 대작업의 내용은 그 폴더의 `README.md`가 다룹니다.
+> `current.md`가, 개별 대작업의 내용은 그 폴더의 `README.md`가 다룹니다.
 
 ## 한 줄 요약
 
@@ -74,7 +74,7 @@ Codex와 Claude Code를 함께 쓰며 며칠씩 이어지는 작업을 하는 �
   `CLAUDE.md`가 `@AGENTS.md` 한 줄인 것도 같은 이유입니다.
 - **문서마다 역할이 하나.** 프로젝트 설명, 대작업 소개, 현재 상태, 작업 계획,
   운영 절차를 한 파일에 섞지 않습니다. 어떤 파일이 무엇을 담는지는
-  `plans/README.md`에 있습니다.
+  `README.md`에 있습니다.
 - **자기 자신에게 적용한다.** 이 저장소의 `AGENTS.md`와 `.doltap/`는 배포물이
   아니라 실제 운영 문서입니다. 골격을 고치면 여기서 먼저 씁니다.
 
@@ -95,6 +95,6 @@ Codex와 Claude Code를 함께 쓰며 며칠씩 이어지는 작업을 하는 �
 - 완료 전 검증 기준: `.doltap/rules/verification.md`
 
 이 문서에서는 위 규칙을 반복하지 않습니다. 아직 착수하지 않은 개선 후보는
-`plans/ideas.md`에 있습니다.
+`ideas.md`에 있습니다.
 
 <a name="doltap-d-0c9e0fds-end" id="doltap-d-0c9e0fds-end"></a>

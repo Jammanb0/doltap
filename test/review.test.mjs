@@ -28,14 +28,14 @@ test('첫 AGENTS 검토는 기록 파일 색인이 추가된 최종 그래프를
 });
 
 test('감사 후보는 발급·검토 메타데이터를 제외하고 모두 노드 검토가 가능하다', () => {
-  const root = project(); nodeReview(root, id(inspect(root), '.doltap/project.md'));
+  const root = project(); nodeReview(root, id(inspect(root), '.doltap/plans/project.md'));
   const candidates = query(root, '.', { changed: true }).candidates;
   assert.equal(candidates.some(n => n.path === '.doltap/ids.md' || n.path.startsWith('.doltap/reviews/')), false);
   for (const n of candidates) assert.doesNotThrow(() => reviewPlan(root, inspect(root).graph, n.id, { node: true, judgment: '최신임', why: '검토 가능한 본문임', actor: '에이전트' }));
 });
 
 test('감사의 관계·상태·레거시 필터가 재검토 목록에도 적용된다', () => {
-  const root = project(), r = inspect(root), a = id(r, 'AGENTS.md'), b = id(r, '.doltap/project.md'), c = id(r, '.doltap/plans/ideas.md');
+  const root = project(), r = inspect(root), a = id(r, 'AGENTS.md'), b = id(r, '.doltap/plans/project.md'), c = id(r, '.doltap/plans/ideas.md');
   mutate(root, () => linkPlan(root, a, b, 'depends-on'));
   mutate(root, () => linkPlan(root, a, c, 'derived-from'));
   assert.deepEqual(query(root, '.', { relation: 'depends-on' }).reviewRequired.map(e => e.type), ['depends-on']);
@@ -45,7 +45,7 @@ test('감사의 관계·상태·레거시 필터가 재검토 목록에도 적�
 });
 
 test('여러 출발점의 검토는 같은 대상 변경에도 서로 독립적이다', () => {
-  const root = project(), r = inspect(root), a = id(r, 'AGENTS.md'), b = id(r, '.doltap/project.md'), c = id(r, '.doltap/plans/ideas.md');
+  const root = project(), r = inspect(root), a = id(r, 'AGENTS.md'), b = id(r, '.doltap/plans/project.md'), c = id(r, '.doltap/plans/ideas.md');
   for (const from of [a, b]) mutate(root, () => linkPlan(root, from, c, 'depends-on'));
   const keys = [a, b].map(from => `${from}:depends-on:${c}`);
   for (const key of keys) edgeReview(root, key);
@@ -57,9 +57,9 @@ test('여러 출발점의 검토는 같은 대상 변경에도 서로 독립적�
 });
 
 test('한 출발점이 여러 대상을 가리켜도 변경된 대상의 관계만 만료된다', () => {
-  const root = project(), r = inspect(root), a = id(r, 'AGENTS.md'), b = id(r, '.doltap/project.md'), c = id(r, '.doltap/plans/ideas.md');
+  const root = project(), r = inspect(root), a = id(r, 'AGENTS.md'), b = id(r, '.doltap/plans/project.md'), c = id(r, '.doltap/plans/ideas.md');
   for (const to of [b, c]) { mutate(root, () => linkPlan(root, a, to, 'depends-on')); edgeReview(root, `${a}:depends-on:${to}`); }
-  const path = join(root, '.doltap/project.md'); writeFileSync(path, readFileSync(path, 'utf8').replace('# 프로젝트', '# 변경 프로젝트'));
+  const path = join(root, '.doltap/plans/project.md'); writeFileSync(path, readFileSync(path, 'utf8').replace('# 프로젝트', '# 변경 프로젝트'));
   const edges = inspect(root).graph.edges.filter(e => e.type === 'depends-on');
   assert.equal(edges.find(e => e.to === b).review.state, 'stale');
   assert.equal(edges.find(e => e.to === c).review.state, 'fresh');

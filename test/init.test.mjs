@@ -39,9 +39,9 @@ test("골격을 만들고 프로젝트 이름을 채운다", () => {
     );
     assert.deepEqual(
       readdirSync(join(target, ".doltap/plans")).sort(),
-      ["README.md", "current.md", "decisions.md", "history.md", "ideas.md", "workstreams.md"]
+      ["README.md", "current.md", "decisions.md", "history.md", "ideas.md", "project.md", "workstreams.md"]
     );
-    assert.ok(existsSync(join(target, ".doltap/project.md")));
+    assert.ok(existsSync(join(target, ".doltap/plans/project.md")));
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }

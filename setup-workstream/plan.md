@@ -25,16 +25,16 @@
 
 - 완료 전 확인 방법, 테스트·빌드 명령 → `.doltap/rules/verification.md`
 - 답변 방식, 설명 태도 → `.doltap/rules/communication.md`
-- 목적, 배경, 장기 방향, 범위의 상세 설명 → `.doltap/project.md`
+- 목적, 배경, 장기 방향, 범위의 상세 설명 → `.doltap/plans/project.md`
 
 **항상 지켜야 하는 제약은 `AGENTS.md`에 남깁니다.** 옮기는 것은 상세 설명이지
 제약 자체가 아닙니다. 특히 「하지 않는 것」은 작업 중에 매번 걸리는 선이라
-`AGENTS.md`에 짧게 남기고, 그렇게 정한 배경만 `.doltap/project.md`로 옮깁니다.
+`AGENTS.md`에 짧게 남기고, 그렇게 정한 배경만 `.doltap/plans/project.md`로 옮깁니다.
 
 | 성격 | 어디에 |
 | --- | --- |
 | 작업할 때마다 걸리는 제약, 금지 사항, 승인 규칙 | `AGENTS.md`에 짧게 |
-| 그 제약을 왜 정했는지, 배경과 장기 방향 | `.doltap/project.md` |
+| 그 제약을 왜 정했는지, 배경과 장기 방향 | `.doltap/plans/project.md` |
 | 특정 작업을 할 때만 필요한 절차와 체크리스트 | 해당 문서에 두고 `AGENTS.md` 안내표에서 가리킴 |
 
 기존 `.doltap/`가 doltap과 다른 구조라면 폴더를 지우지 말고 위 기준으로 내용만
@@ -90,7 +90,7 @@ ID를 다른 문서에 중복 사용하지 않습니다. 추가 범위와 관계
 
 ## 4. 현재 상태를 채운다
 
-`.doltap/project.md`와 `.doltap/plans/current.md`를 빈 틀로 두지 않습니다.
+`.doltap/plans/project.md`와 `.doltap/plans/current.md`를 빈 틀로 두지 않습니다.
 README, 코드, `git log`, 열린 이슈에서 확인되는 것으로 채웁니다. 확인되지 않는
 것은 `<!-- 확인 필요: 무엇을 -->`로 남기고 사람에게 무엇이 비었는지 알립니다.
 

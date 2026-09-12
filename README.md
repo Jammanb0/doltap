@@ -43,7 +43,7 @@ APPLY.md를 읽고 이 프로젝트에 적용해줘.
 | 위치 | 역할 |
 | --- | --- |
 | AGENTS.md · CLAUDE.md | 공통 규칙과 도구 진입점 |
-| .doltap/project.md · rules/ | 프로젝트 설명과 상세 규칙 |
+| .doltap/plans/project.md · .doltap/rules/ | 프로젝트 설명과 상세 규칙 |
 | .doltap/plans/current.md | 진행 중인 작업의 위치 |
 | .doltap/plans/decisions.md · ideas.md | 공통 결정·전제와 미착수 후보 |
 | .doltap/plans/workstreams/ | 작업별 소개·상태·계획 |

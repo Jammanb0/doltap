@@ -37,7 +37,7 @@ AI 코딩 에이전트와 일할 때 쓰는 문서 골격입니다. 규칙의 �
 | --- | --- |
 | 다 됐다고 보고하기 전 | `.doltap/rules/verification.md` |
 | 답변을 쓸 때 | `.doltap/rules/communication.md` |
-| 프로젝트 전체가 무엇인지 볼 때 | `.doltap/project.md` |
+| 프로젝트 전체가 무엇인지 볼 때 | `.doltap/plans/project.md` |
 | 지난 작업을 이어받을 때 | `.doltap/plans/current.md` |
 | 그 대작업이 무엇인지 처음 볼 때 | 그 대작업의 `README.md` |
 | 어디까지 왔는지 볼 때 | 그 대작업의 `status.md` |
@@ -56,7 +56,7 @@ AI 코딩 에이전트와 일할 때 쓰는 문서 골격입니다. 규칙의 �
 다시 적용할 상세 규칙을 둡니다. 이 경로 자체는 Codex나 Claude Code가 자동으로
 읽는 특별한 경로가 아니므로, 위의 시작 규칙과 안내표를 통해 읽도록 연결합니다.
 
-`.doltap/project.md`는 프로젝트 전체가 무엇인지 설명합니다.
+`.doltap/plans/project.md`는 프로젝트 전체가 무엇인지 설명합니다.
 
 `.doltap/plans/`에는 진행 중인 작업, 이력과 아이디어를 둡니다. 무엇이 진행
 중인지는 `current.md`가 가리키고, 그 대작업의 상세 상태는 폴더 안의
@@ -91,7 +91,7 @@ AI 코딩 에이전트와 일할 때 쓰는 문서 골격입니다. 규칙의 �
 - 검증하지 않은 것을 검증했다고 쓰지 않습니다. 특히 README와 릴리즈 노트처럼
   밖으로 나가는 글에서 그렇습니다.
 
-그렇게 정한 배경은 `.doltap/project.md`의 「책임지지 않는 범위와 그 이유」에
+그렇게 정한 배경은 `.doltap/plans/project.md`의 「책임지지 않는 범위와 그 이유」에
 있습니다.
 
 ## 보안과 개인정보
@@ -182,7 +182,7 @@ AI 코딩 에이전트와 일할 때 쓰는 문서 골격입니다. 규칙의 �
 - `indexes` [README.md](.doltap/plans/README.md#doltap-d-5mp1w6a0-start)
 
 - `indexes` [workstreams.md](.doltap/plans/workstreams.md#doltap-d-rc8m43dj-start)
-- `indexes` [project.md](.doltap/project.md#doltap-d-0c9e0fds-start)
+- `indexes` [project.md](.doltap/plans/project.md#doltap-d-0c9e0fds-start)
 
 - `indexes` [communication.md](.doltap/rules/communication.md#doltap-d-6f9g0m6k-start)
 - `indexes` [verification.md](.doltap/rules/verification.md#doltap-d-594dnf3v-start)

@@ -29,7 +29,7 @@
 | --- | --- |
 | 다 됐다고 보고하기 전 | `.doltap/rules/verification.md` |
 | 답변을 쓸 때 | `.doltap/rules/communication.md` |
-| 프로젝트 전체가 무엇인지 볼 때 | `.doltap/project.md` |
+| 프로젝트 전체가 무엇인지 볼 때 | `.doltap/plans/project.md` |
 | 지난 작업을 이어받을 때 | `.doltap/plans/current.md` |
 | 그 대작업이 무엇인지 처음 볼 때 | 그 대작업의 `README.md` |
 | 어디까지 왔는지 볼 때 | 그 대작업의 `status.md` |
@@ -48,7 +48,7 @@
 다시 적용할 상세 규칙을 둡니다. 이 경로 자체는 Codex나 Claude Code가 자동으로
 읽는 특별한 경로가 아니므로, 위의 시작 규칙과 안내표를 통해 읽도록 연결합니다.
 
-`.doltap/project.md`는 프로젝트 전체가 무엇인지 설명합니다.
+`.doltap/plans/project.md`는 프로젝트 전체가 무엇인지 설명합니다.
 
 `.doltap/plans/`에는 진행 중인 작업, 이력과 아이디어를 둡니다. 무엇이 진행
 중인지는 `current.md`가 가리키고, 그 대작업의 상세 상태는 폴더 안의
@@ -81,7 +81,7 @@
 ## 하지 않는 것
 
 <!-- 채우기: 작업 중에 매번 걸리는 선을 짧게 적습니다. 여기가 비어 있으면
-     범위가 계속 넓어집니다. 그렇게 정한 배경은 `.doltap/project.md`에
+     범위가 계속 넓어집니다. 그렇게 정한 배경은 `.doltap/plans/project.md`에
      적고, 여기에는 지켜야 할 선만 남깁니다.
      예) 사용자 데이터를 외부로 보내지 않습니다.
      예) 자동 배포는 하지 않습니다. 배포는 사람이 실행합니다. -->
@@ -154,7 +154,7 @@
 - `indexes` [README.md](.doltap/plans/README.md#doltap-d-1jx163t4-start)
 
 - `indexes` [workstreams.md](.doltap/plans/workstreams.md#doltap-d-9n1xyyne-start)
-- `indexes` [project.md](.doltap/project.md#doltap-d-f7wn4qdw-start)
+- `indexes` [project.md](.doltap/plans/project.md#doltap-d-f7wn4qdw-start)
 
 - `indexes` [communication.md](.doltap/rules/communication.md#doltap-d-vht1pg6m-start)
 - `indexes` [verification.md](.doltap/rules/verification.md#doltap-d-7eax2ctv-start)

@@ -9,7 +9,7 @@
 | ID | 종류 | 상태 | 경로 | 대체 | 삭제 이유 |
 | --- | --- | --- | --- | --- | --- |
 | doltap-b-js7yf5p8 | b | 활성 | .doltap/plans/decisions.md |  |  |
-| doltap-d-0c9e0fds | d | 활성 | .doltap/project.md |  |  |
+| doltap-d-0c9e0fds | d | 활성 | .doltap/plans/project.md |  |  |
 | doltap-d-0kk90ace | d | 활성 | docs/trials/README.md |  |  |
 | doltap-d-0r8gvxp9 | d | 아카이브 | .doltap/archive/legacy/workstreams/004-safe-apply/findings.md |  |  |
 | doltap-d-385jks6p | d | 아카이브 | .doltap/archive/legacy/workstreams/005-archive-scope/decisions.md |  |  |

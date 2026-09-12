@@ -26,7 +26,8 @@
 빠졌는지 확인했다.
 
 결과: 34개 파일이 패키지에 포함됐고, 초기화한 프로젝트의 check는 문제 0개·종료
-코드 0이었다. 공통 결정 문서도 template에서 복사됐다. docs·test·scripts·복구 자료와
+코드 0이었다. 공통 결정 문서와 plans/project.md도 template에서 복사됐다. 이전 위치의
+.doltap/project.md는 생성되지 않았다. docs·test·scripts·복구 자료와
 개발용 임시 파일은 패키지에 포함되지 않았다.
 
 ## 기존 화면 관찰

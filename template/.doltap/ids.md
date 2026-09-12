@@ -13,7 +13,7 @@
 | doltap-d-7eax2ctv | d | 활성 | .doltap/rules/verification.md |  |  |
 | doltap-d-9n1xyyne | d | 활성 | .doltap/plans/workstreams.md |  |  |
 | doltap-d-c0pdq70r | d | 활성 | .doltap/plans/decisions.md |  |  |
-| doltap-d-f7wn4qdw | d | 활성 | .doltap/project.md |  |  |
+| doltap-d-f7wn4qdw | d | 활성 | .doltap/plans/project.md |  |  |
 | doltap-d-ghzk4mrf | d | 활성 | AGENTS.md |  |  |
 | doltap-d-kjhnpmpa | d | 활성 | .doltap/ids.md |  |  |
 | doltap-d-mv4e7sph | d | 활성 | .doltap/plans/current.md |  |  |
