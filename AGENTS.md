@@ -186,13 +186,13 @@ AI 코딩 에이전트와 일할 때 쓰는 문서 골격입니다. 규칙의 �
 - `indexes` [verification.md](.doltap/rules/verification.md#doltap-d-594dnf3v-start)
 
 - `indexes` [ids.md](.doltap/ids.md#doltap-d-ypvp294p-start)
-- `indexes` [검토 기록](.doltap/reviews/2026.md#doltap-d-4n18ze4a-start)
+- `indexes` [감사 제안](.doltap/reviews/2026.md#doltap-d-4n18ze4a-start)
 
 - `indexes` [decisions.md](.doltap/plans/decisions.md#doltap-d-6fcpmxet-start)
 - `indexes` [document-graph-design.md](docs/document-graph-design.md#doltap-d-knwnrg0q-start)
 
 - `indexes` [README.md](docs/trials/README.md#doltap-d-0kk90ace-start)
 
-- `indexes` [검토 기록](.doltap/reviews/reviewed.md#doltap-d-q2saepp4-start)
+- `indexes` [현재 검토](.doltap/reviews/reviewed.md#doltap-d-q2saepp4-start)
 
 <a name="doltap-d-wcqyb49m-end" id="doltap-d-wcqyb49m-end"></a>
