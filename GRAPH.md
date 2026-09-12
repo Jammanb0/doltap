@@ -10,7 +10,9 @@ ID는 제목이나 파일 위치가 바뀌어도 그 노드를 구별하는 이�
 마크다운이 원본입니다. `map`의 JSON은 언제든 다시 만들 수 있습니다.
 Node.js 22 이상이면 외부 패키지·AI 키·Git 없이 실행할 수 있습니다.
 아래 `doltap`은 이 버전의 CLI입니다. 소스 폴더에서는 `node bin/doltap.mjs`로
-바꿔 실행합니다. 다른 프로젝트를 다룰 때는 `--root <프로젝트 경로>`를 붙입니다.
+바꿔 실행합니다. `check`, `migrate`, `move-fix`, `map`은 프로젝트 폴더를 위치
+인수로 받을 수 있습니다. ID를 받는 `context`, `link`, `review` 같은 명령에서 다른
+프로젝트를 다룰 때는 `--root <프로젝트 경로>`를 붙입니다.
 `<ID>`·`<파일>`은 실제 값으로 바꾸며 꺾쇠 자체는 입력하지 않습니다.
 
 ## 읽기
@@ -108,6 +110,10 @@ doltap archive-check .doltap/plans/workstreams/009-example
 이동은 프로젝트의 승인 절차를 따릅니다. 아카이브 뒤에는 current 색인을 제거하고
 history 색인을 연결한 뒤 `move-fix`와 `check`를 실행합니다.
 
+이 검사는 위 표식을 기계적으로 확인할 뿐, 일반 문장의 뜻을 읽어 공통 결정인지
+판단하거나 내용을 다른 문서로 옮기지는 않습니다. 어떤 내용을 활성 원본에 남길지는
+사람이나 에이전트가 판단하고, 검사는 그 결과의 ID·관계와 명시한 상태를 확인합니다.
+
 계속 유효한 결정과 전제는 먼저 담당 활성 원본에 옮깁니다. 공통 결정은
 `plans/decisions.md`, 규칙은 `AGENTS.md`·`rules/`, 미착수 후보는 `ideas.md`가
 맡습니다. 아카이브 연결은 당시 근거가 필요할 때 남깁니다. ID를 유지해 옮겼다면
@@ -192,6 +198,10 @@ type = "command"
 command = "node /DOLTAP_CHECKOUT/bin/doltap-hook.mjs"
 ```
 
+프로젝트의 `.codex/`가 신뢰된 상태여야 하며, 새로 만들거나 바꾼 훅은 Codex
+CLI의 `/hooks`에서 내용을 확인하고 신뢰해야 실행됩니다. 승인 전에는 Codex가
+그 훅을 건너뜁니다.
+
 Claude Code의 `.claude/settings.json`에는 아래 항목을 기존 설정에 합칩니다.
 
 ```json
@@ -208,7 +218,7 @@ Claude Code의 `.claude/settings.json`에는 아래 항목을 기존 설정에 �
 공백 경로는 명령 문자열 안에서도 인용합니다. 어댑터는 stdin의 `cwd`에서 같은 검사를
 실행하고 Stop 출력 JSON으로 문제를 돌려줍니다. 재호출에는 `{}`로 응답해 반복을
 막습니다. 공식 형식은 [Codex Hooks](https://learn.chatgpt.com/docs/hooks)와
-[Claude Hooks](https://code.claude.com/docs/en/hooks)를 2026-09-11에 확인했습니다.
+[Claude Hooks](https://code.claude.com/docs/en/hooks)를 2026-09-12에 확인했습니다.
 어댑터는 로컬 입력으로 시험했으며 실제 사용자 설정에 설치해 실행한 검증은 아닙니다.
 
 제거할 때는 추가한 Git 명령이나 해당 Stop 항목만 뺍니다. 원래 있던 설정과 다른 훅은

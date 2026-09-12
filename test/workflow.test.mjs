@@ -156,6 +156,11 @@ test('아카이브 검사는 미해결·이월 연결·폐기 이유를 구분�
   const graph=body=>({byId:new Map([[id,{id,path:'.doltap/plans/workstreams/009-x/status.md',body,startLine:1,state:'active'}]]),incoming:new Map()});
   for(const body of ['`전제` a\n`상태` 미해결','`전제` a\n`상태` 이월','`전제` a\n`상태` 폐기']) assert.equal(archiveCheck(graph(body),'.doltap/plans/workstreams/009-x').length,1);
   for(const body of ['`전제` a\n`상태` 해결','`전제` a\n`상태` 폐기\n`이유` 더 이상 쓰지 않음']) assert.equal(archiveCheck(graph(body),'.doltap/plans/workstreams/009-x').length,0);
+  const carried=graph('`전제` a\n`상태` 이월'), source={id:'doltap-b-87654321',path:'.doltap/plans/decisions.md',body:'',startLine:1,state:'active'};
+  carried.byId.set(source.id,source);carried.incoming.set(id,[{from:source.id}]);
+  assert.equal(archiveCheck(carried,'.doltap/plans/workstreams/009-x').length,0);
+  source.state='archived';assert.equal(archiveCheck(carried,'.doltap/plans/workstreams/009-x').length,1);
+  source.state='active';source.path='.doltap/plans/workstreams/009-x/README.md';assert.equal(archiveCheck(carried,'.doltap/plans/workstreams/009-x').length,1);
 });
 test('아카이브 검사는 문법 설명을 선언으로 세지 않고 자식 범위만 판정한다',()=>{
  const root=fixture({'AGENTS.md':'# 규칙','CLAUDE.md':'@AGENTS.md','.doltap/plans/workstreams/009-x/README.md':'# 작업\n\n전제의 문법은 `전제`입니다.\n\n- `` `열린 질문` `` 표식 설명\n\n## 항목\n\n- `전제` 아직 확인하지 않음\n- `상태` 미해결'});

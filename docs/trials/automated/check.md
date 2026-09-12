@@ -9,8 +9,9 @@
 - 실행: `node --test --test-reporter=tap test/check.test.mjs`
 - 실행일: 2026-09-12 (Asia/Seoul)
 - 환경: Node v22.14.0, win32 x64
-- 대상: 이 보고서와 함께 커밋된 코드와 템플릿
-- 시험 파일 SHA-256: `494ae61ed80da7be9d8a2ef6c647a69c05334a57a401a7a4dee8beb02c1e903f`
+- 시험 대상: 이 명령을 실행한 시점의 작업 트리
+- 판정 기준: 종료 코드 0, TAP의 전체·통과·나열된 하위 시험 수가 모두 일치
+- 시험 파일 SHA-256: `494ae61ed80da7be9d8a2ef6c647a69c05334a57a401a7a4dee8beb02c1e903f` (시험 파일만 식별하며 구현 전체의 해시는 아님)
 
 ## 결과
 

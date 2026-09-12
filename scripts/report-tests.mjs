@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const checkOnly = process.argv.includes('--check');
 const suites = {
   check: ['기존 문서 구조', '필수 파일·경로·current 색인·번호 충돌을 바꾼 임시 문서를 검사한다. 유효한 입력과 무시해야 할 예시·아카이브를 함께 비교한다.', '이 파일은 기존 구조 검사 함수의 시험이다. 최종 CLI의 그래프 검사는 graph·workflow 시험과 함께 해석한다.'],
   graph: ['범위와 관계 파싱', '메모리 문서와 임시 파일에 정상·중복·교차 ID, 일반 링크와 관계 링크를 넣고 노드·엣지·오류를 대조한다.', 'Markdown 전체 표준 구현이나 자연어 관계의 타당성을 검증하는 시험은 아니다.'],
@@ -15,19 +16,33 @@ const suites = {
   review: ['검토·감사 회귀', '첫 검토, 관리 메타데이터, 필터, 경로 표기, 손상 기록을 재현한다. 다대일·일대다 관계의 검토 상태 변화를 각각 확인한다.', '검토 기록은 내용의 참이나 사용자 승인을 인증하지 않는다. 관계별 상태 계산의 독립성을 검증한다.'],
 };
 let total = 0;
-mkdirSync(resolve(root, 'docs/trials/automated'), { recursive: true });
+if (!checkOnly) mkdirSync(resolve(root, 'docs/trials/automated'), { recursive: true });
 for (const [name, [title, method, limit]] of Object.entries(suites)) {
   const file = `test/${name}.test.mjs`;
   const run = spawnSync(process.execPath, ['--test', '--test-reporter=tap', file], { cwd: root, encoding: 'utf8', windowsHide: true });
-  if (run.status !== 0) { process.stderr.write(`${file}: 실패. node --test ${file}로 상세 출력을 확인하세요.\n`); process.exit(1); }
+  if (run.status !== 0) {
+    process.stderr.write(`${file}: 실패 (종료 코드 ${run.status ?? '없음'})\n`);
+    if (run.error) process.stderr.write(`${run.error.message}\n`);
+    if (run.signal) process.stderr.write(`종료 신호: ${run.signal}\n`);
+    if (run.stdout) process.stderr.write(run.stdout);
+    if (run.stderr) process.stderr.write(run.stderr);
+    process.exit(1);
+  }
   const count = Number(run.stdout.match(/^# tests (\d+)$/m)?.[1]);
   const passed = Number(run.stdout.match(/^# pass (\d+)$/m)?.[1]);
   const cases = [...run.stdout.matchAll(/^# Subtest: (.+)$/gm)].map(m => m[1]);
   if (!count || passed !== count || cases.length !== count) throw new Error(`판정 수 불일치: ${file}`);
   const hash = createHash('sha256').update(readFileSync(resolve(root, file))).digest('hex');
   const date = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Seoul' }).format(new Date());
-  const report = `# ${title} 시험\n\n[시험 보고서 목록](../README.md) · [시험 원본](../../../${file})\n\n## 방법\n\n${method}\n\n- 실행: \`node --test --test-reporter=tap ${file}\`\n- 실행일: ${date} (Asia/Seoul)\n- 환경: Node ${process.version}, ${process.platform} ${process.arch}\n- 대상: 이 보고서와 함께 커밋된 코드와 템플릿\n- 시험 파일 SHA-256: \`${hash}\`\n\n## 결과\n\n${count}개 실행, ${passed}개 통과, 실패·건너뜀 0개. 다음은 실제 러너가 출력한 시험 이름이다.\n\n| 번호 | 시험 | 결과 |\n| --- | --- | --- |\n${cases.map((title, i) => `| ${i + 1} | ${title.replaceAll('|', '&#124;')} | 통과 |`).join('\n')}\n\n## 해석 범위\n\n${limit}\n`;
-  writeFileSync(resolve(root, `docs/trials/automated/${name}.md`), report);
-  total += count; process.stdout.write(`${file}: ${passed}/${count}\n`);
+  const caseRows = cases.map((title, i) => `| ${i + 1} | ${title.replaceAll('|', '&#124;')} | 통과 |`);
+  const reportPath = resolve(root, `docs/trials/automated/${name}.md`);
+  const report = `# ${title} 시험\n\n[시험 보고서 목록](../README.md) · [시험 원본](../../../${file})\n\n## 방법\n\n${method}\n\n- 실행: \`node --test --test-reporter=tap ${file}\`\n- 실행일: ${date} (Asia/Seoul)\n- 환경: Node ${process.version}, ${process.platform} ${process.arch}\n- 시험 대상: 이 명령을 실행한 시점의 작업 트리\n- 판정 기준: 종료 코드 0, TAP의 전체·통과·나열된 하위 시험 수가 모두 일치\n- 시험 파일 SHA-256: \`${hash}\` (시험 파일만 식별하며 구현 전체의 해시는 아님)\n\n## 결과\n\n${count}개 실행, ${passed}개 통과, 실패·건너뜀 0개. 다음은 실제 러너가 출력한 시험 이름이다.\n\n| 번호 | 시험 | 결과 |\n| --- | --- | --- |\n${caseRows.join('\n')}\n\n## 해석 범위\n\n${limit}\n`;
+  if (checkOnly) {
+    const saved = readFileSync(reportPath, 'utf8');
+    // Preserve the original run date/environment while comparing the complete report.
+    const comparable = text => text.replace(/\r\n/g, '\n').replace(/^- (?:실행일|환경):.*\n/gm, '');
+    if (comparable(saved) !== comparable(report)) throw new Error(`보고서가 현재 시험과 다릅니다: docs/trials/automated/${name}.md`);
+  } else writeFileSync(reportPath, report);
+  total += count; process.stdout.write(`${file}: ${checkOnly ? '보고서 일치' : `${passed}/${count}`}\n`);
 }
-process.stdout.write(`합계: ${total}개 통과\n`);
+process.stdout.write(checkOnly ? `합계: ${total}개 시험의 보고서 일치\n` : `합계: ${total}개 통과\n`);
