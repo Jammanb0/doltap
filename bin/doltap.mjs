@@ -12,7 +12,7 @@ import { fullCheck, inspect } from '../lib/runtime.mjs';
 import { migratePlan, idPlan, linkPlan, moveFixPlan } from '../lib/edit.mjs';
 import { mutate, preview, recover, safePath } from '../lib/transaction.mjs';
 import { reviewPlan, suggestionPlan } from '../lib/state.mjs';
-import { archiveCheck, deletePlan, deleteFixPlan } from '../lib/lifecycle.mjs';
+import { archiveCheck, deletePlan, deleteFixPlan, deleteFolderPlan, pruneEmptyFolders } from '../lib/lifecycle.mjs';
 import { mapResult, context, audit, formatQuery } from '../lib/query.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -29,6 +29,7 @@ const USAGE = `doltap — AI 코딩 에이전트와 일할 때 쓰는 문서 골
   doltap recover <실행 ID> [--apply|--discard]
   doltap archive-check <폴더>  전제·열린 질문 처리 여부를 검사합니다
   doltap delete <ID> --mode replace|tombstone|purge --why 이유 [--to ID] [--apply]
+  doltap delete <폴더> --mode purge --why 이유 [--drop-links] [--apply]
   doltap delete-fix <ID|경로> --why 이유 [--drop-links] [--apply]
   doltap review <ID> [--node] --as 판단 --why 이유 --actor 사람|에이전트 [--apply]
   doltap map [폴더] [--json]
@@ -157,7 +158,7 @@ function runGraph(command, args) {
   const o = options(args), arg = o.positional[0];
   const root = resolve(o.root ?? (['migrate','move-fix','map'].includes(command) ? arg ?? '.' : '.'));
   const numeric = name => o[name] === undefined ? undefined : Number(o[name]);
-  let plan, output;
+  let plan, output, folderDetails;
   if (command === 'recover') output = recover(root, arg, { apply: o.apply, discard: o.discard });
   else if (command === 'migrate') plan = () => migratePlan(root);
   else if (command === 'id') plan = () => idPlan(root, arg, { kind: o.kind, at: o.at, end: o.end });
@@ -172,7 +173,11 @@ function runGraph(command, args) {
       if (!arg || !existsSync(safePath(root, arg))) throw new Error('검사할 워크스트림 경로가 필요합니다');
       output = { problems: archiveCheck(graph, arg.replaceAll('\\', '/').replace(/\/$/, '')) };
     }
-    else if (command === 'delete') plan = () => deletePlan(root, inspect(root).graph, arg, { mode: o.mode, replacement: o.to, why: o.why });
+    else if (command === 'delete') plan = () => {
+      if (!arg || arg.startsWith('doltap-')) return deletePlan(root, inspect(root).graph, arg, { mode:o.mode, replacement:o.to, why:o.why });
+      const {changes,...details}=deleteFolderPlan(root,inspect(root).graph,arg,{mode:o.mode,why:o.why,dropLinks:o['drop-links']});
+      folderDetails=details;return changes;
+    };
     else if (command === 'delete-fix') plan = () => deleteFixPlan(root, inspect(root).graph, arg, { why: o.why, dropLinks: o['drop-links'] });
     else if (command === 'review') plan = () => reviewPlan(root, inspect(root).graph, arg, { judgment: o.as, why: o.why, actor: o.actor, node: o.node });
     else if (command === 'suggest') plan = () => suggestionPlan(root, inspect(root).graph, arg, o.to, o.relation, { judgment: o.as, why: o.why, actor: o.actor, evidence: o.evidence });
@@ -184,6 +189,7 @@ function runGraph(command, args) {
     if (o.apply) output = mutate(root, () => { const changes = plan(); diff = preview(changes); if (!o.json) process.stdout.write(diff + '\n'); return changes; });
     else { diff = preview(plan()); if (!o.json) process.stdout.write(diff + '\n'); output = { applied: false, message: '미리보기입니다. --apply에서 적용합니다' }; }
     if (o.json) output = { ...output, preview: diff };
+    if (folderDetails) output = {...output,...folderDetails,...(o.apply ? pruneEmptyFolders(root,folderDetails.scope) : {})};
   }
   process.stdout.write(o.json ? JSON.stringify(output, null, 2) + '\n' : formatQuery(output));
   if (output?.problems?.length || output?.errors?.length) process.exitCode = 1;

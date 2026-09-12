@@ -177,6 +177,13 @@ test('아카이브 검사는 결정마다 수명 표식을 요구하고 예시�
  assert.match(one('## 한 결정\n\n- `계속 유효` 활성 원본: GRAPH.md\n- `이번만` 겹친 선언').message,/하나 선언하세요/);
  assert.match(one('## 한 결정\n\n- `계속 유효`').message,/담당 활성 원본을 같은 줄에/);
  assert.match(one('## 한 결정\n\n```markdown\n- `이번만` 문법 예시\n```').message,/하나 선언하세요/);
+ assert.match(one('## 한 결정\n<!--\n- `이번만`\n-->').message,/하나 선언하세요/);
+ assert.match(one('## 한 결정\n<!-- 끝나지 않은 주석\n- `이번만`').message,/하나 선언하세요/);
+ assert.equal(archiveCheck(node(path,'## 결정\n- `이번만`\n<!--\n## 주석 속 결정\n- `계속 유효`\n-->'),scope).length,0);
+ assert.equal(archiveCheck(node(path,'## 결정\n```html\n<!--\n```\n- `이번만`'),scope).length,0);
+ assert.equal(archiveCheck(node(scope+'/status.md','<!--\n- `전제` 예시\n- `상태` 미해결\n-->'),scope).length,0);
+ assert.equal(archiveCheck(node(scope+'/status.md','- `전제` 실제 전제\n<!--\n- `상태` 해결\n-->'),scope).length,1);
+ assert.equal(archiveCheck(node(scope+'/status.md','- `전제` 실제 전제\n- `상태` 해결\n<!--\n- `상태` 미해결\n-->'),scope).length,0);
  for(const body of ['## 한 결정\n\n- `이번만` 이 대작업에서만 필요한 판단이다',
   '## 한 결정\n\n- `계속 유효` 옮길 곳: GRAPH.md 「ID와 관계」\n\n```markdown\n- `이번만` 문법 예시\n```',
   '# 결정\n\n머리말만 있고 결정 절이 없다']) assert.equal(archiveCheck(node(path,body),scope).length,0);
