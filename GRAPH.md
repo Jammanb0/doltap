@@ -126,8 +126,20 @@ doltap delete-fix .doltap/archive/legacy/workstreams/006-example --why "폴더�
 
 대장에는 `삭제` 상태와 `사후 삭제 정리: <이유>`를 남깁니다. recover는 이번에 고친
 대장·참조만 되돌립니다. 명령 실행 전에 이미 지운 본문은 복원하지 못합니다.
-삭제하기 전이라면 먼저 delete로 영향을 확인합니다. delete-fix는 이미 사라진
-범위의 사후 정리이며, 아직 존재하는 폴더를 묶음 삭제하는 명령은 아닙니다.
+삭제하기 전이라면 먼저 delete로 영향을 확인합니다. delete-fix는 이미 사라진 범위의 사후 정리입니다.
+
+등록된 문서 여러 개를 함께 지울 때는 delete에 폴더를 지정합니다.
+
+```sh
+doltap delete .doltap/archive/legacy/example --mode purge --why "기록 정리"
+doltap delete .doltap/archive/legacy/example --mode purge --why "기록 정리" --drop-links
+```
+
+폴더 밖 참조는 확인 후 직접 고치거나 --drop-links로 제거를 명시합니다. 두 명령 모두
+미리보기이며 --apply에서 적용합니다. 내부 관계·등록 문서·대장을 한 번에 처리하고,
+등록되지 않은 파일은 retained 목록에 표시해 남깁니다. 성공 뒤 빈 폴더만 정리합니다.
+recover는 문서와 필요한 부모 폴더를 복원하며, 원래 비어 있던 폴더까지 보장하지는
+않습니다. 일반 링크·혼합 본문·이력표의 설명은 직접 확인하고 적용 뒤 check를 실행합니다.
 
 `archive-check`는 폴더를 옮기지 않습니다. `전제`나 `열린 질문`은 각각 하나의
 범위에 넣고 `상태`를 `미해결`, `해결`, `이월`, `폐기` 중 하나로 선언합니다.

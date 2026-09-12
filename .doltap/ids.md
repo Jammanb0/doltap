@@ -53,6 +53,7 @@
 | doltap-d-t52sh8t5 | d | 아카이브 | .doltap/archive/legacy/workstreams/007-first-impression/plan.md |  |  |
 | doltap-d-t8v39nqw | d | 아카이브 | .doltap/archive/legacy/workstreams/003-verify-and-report/plan.md |  |  |
 | doltap-d-wcqyb49m | d | 활성 | AGENTS.md |  |  |
+| doltap-d-wnzqqhyf | d | 활성 | docs/document-graph-spec.md |  |  |
 | doltap-d-wxxj5vs5 | d | 아카이브 | .doltap/archive/legacy/workstreams/005-archive-scope/README.md |  |  |
 | doltap-d-y5rgen3m | d | 아카이브 | .doltap/archive/legacy/workstreams/003-verify-and-report/findings.md |  |  |
 | doltap-d-y6rvrj98 | d | 활성 | .doltap/plans/workstreams/009-document-graph/plan.md |  |  |

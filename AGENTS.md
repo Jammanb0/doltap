@@ -194,5 +194,6 @@ AI 코딩 에이전트와 일할 때 쓰는 문서 골격입니다. 규칙의 �
 - `indexes` [README.md](docs/trials/README.md#doltap-d-0kk90ace-start)
 
 - `indexes` [현재 검토](.doltap/reviews/reviewed.md#doltap-d-q2saepp4-start)
+- `indexes` [document-graph-spec.md](docs/document-graph-spec.md#doltap-d-wnzqqhyf-start)
 
 <a name="doltap-d-wcqyb49m-end" id="doltap-d-wcqyb49m-end"></a>
