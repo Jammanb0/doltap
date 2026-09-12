@@ -40,6 +40,7 @@
 | doltap-d-n0k25q71 | d | 활성 | .doltap/plans/workstreams/009-document-graph/README.md |  |  |
 | doltap-d-n72qk3vj | d | 활성 | .doltap/plans/workstreams/009-document-graph/status.md |  |  |
 | doltap-d-pptm6e2n | d | 활성 | .doltap/plans/current.md |  |  |
+| doltap-d-q2saepp4 | d | 활성 | .doltap/reviews/reviewed.md |  |  |
 | doltap-d-qzcaxr50 | d | 아카이브 | .doltap/archive/legacy/workstreams/007-first-impression/status.md |  |  |
 | doltap-d-r1s0r2zm | d | 활성 | .doltap/plans/workstreams/009-document-graph/design.md |  |  |
 | doltap-d-r6b40yt9 | d | 아카이브 | .doltap/archive/legacy/workstreams/004-safe-apply/plan.md |  |  |

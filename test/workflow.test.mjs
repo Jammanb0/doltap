@@ -172,7 +172,7 @@ test('project 설명 이관은 ID와 안팎의 상대 링크를 보존하고 반
  const root=project(), old='.doltap/project.md', fresh='.doltap/plans/project.md';
  const before=inspect(root), id=documentId(before,fresh), idea=documentId(before,'.doltap/plans/ideas.md');
  mutate(root,()=>reviewPlan(root,before.graph,idea,{node:true,judgment:'최신임',why:'예전 .doltap/project.md 경로의 설명을 대조함',actor:'에이전트'}));
- const recordPath=`.doltap/reviews/${new Date().getUTCFullYear()}.md`, record=readText(root,recordPath);
+ const recordPath='.doltap/reviews/reviewed.md', record=readText(root,recordPath);
  transact(root,[change(root,fresh,null),change(root,old,wrap(id,`# 프로젝트\n[아이디어](plans/ideas.md#${idea}-start)\n[규칙](rules/verification.md)`)),change(root,'AGENTS.md',readText(root,'AGENTS.md').replaceAll(fresh,old))]);
  const ideas=readText(root,'.doltap/plans/ideas.md').replace(`# 아이디어`,`# 아이디어\n[프로젝트](../project.md#${id}-start)`);
  writeFileSync(join(root,'.doltap/plans/ideas.md'),ideas);

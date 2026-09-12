@@ -177,10 +177,8 @@ AI 코딩 에이전트와 일할 때 쓰는 문서 골격입니다. 규칙의 �
 
 - `indexes` [current.md](.doltap/plans/current.md#doltap-d-pptm6e2n-start)
 - `indexes` [history.md](.doltap/plans/history.md#doltap-d-9tgvms63-start)
-
 - `indexes` [ideas.md](.doltap/plans/ideas.md#doltap-d-scm8gx88-start)
 - `indexes` [README.md](.doltap/plans/README.md#doltap-d-5mp1w6a0-start)
-
 - `indexes` [workstreams.md](.doltap/plans/workstreams.md#doltap-d-rc8m43dj-start)
 - `indexes` [project.md](.doltap/plans/project.md#doltap-d-0c9e0fds-start)
 
@@ -194,5 +192,7 @@ AI 코딩 에이전트와 일할 때 쓰는 문서 골격입니다. 규칙의 �
 - `indexes` [document-graph-design.md](docs/document-graph-design.md#doltap-d-knwnrg0q-start)
 
 - `indexes` [README.md](docs/trials/README.md#doltap-d-0kk90ace-start)
+
+- `indexes` [검토 기록](.doltap/reviews/reviewed.md#doltap-d-q2saepp4-start)
 
 <a name="doltap-d-wcqyb49m-end" id="doltap-d-wcqyb49m-end"></a>

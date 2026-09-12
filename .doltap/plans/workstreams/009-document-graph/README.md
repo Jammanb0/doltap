@@ -36,7 +36,7 @@
 이름     공개 이름 · npm 패키지명 · CLI · 운영 폴더 · 앵커 접두사
 형식     document·section·block ID · start/end 범위 · 표준 링크와 관계 문법
 검사기   무상태 검사 · 도달성 · 이동 복구 · 삭제 안전성 · JSON 출력과 종료 코드
-상태     contentHash · graphHash · 누적 검토 기록
+상태     contentHash · graphHash · 대상별 최신 검토 기록
 조회     지도 · 맥락 조회 · 범위 감사
 이관     이 저장소 · template · setup-workstream · APPLY · README 두 벌 · 레거시
 전환     NOTICE 요약 → 엄격 검사 → 기본값 승격
