@@ -14,6 +14,7 @@
 
 | 시험 파일 | 확인하는 동작 | 보고서 |
 | --- | --- | --- |
+| test/delete-fix.test.mjs | 직접 삭제 사후 정리·범위·참조·복구 | [사후 삭제 정리](automated/delete-fix.md) |
 | test/check.test.mjs | 기존 문서 구조·색인·경로 | [구조 검사](automated/check.md) |
 | test/graph.test.mjs | ID·범위·관계·도달성 | [그래프 파서](automated/graph.md) |
 | test/ids.test.mjs | 발급·중복·삭제 ID·동시 잠금 | [ID 발급](automated/ids.md) |

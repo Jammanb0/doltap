@@ -12,7 +12,7 @@ import { fullCheck, inspect } from '../lib/runtime.mjs';
 import { migratePlan, idPlan, linkPlan, moveFixPlan } from '../lib/edit.mjs';
 import { mutate, preview, recover, safePath } from '../lib/transaction.mjs';
 import { reviewPlan, suggestionPlan } from '../lib/state.mjs';
-import { archiveCheck, deletePlan } from '../lib/lifecycle.mjs';
+import { archiveCheck, deletePlan, deleteFixPlan } from '../lib/lifecycle.mjs';
 import { mapResult, context, audit, formatQuery } from '../lib/query.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -29,6 +29,7 @@ const USAGE = `doltap — AI 코딩 에이전트와 일할 때 쓰는 문서 골
   doltap recover <실행 ID> [--apply|--discard]
   doltap archive-check <폴더>  전제·열린 질문 처리 여부를 검사합니다
   doltap delete <ID> --mode replace|tombstone|purge --why 이유 [--to ID] [--apply]
+  doltap delete-fix <ID|경로> --why 이유 [--drop-links] [--apply]
   doltap review <ID> [--node] --as 판단 --why 이유 --actor 사람|에이전트 [--apply]
   doltap map [폴더] [--json]
   doltap context <ID> [--depth 2] [--budget 4000] [--json]
@@ -140,7 +141,7 @@ const [command, ...rest] = process.argv.slice(2);
 
 function options(args) {
   const values = new Set(['--root','--kind','--at','--end','--to','--as','--why','--actor','--mode','--depth','--budget','--relation','--state','--evidence']);
-  const booleans = new Set(['--apply','--discard','--json','--node','--changed','--include-legacy']);
+  const booleans = new Set(['--apply','--discard','--json','--node','--changed','--include-legacy','--drop-links']);
   const out = { positional: [] };
   for (let i = 0; i < args.length; i++) {
     const arg = args[i];
@@ -152,7 +153,7 @@ function options(args) {
   return out;
 }
 function runGraph(command, args) {
-  if (!['recover','migrate','id','link','move-fix','map','context','audit','archive-check','delete','review','suggest'].includes(command)) throw new Error(`모르는 명령입니다: ${command}\n\n${USAGE}`);
+  if (!['recover','migrate','id','link','move-fix','map','context','audit','archive-check','delete','delete-fix','review','suggest'].includes(command)) throw new Error(`모르는 명령입니다: ${command}\n\n${USAGE}`);
   const o = options(args), arg = o.positional[0];
   const root = resolve(o.root ?? (['migrate','move-fix','map'].includes(command) ? arg ?? '.' : '.'));
   const numeric = name => o[name] === undefined ? undefined : Number(o[name]);
@@ -172,6 +173,7 @@ function runGraph(command, args) {
       output = { problems: archiveCheck(graph, arg.replaceAll('\\', '/').replace(/\/$/, '')) };
     }
     else if (command === 'delete') plan = () => deletePlan(root, inspect(root).graph, arg, { mode: o.mode, replacement: o.to, why: o.why });
+    else if (command === 'delete-fix') plan = () => deleteFixPlan(root, inspect(root).graph, arg, { why: o.why, dropLinks: o['drop-links'] });
     else if (command === 'review') plan = () => reviewPlan(root, inspect(root).graph, arg, { judgment: o.as, why: o.why, actor: o.actor, node: o.node });
     else if (command === 'suggest') plan = () => suggestionPlan(root, inspect(root).graph, arg, o.to, o.relation, { judgment: o.as, why: o.why, actor: o.actor, evidence: o.evidence });
     else throw new Error(`모르는 명령: ${command}`);

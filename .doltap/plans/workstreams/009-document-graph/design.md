@@ -434,6 +434,7 @@ doltap review <관계 ID> --as 반영함|영향없음|재검증함 --why "<이�
 doltap migrate [경로] [--apply]
 doltap archive-check <워크스트림 경로>
 doltap delete <ID> --mode replace|tombstone|purge --why 이유 [--to ID] [--apply]
+doltap delete-fix <ID|경로> --why 이유 [--drop-links] [--apply]
 doltap review <노드 ID> --node --as 최신임|"고쳐야 함" --why 이유 --actor 사람|에이전트 [--apply]
 doltap suggest <출발 ID> --to ID --relation 유형 --as 반영|기각|보류 --evidence 근거 --why 이유 --actor 주체 [--apply]
 doltap init [경로]
@@ -746,5 +747,19 @@ Codex     Stop 훅에서 같은 검사기를 부르는 어댑터
 관계는 선택 범위 안의 끝점 중 하나가 상태·레거시 조건을 만족할 때 포함합니다.
 구조 오류는 범위 기준으로 계속 보여줍니다. 미등록 외부 후보에는 상태·관계가 없으므로
 두 필터를 지정했을 때 포함하지 않습니다.
+
+## 직접 삭제의 사후 정리
+
+delete-fix는 선택한 ID 또는 경로 아래에서 사라진 발급 범위를 삭제 상태로 바꾸고
+사후 정리 이유를 남깁니다. 살아 있는 파일을 삭제하는 delete와 구분합니다.
+Git이나 지운 본문의 복원이 필요하지 않습니다. 다른 경로의 살아 있는 ID, 남은
+문서 파일과 손상된 대상 앵커를 먼저 확인하며 삭제로 오인하지 않도록 중단합니다.
+검색은 기존 제외 규칙을 지킨 일반 Markdown 범위이며 컴퓨터 전체를 찾지는 않습니다.
+
+남아 있는 관계는 기본적으로 위치를 보여주고 중단합니다. --drop-links를 명시한
+경우에만 독립된 명시 관계 줄을 제거합니다. 일반 링크나 본문과 섞인 관계는 직접
+정리합니다. 적용은 --apply이며 대장과 관계를 같은 복구 가능한 쓰기로 처리합니다.
+이미 지운 본문은 백업할 수 없으므로 recover의 복원 범위에 포함되지 않습니다.
+빈 폴더·필수 문서 복원·일반 문장 정리는 자동 처리하지 않습니다.
 
 <a name="doltap-d-r1s0r2zm-end" id="doltap-d-r1s0r2zm-end"></a>
