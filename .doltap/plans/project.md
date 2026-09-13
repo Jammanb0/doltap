@@ -40,7 +40,7 @@ Codex와 Claude Code를 함께 쓰며 며칠씩 이어지는 작업을 하는 �
 - `setup-workstream/` — 기존 프로젝트에 얹을 때 쓰는 세팅 워크스트림 골격.
 - `APPLY.md` — 기존 프로젝트에 적용하기 시작하는 절차.
 - `bin/doltap.mjs`와 `lib/` — 초기화, ID·관계 편집, 무결성 검사, 지도·맥락·감사,
-  검토 기록과 이관·복구. 문법과 실행 예시는 루트 `GRAPH.md`에 있습니다.
+  검토 기록과 이관·복구. 문법과 실행 예시는 `guide/reference.md`에 있습니다.
 - npm 배포물. `package.json`의 `files`가 무엇이 나가는지 정합니다.
 
 ## 책임지지 않는 범위와 그 이유

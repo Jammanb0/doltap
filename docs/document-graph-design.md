@@ -1128,7 +1128,7 @@ Markdown 프로젝트 기억을 Claude Code·Codex용 스킬로 관리한다. �
 3. `.agents/`와 기존 명령을 새 체계로 옮겼다. 009의 5단계에서 실행했다.
 
 불변 ID는 4단계 발급기와 6단계 문서 이관에서 넣었다. 현재 형식의 정확한 값은
-[현재 사양](document-graph-spec.md)이 정하고, 실제 명령 사용법은 GRAPH.md에 있다.
+[현재 사양](document-graph-spec.md)이 정하고, 실제 명령 사용법은 guide/reference.md에 있다.
 
 ### 운영 폴더를 바꾸는 범위
 

@@ -12,7 +12,7 @@
     "template",
     "setup-workstream",
     "APPLY.md",
-    "GRAPH.md"
+    "guide"
   ],
   "engines": {
     "node": ">=22"

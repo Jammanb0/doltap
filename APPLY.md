@@ -311,5 +311,5 @@ doltap이 아직 놓이기 전에는 이 프로젝트에 워크스트림 규칙�
 
 중단된 쓰기는 검사에 실행 ID가 표시됩니다. `recover <실행-ID>`로 미리보고
 `--apply`로 복구합니다. `.doltap/recovery/`는 백업이라 커밋하지 않으며, 성공·복구
-결과를 확인한 실행만 `recover <실행-ID> --discard`로 정리합니다. 자세한 명령과
-선택적 훅은 [그래프 사용법](GRAPH.md)에 있습니다.
+결과를 확인한 실행만 `recover <실행-ID> --discard`로 정리합니다. 자세한 명령은
+[명령 참고](guide/reference.md), 자동 검사 연결은 [선택적 훅](guide/hooks.md)에 있습니다.

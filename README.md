@@ -3,7 +3,7 @@
 AI 코딩 에이전트와 일할 때 **규칙과 진행 상태를 문서에 남기고, 연결된 근거를 다시 찾는 도구**입니다.
 Codex와 Claude Code가 같은 AGENTS.md를 읽고, 작업별 상태는 한곳에서 관리합니다.
 
-[English](README.en.md) · [그래프 사용법](GRAPH.md) · [기존 프로젝트에 적용](APPLY.md) · [시험 보고서](docs/trials/README.md)
+[English](README.en.md) · [사용 안내](guide/README.md) · [기존 프로젝트에 적용](APPLY.md) · [시험 보고서](docs/trials/README.md)
 
 ## 할 수 있는 일
 
@@ -18,7 +18,12 @@ Codex와 Claude Code가 같은 AGENTS.md를 읽고, 작업별 상태는 한곳�
 ## 시작하기
 
 Node.js 22 이상이 필요합니다. 아래 명령은 **이 문서와 같은 버전의 소스 폴더**에서 실행합니다.
-별도 패키지 설치나 빌드 단계는 없습니다.
+별도 패키지 설치나 빌드 단계는 없습니다. 소스가 없다면 먼저 받습니다.
+
+~~~sh
+git clone https://github.com/Jammanb0/doltap
+cd doltap
+~~~
 
 새 프로젝트를 만들려면:
 
@@ -37,6 +42,9 @@ my-project에 AGENTS.md, CLAUDE.md, .doltap/이 생깁니다. 프로젝트 이�
 APPLY.md를 읽고 이 프로젝트에 적용해줘.
 기존 규칙과 기록을 보존하고, 지시 파일의 변경안을 먼저 보여줘.
 ~~~
+
+처음이라면 [대작업 생성 → 진행 → 아카이브](guide/workstreams.md)와
+[앵커·ID·관계의 개념](guide/concepts.md)을 먼저 읽어보세요.
 
 ## 문서가 놓이는 곳
 
@@ -64,7 +72,7 @@ node bin/doltap.mjs audit .doltap/rules --changed
 
 `<노드-ID>`는 지도에 나온 실제 ID로 바꿉니다. 하나의 규칙을 여러 문서가 참조하거나,
 한 문서가 여러 근거를 참조할 수 있습니다. 검토 상태는 관계마다 따로 관리합니다.
-ID 만들기와 검토 기록은 [GRAPH.md](GRAPH.md)의 순서대로 시작할 수 있습니다.
+ID 만들기와 검토 기록은 [사용 안내](guide/README.md)에서 시작할 수 있습니다.
 
 ## 확인할 수 있는 범위
 

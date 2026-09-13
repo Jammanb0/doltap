@@ -3,7 +3,7 @@
 **Keep rules and progress in documents, and follow their links back to the evidence.**
 Codex and Claude Code share AGENTS.md. Each workstream keeps its current status in one place.
 
-[한국어](README.md) · [Graph guide](GRAPH.md) · [Adoption guide](APPLY.md) · [Test reports](docs/trials/README.md)
+[한국어](README.md) · [User guide (Korean)](guide/README.md) · [Adoption guide](APPLY.md) · [Test reports](docs/trials/README.md)
 
 ## What it does
 
@@ -18,7 +18,12 @@ Markdown is the source. Read it without the CLI. No background process or AI API
 ## Get started
 
 Use Node.js 22 or later. Run these commands from **the source directory matching this version
-of the documentation**. No dependency installation or build step is needed.
+of the documentation**. No dependency installation or build step is needed. To get the source:
+
+~~~sh
+git clone https://github.com/Jammanb0/doltap
+cd doltap
+~~~
 
 To create a project:
 
@@ -37,6 +42,9 @@ Give your agent the guide's location and the project to adopt it into:
 Read APPLY.md and apply it to this project.
 Preserve the existing rules and records, and show me instruction-file changes first.
 ~~~
+
+For an introduction, read [the workstream lifecycle](guide/workstreams.md) and
+[anchors, IDs, and relationships](guide/concepts.md). These guides are in Korean.
 
 ## Where information lives
 
@@ -64,7 +72,7 @@ node bin/doltap.mjs audit .doltap/rules --changed
 
 Replace `<node-ID>` with an actual ID from the map. Several documents can reference one rule,
 and one document can reference several sources. Each relationship has its own review state.
-See [GRAPH.md](GRAPH.md) for creating IDs, connecting documents, and recording reviews.
+See the [user guide](guide/README.md) for creating IDs, connecting documents, and recording reviews.
 
 ## What a check establishes
 

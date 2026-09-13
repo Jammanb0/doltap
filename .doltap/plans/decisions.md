@@ -59,7 +59,7 @@ Git·에이전트 훅은 사용자가 필요할 때 연결합니다.
 ## 설계 원본과 아카이브의 경계
 
 큰 방향은 `docs/document-graph-design.md`, 정확한 현재 사양은
-`docs/document-graph-spec.md`, 명령 사용법은 `GRAPH.md`에서 관리합니다.
+`docs/document-graph-spec.md`, 명령 사용법은 `guide/reference.md`에서 관리합니다.
 세 문서는 활성 문서이며 워크스트림을 아카이브해도 옮기지 않습니다.
 워크스트림의 `design.md`는 그 작업 동안의 상세 설계이므로 폴더와 함께 아카이브되고,
 그 뒤에도 유효한 사양은 아카이브 전에 담당 활성 문서로 올립니다. 활성 사양이

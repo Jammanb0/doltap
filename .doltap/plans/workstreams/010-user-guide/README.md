@@ -21,7 +21,8 @@ GRAPH.md의 내용을 흡수하고 README·적용 절차·배포 구성을 연�
 
 ## 제외 범위
 
-CLI 기능 추가, 실제 checkout 폴더 이동, npm 등록과 릴리즈는 다루지 않습니다.
+새 CLI 기능, 실제 checkout 폴더 이동, npm 등록과 릴리즈는 다루지 않습니다.
+009 원격 CI에서 확인된 기존 ID 발급의 잠금 오류 보완은 로컬 회귀 수정으로 포함합니다.
 이 작업의 main 반영·push·완료·아카이브는 이번 승인 범위가 아닙니다.
 
 - `indexes` [status.md](status.md#doltap-d-5ma2gx4q-start)
