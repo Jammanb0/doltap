@@ -357,6 +357,36 @@ test("잠금 내용을 쓰지 못하면 핸들과 불완전한 파일을 치운�
   assert.deepEqual(calls, ["open", "write", "close:7", "unlink:ids.lock"]);
 });
 
+test("Windows 잠금 열기 EPERM은 재시도하되 다른 주인의 잠금은 건드리지 않는다", () => {
+  const busy = Object.assign(new Error("일시적인 열기 실패"), { code: "EPERM" });
+  let opens = 0;
+  const calls = [];
+  const io = {
+    openSync(_path, flags) { assert.equal(flags, "wx"); if (++opens < 3) throw busy; return 7; },
+    writeFileSync(fd) { calls.push(`write:${fd}`); },
+    closeSync(fd) { calls.push(`close:${fd}`); },
+    unlinkSync() { assert.fail("얻지 않은 잠금을 지우면 안 됨"); }
+  };
+  assert.equal(tryCreateLock("ids.lock", "123 456\n", io, "win32"), true);
+  assert.equal(opens, 3);
+  assert.deepEqual(calls, ["write:7", "close:7"]);
+  opens = 0; calls.length = 0;
+  io.openSync = () => { throw ++opens === 1 ? busy : Object.assign(new Error("다른 주인"), { code: "EEXIST" }); };
+  assert.equal(tryCreateLock("ids.lock", "123 456\n", io, "win32"), false);
+  assert.deepEqual(calls, []);
+});
+
+test("지속되는 잠금 권한 오류와 Windows 밖 오류는 원래 오류로 끝난다", () => {
+  const failure = Object.assign(new Error("권한 없음"), { code: "EPERM" });
+  let opens = 0;
+  const io = { openSync() { opens++; throw failure; } };
+  assert.throws(() => tryCreateLock("ids.lock", "", io, "win32"), e => e === failure);
+  assert.equal(opens, 40);
+  opens = 0;
+  assert.throws(() => tryCreateLock("ids.lock", "", io, "linux"), e => e === failure);
+  assert.equal(opens, 1);
+});
+
 test("잠금을 풀지 못하면 false 를 돌려준다", () => {
   // 지울 수 없는 자리를 만들어 해제 실패 자체를 본다. allocate 로 돌리면
   // 잠금을 **얻지** 못해 실패하는 다른 경로를 타고, 대기 시간도 길다.
