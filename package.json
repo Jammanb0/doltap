@@ -1,6 +1,6 @@
 {
   "name": "doltap",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "A markdown skeleton that keeps rules and context in place while working with AI coding agents",
   "type": "module",
   "bin": {
