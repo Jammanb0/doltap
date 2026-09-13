@@ -80,3 +80,4 @@ CLAUDE.md만은 특수 연결로 다루므로 `@AGENTS.md` 한 줄을 유지합�
 감사 제안·백업이 생기면 자료는 늘 수 있습니다. 성공한 복구 자료도 자동 삭제하지
 않으므로 결과 확인 뒤 [recover --discard](moving-deleting.md)로 정리합니다.
 
+다음: [대작업의 흐름](workstreams.md)

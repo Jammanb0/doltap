@@ -1,6 +1,6 @@
 # 일상 작업과 이어받기
 
-[사용 안내](README.md) · [명령 실행 방법](getting-started.md)
+[사용 안내](README.md) · 이전: [시작하기](getting-started.md)
 
 세션을 시작하면 AGENTS와 안내된 규칙을 읽고 plans/current.md에서 현재 대작업을
 찾습니다. 처음 보는 작업이면 README로 목표를, status로 다음 행동을 확인합니다.
@@ -43,3 +43,4 @@ candidates는 읽고 판단할 본문입니다. AI가 자동으로 감사한 결
 위 세 명령은 읽기 전용입니다. 문서를 고쳤다면 필요한 연결을 정리하고
 [실제 검토한 대상만 기록](review.md)한 뒤 status의 현재 상태를 갱신합니다.
 
+입문 순서는 여기까지입니다. 이후에는 [필요한 작업의 안내](README.md)를 찾아보세요.

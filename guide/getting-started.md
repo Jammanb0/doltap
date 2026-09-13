@@ -1,6 +1,6 @@
 # 시작하기
 
-[사용 안내](README.md) · [대작업의 흐름](workstreams.md)
+[사용 안내](README.md) · 이전: [대작업의 흐름](workstreams.md) · 다음: [일상 작업](daily.md)
 
 Node.js 22 이상이 필요합니다. 문서를 읽고 보관하는 데 doltap 상주 프로그램은
 필요하지 않습니다. 아래는 Git으로 소스를 받은 뒤 Node로 직접 실행하는 방법입니다.
@@ -73,3 +73,4 @@ doltap check .
 제목마다 ID를 만들거나 문서의 뜻을 읽어 관계를 추천하는 기능은 아닙니다.
 이제 [대작업을 만들고 진행](workstreams.md)하거나 [현재 작업을 조회](daily.md)할 수 있습니다.
 
+다음: [일상 작업](daily.md)
