@@ -40,8 +40,13 @@ Give your agent the guide's location and the project to adopt it into:
 
 ~~~text
 Read APPLY.md and apply it to this project.
-Preserve the existing rules and records, and show me instruction-file changes first.
+Check where the operating documents should live, preserve existing rules and records,
+and show me instruction-file changes first.
 ~~~
+
+For personal records outside a company repository or other layouts, see
+[adoption layouts (Korean)](guide/adoption-layouts.md). First establish document and code
+locations, the agent's starting directory, and how records will be stored and shared.
 
 For an introduction, read [the workstream lifecycle](guide/workstreams.md) and
 [anchors, IDs, and relationships](guide/concepts.md). These guides are in Korean.

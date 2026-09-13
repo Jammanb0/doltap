@@ -31,4 +31,14 @@ GRAPH.md는 guide/reference.md와 hooks.md로 내용을 옮겼습니다. 상세 
 반환합니다. 로컬 오류 주입·동시 발급 반복을 검증했고 원격 재검증은 이번 push
 금지 범위 때문에 수행하지 않습니다. 실행 근거는 docs/trials/ci-009.md에 있습니다.
 
+## 환경 조사 결과로 적용 절차의 대상과 조건을 정한다
+
+- `계속 유효` 활성 원본: APPLY.md, guide/adoption-layouts.md, template/AGENTS.md와 template/.doltap/plans/workstreams.md
+
+운영 루트·작업 저장소·골격 위치·에이전트 시작 위치를 같은 것으로 가정하지 않습니다.
+적용·해당 없음·미확인을 나눠 승인된 계획으로 만들며 새 설치 프로그램은 추가하지
+않습니다. 조건은 세팅 문서에 기록하고 이후에도 필요한 것은 활성 운영 문서에
+남깁니다. Git 없는 기록, 별도 개인 Git, 읽기 전용 회사 지침을 구분합니다.
+CLI 구조 검사로 호스트 권한·프로젝트 설정·지침 준수를 검증했다고 하지 않습니다.
+
 <a name="doltap-d-2t7cwq04-end" id="doltap-d-2t7cwq04-end"></a>

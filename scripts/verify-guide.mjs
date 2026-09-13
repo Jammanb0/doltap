@@ -55,7 +55,7 @@ write(ws+'/status.md',read(ws+'/status.md').replace('진행 중','완료 — 시
 write('.doltap/plans/current.md',read('.doltap/plans/current.md').replace(/- \*\*010-search\*\*[\s\S]*?(?=<a name="doltap-d-[a-z0-9]+-end")/,'진행 중인 대작업이 없습니다.\n\n'));
 mkdirSync(dirname(join(root,archive)),{recursive:true});renameSync(join(root,ws),join(root,archive));
 json('move-fix','.','--apply');json('link',id('.doltap/plans/history.md'),'--to',intro,'--as','indexes','--apply');cli('check','.');
-for(const p of ['README.md','README.en.md','APPLY.md',...['README','concepts','workstreams','getting-started','daily','linking','moving-deleting','review','finishing','reference','hooks'].map(n=>'guide/'+n+'.md')]){
+for(const p of ['README.md','README.en.md','APPLY.md',...['README','concepts','workstreams','getting-started','daily','linking','moving-deleting','review','finishing','reference','hooks','adoption-layouts'].map(n=>'guide/'+n+'.md')]){
  const doc=parseDocument(readFileSync(join(source,p),'utf8'),p);
  for(const link of [...doc.links,...doc.edges]){
   if(isExternal(link.dest))continue;
