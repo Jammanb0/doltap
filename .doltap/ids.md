@@ -12,16 +12,19 @@
 | doltap-d-0c9e0fds | d | 활성 | .doltap/plans/project.md |  |  |
 | doltap-d-0kk90ace | d | 활성 | docs/trials/README.md |  |  |
 | doltap-d-0r8gvxp9 | d | 아카이브 | .doltap/archive/legacy/workstreams/004-safe-apply/findings.md |  |  |
+| doltap-d-2t7cwq04 | d | 활성 | .doltap/plans/workstreams/010-user-guide/decisions.md |  |  |
 | doltap-d-385jks6p | d | 아카이브 | .doltap/archive/legacy/workstreams/005-archive-scope/decisions.md |  |  |
 | doltap-d-3dakc346 | d | 아카이브 | .doltap/archive/legacy/workstreams/007-first-impression/README.md |  |  |
 | doltap-d-4n18ze4a | d | 활성 | .doltap/reviews/2026.md |  |  |
 | doltap-d-4svrcedy | d | 아카이브 | .doltap/archive/legacy/workstreams/006-approval-boundary/README.md |  |  |
 | doltap-d-594dnf3v | d | 활성 | .doltap/rules/verification.md |  |  |
+| doltap-d-5ma2gx4q | d | 활성 | .doltap/plans/workstreams/010-user-guide/status.md |  |  |
 | doltap-d-5mp1w6a0 | d | 활성 | .doltap/plans/README.md |  |  |
 | doltap-d-6f9g0m6k | d | 활성 | .doltap/rules/communication.md |  |  |
 | doltap-d-6fcpmxet | d | 활성 | .doltap/plans/decisions.md |  |  |
 | doltap-d-6xjy09yq | d | 아카이브 | .doltap/archive/legacy/workstreams/008-approval-endpoint/plan.md |  |  |
 | doltap-d-7ay3ap4e | d | 아카이브 | .doltap/archive/legacy/workstreams/001-cairn-setup/README.md |  |  |
+| doltap-d-7gg10vhg | d | 활성 | .doltap/plans/workstreams/010-user-guide/plan.md |  |  |
 | doltap-d-80ccq92z | d | 아카이브 | .doltap/archive/legacy/workstreams/003-verify-and-report/README.md |  |  |
 | doltap-d-86kt10jx | d | 아카이브 | .doltap/archive/legacy/workstreams/008-approval-endpoint/status.md |  |  |
 | doltap-d-88tvt0tv | d | 아카이브 | .doltap/archive/legacy/workstreams/005-archive-scope/plan.md |  |  |
@@ -45,6 +48,7 @@
 | doltap-d-r1s0r2zm | d | 아카이브 | .doltap/archive/workstreams/009-document-graph/design.md |  |  |
 | doltap-d-r6b40yt9 | d | 아카이브 | .doltap/archive/legacy/workstreams/004-safe-apply/plan.md |  |  |
 | doltap-d-rc8m43dj | d | 활성 | .doltap/plans/workstreams.md |  |  |
+| doltap-d-rpw9dv94 | d | 활성 | .doltap/plans/workstreams/010-user-guide/README.md |  |  |
 | doltap-d-rw5vqaws | d | 아카이브 | .doltap/archive/legacy/workstreams/003-verify-and-report/decisions.md |  |  |
 | doltap-d-rxk3xb7d | d | 아카이브 | .doltap/archive/legacy/workstreams/004-safe-apply/README.md |  |  |
 | doltap-d-s2rpkygx | d | 아카이브 | .doltap/archive/legacy/workstreams/004-safe-apply/decisions.md |  |  |
