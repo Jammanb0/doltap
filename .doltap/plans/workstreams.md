@@ -369,6 +369,6 @@ ruleset 때문에 직접 반영이 막힌 경우, 권한 문제, 대상 브랜�
 완료할 때는 시작 시 선택을 다시 묻지 않습니다. 무엇을 실행할지 보여주고 승인을
 받는 것은 위 「완료로 마칠 때」 3번에 있습니다.
 
-- `governs` [README.md](workstreams/009-document-graph/README.md#doltap-d-n0k25q71-start)
+- `governs` [README.md](../archive/workstreams/009-document-graph/README.md#doltap-d-n0k25q71-start)
 
 <a name="doltap-d-rc8m43dj-end" id="doltap-d-rc8m43dj-end"></a>

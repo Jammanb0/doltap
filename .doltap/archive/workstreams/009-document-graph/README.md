@@ -131,6 +131,6 @@
 
 - `references` [README.md](../../../../docs/trials/README.md#doltap-d-0kk90ace-start)
 
-- `assumes` [decisions.md](../../decisions.md#doltap-b-js7yf5p8-start)
+- `assumes` [decisions.md](../../../plans/decisions.md#doltap-b-js7yf5p8-start)
 
 <a name="doltap-d-n0k25q71-end" id="doltap-d-n0k25q71-end"></a>
