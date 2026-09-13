@@ -6,12 +6,6 @@
 > 다음 행동 같은 상세 상태는 각 대작업의 `status.md`에 있습니다.
 > 대작업을 시작하고 마치는 절차는 `workstreams.md`에 있습니다.
 
-- **010-user-guide**
-  - 소개: `.doltap/plans/workstreams/010-user-guide/README.md`
-  - 상태: `.doltap/plans/workstreams/010-user-guide/status.md`
-
-- `indexes` [README.md](workstreams/010-user-guide/README.md#doltap-d-rpw9dv94-start)
-
-- `indexes` [status.md](workstreams/010-user-guide/status.md#doltap-d-5ma2gx4q-start)
+진행 중인 대작업이 없습니다.
 
 <a name="doltap-d-pptm6e2n-end" id="doltap-d-pptm6e2n-end"></a>
