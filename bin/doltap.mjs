@@ -46,7 +46,7 @@ const USAGE = `doltap — AI 코딩 에이전트와 일할 때 쓰는 문서 골
 이미 작업 중인 프로젝트에는 init 을 쓰지 않습니다. 기존 규칙과 기록을
 살리면서 합쳐야 하므로 APPLY.md의 절차를 따릅니다.
 
-  git clone --depth 1 https://github.com/Jammanb0/cairn .doltap-bootstrap
+  git clone --depth 1 https://github.com/Jammanb0/doltap .doltap-bootstrap
 `;
 
 // 셸에 그대로 붙여 넣을 수 있게 경로를 인용한다.
@@ -93,7 +93,7 @@ async function init(rawTarget) {
       `${rawTarget} 안에 이미 파일이 있습니다. 아무것도 바꾸지 않았습니다.\n\n` +
         "작업 중인 프로젝트라면 기존 규칙과 기록을 살리면서 합쳐야 합니다.\n" +
         "아래로 골격을 받은 뒤 APPLY.md의 절차를 따르세요.\n\n" +
-        "  git clone --depth 1 https://github.com/Jammanb0/cairn .doltap-bootstrap"
+        "  git clone --depth 1 https://github.com/Jammanb0/doltap .doltap-bootstrap"
     );
   }
 

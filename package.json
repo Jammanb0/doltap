@@ -20,7 +20,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Jammanb0/cairn.git"
+    "url": "git+https://github.com/Jammanb0/doltap.git"
   },
   "scripts": {
     "test": "node --test"

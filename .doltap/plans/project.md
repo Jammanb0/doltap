@@ -84,7 +84,7 @@ Codex와 Claude Code를 함께 쓰며 며칠씩 이어지는 작업을 하는 �
 - 시험은 Node 기본 러너(`node --test`), CI는 GitHub Actions에서 Node 22와 24를
   Ubuntu·macOS·Windows에서 돌리도록 구성되어 있습니다. 현재 브랜치의 실제
   실행 결과와 과거 CI 결과는 `docs/trials/README.md`에서 구분합니다.
-- 배포는 GitHub 저장소에서 바로(`npx github:Jammanb0/cairn`). npm 레지스트리에는
+- 배포는 GitHub 저장소에서 바로(`npx github:Jammanb0/doltap`). npm 레지스트리에는
   올리지 않았습니다.
 
 ## 더 읽을 곳

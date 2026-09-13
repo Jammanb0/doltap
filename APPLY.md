@@ -81,7 +81,7 @@
 놓습니다.
 
 ```bash
-npx --yes github:Jammanb0/cairn init <폴더>
+npx --yes github:Jammanb0/doltap init <폴더>
 ```
 
 이미 만들어 둔 빈 폴더 안이라면 `.doltap-bootstrap/template/`을 그대로 복사해도 같습니다.
