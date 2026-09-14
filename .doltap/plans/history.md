@@ -17,6 +17,7 @@
 | 2026-09-10 | 승인의 종료점 | 완료 — 승인한 지점에 필요한 앞 단계만 포함하고 이후 단계와 작업 브랜치 삭제는 따로 승인받도록 규칙과 종료 절차를 보완했습니다 | `.doltap/archive/legacy/workstreams/008-approval-endpoint/README.md` |
 | 2026-09-11~13 | 문서 그래프 기반 | 완료 — ID·관계·최신 검토·조회·이관·복구와 묶음 삭제를 구현하고 현재 사양을 활성 문서로 분리함 | `.doltap/archive/workstreams/009-document-graph/README.md` |
 | 2026-09-13~14 | 처음 쓰는 사람을 위한 안내 | 완료 — 사용 안내 12개와 환경별 적용 절차를 작성하고 Windows 잠금 보완을 원격 6개 환경에서 확인함 | `.doltap/archive/workstreams/010-user-guide/README.md` |
+| 2026-09-14 | 최종 점검 보완 | 완료 — 검사가 놓치던 경로 표기와 빈 ID 대장, 일반 링크가 남은 삭제를 고치고 미리보기 설명을 실제 동작에 맞춤. README 두 언어에 소개와 대표 이미지를 넣음 | `.doltap/archive/workstreams/011-final-polish/README.md` |
 <!-- 대작업을 마칠 때마다 한 줄씩 더합니다. 결과는 완료일 수도 취소일
      수도 있고, 어느 쪽이든 남깁니다.
      예) | 2026-09-02~03 | 초기 파이프라인 구축 | 완료 — 무엇이 가능해졌는지 한 줄 | `.doltap/archive/workstreams/001-initial-pipeline/README.md` |
@@ -41,5 +42,7 @@
 - `indexes` [문서 그래프 기반](../archive/workstreams/009-document-graph/README.md#doltap-d-n0k25q71-start)
 
 - `indexes` [처음 쓰는 사람을 위한 안내](../archive/workstreams/010-user-guide/README.md#doltap-d-rpw9dv94-start)
+
+- `indexes` [최종 점검 보완](../archive/workstreams/011-final-polish/README.md#doltap-d-nb1zqwt1-start)
 
 <a name="doltap-d-9tgvms63-end" id="doltap-d-9tgvms63-end"></a>

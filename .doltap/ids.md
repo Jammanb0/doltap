@@ -27,7 +27,7 @@
 | doltap-d-7gg10vhg | d | 아카이브 | .doltap/archive/workstreams/010-user-guide/plan.md |  |  |
 | doltap-d-80ccq92z | d | 아카이브 | .doltap/archive/legacy/workstreams/003-verify-and-report/README.md |  |  |
 | doltap-d-86kt10jx | d | 아카이브 | .doltap/archive/legacy/workstreams/008-approval-endpoint/status.md |  |  |
-| doltap-d-87es81hz | d | 활성 | .doltap/plans/workstreams/011-final-polish/status.md |  |  |
+| doltap-d-87es81hz | d | 아카이브 | .doltap/archive/workstreams/011-final-polish/status.md |  |  |
 | doltap-d-88tvt0tv | d | 아카이브 | .doltap/archive/legacy/workstreams/005-archive-scope/plan.md |  |  |
 | doltap-d-94atrh3b | d | 아카이브 | .doltap/archive/workstreams/009-document-graph/decisions.md |  |  |
 | doltap-d-96221xf0 | d | 아카이브 | .doltap/archive/legacy/workstreams/002-document-roles/decisions.md |  |  |
@@ -43,7 +43,7 @@
 | doltap-d-knwnrg0q | d | 활성 | docs/document-graph-design.md |  |  |
 | doltap-d-n0k25q71 | d | 아카이브 | .doltap/archive/workstreams/009-document-graph/README.md |  |  |
 | doltap-d-n72qk3vj | d | 아카이브 | .doltap/archive/workstreams/009-document-graph/status.md |  |  |
-| doltap-d-nb1zqwt1 | d | 활성 | .doltap/plans/workstreams/011-final-polish/README.md |  |  |
+| doltap-d-nb1zqwt1 | d | 아카이브 | .doltap/archive/workstreams/011-final-polish/README.md |  |  |
 | doltap-d-pptm6e2n | d | 활성 | .doltap/plans/current.md |  |  |
 | doltap-d-q2saepp4 | d | 활성 | .doltap/reviews/reviewed.md |  |  |
 | doltap-d-qzcaxr50 | d | 아카이브 | .doltap/archive/legacy/workstreams/007-first-impression/status.md |  |  |

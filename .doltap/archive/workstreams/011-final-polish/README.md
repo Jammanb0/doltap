@@ -17,4 +17,6 @@ README 두 언어의 소개와 읽는 순서를 맞추고 제공받은 대표 �
 위 검증이 통과하고 두 언어의 설명이 실제 동작과 맞아야 합니다.
 푸시와 대작업 종료는 사용자 요청에 따라 보류합니다. 릴리즈는 후속 단계입니다.
 
+- `indexes` [status.md](status.md#doltap-d-87es81hz-start)
+
 <a name="doltap-d-nb1zqwt1-end" id="doltap-d-nb1zqwt1-end"></a>
