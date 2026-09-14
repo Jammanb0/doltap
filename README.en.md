@@ -1,9 +1,24 @@
+<p align="center">
+  <img src="assets/doltap.jpg" width="300" alt="A cairn of five natural stones against a dark background">
+</p>
+
 # doltap
+
+**A place to pick up where you left off.**
+
+Keep your rules, current work, and decision history in the project.
+doltap gives them a place and connects them, so the next session can find where to begin.
 
 **Keep rules and progress in documents, and follow their links back to the evidence.**
 Codex and Claude Code share AGENTS.md. Each workstream keeps its current status in one place.
 
-[한국어](README.md) · [User guide (Korean)](guide/README.md) · [Adoption guide](APPLY.md) · [Test reports](docs/trials/README.md)
+[한국어](README.md) · [User guide (Korean)](guide/README.md) · [Adoption guide (Korean)](APPLY.md) · [Test reports (Korean)](docs/trials/README.md)
+
+Use it when:
+
+- You keep explaining past work and next steps at the start of each session.
+- Rules live in separate files for different tools, and it is hard to tell which is current.
+- The code and documents remain, but the reasons behind decisions are hard to find.
 
 ## What it does
 
@@ -48,8 +63,8 @@ For personal records outside a company repository or other layouts, see
 [adoption layouts (Korean)](guide/adoption-layouts.md). First establish document and code
 locations, the agent's starting directory, and how records will be stored and shared.
 
-For an introduction, read [the workstream lifecycle](guide/workstreams.md) and
-[anchors, IDs, and relationships](guide/concepts.md). These guides are in Korean.
+For an introduction, read [anchors, IDs, and relationships](guide/concepts.md), then
+[the workstream lifecycle](guide/workstreams.md). These guides are in Korean.
 
 ## Where information lives
 

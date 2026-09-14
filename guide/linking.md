@@ -21,6 +21,18 @@ doltap id notes.md --kind s --at "배포 조건" --apply
 미리보기의 새 ID는 아직 예약된 값이 아닙니다. 실제 적용에서 발급된 ID를
 확인하고 연결에 사용하세요. 기존 ID는 재실행해도 유지됩니다.
 
+.doltap 밖의 notes.md는 ID만 발급하면 아직 지도에 나오지 않습니다.
+먼저 관련 작업의 README 같은 **운영 문서에서 notes 문서 ID로** 연결합니다.
+실제 적용된 notes.md의 문서 앵커와 운영 문서의 ID를 확인해 아래 값을 바꿉니다.
+
+```sh
+doltap link <운영문서-ID> --to <notes-문서-ID> --as indexes
+doltap link <운영문서-ID> --to <notes-문서-ID> --as indexes --apply
+```
+
+이제 notes.md의 절도 지도에서 찾고 관계의 출발점으로 쓸 수 있습니다.
+외부 문서끼리만 연결해서 전체 관리 범위가 계속 늘어나는 구조는 아닙니다.
+
 ## 출발점과 근거를 연결하기
 
 ```sh
@@ -36,10 +48,5 @@ doltap check .
 근거 변경 시 재검토해야 하는 의존은 depends-on으로 구분합니다.
 전체 유형과 만료 방향은 [상세 참고](reference.md)에 있습니다.
 
-.doltap 밖의 notes.md를 관리하려면 운영 문서에서도 그 문서를 ID 관계로 연결합니다.
-예를 들어 관련 작업의 README에서 notes 문서 ID를 indexes로 가리킵니다.
-외부 문서끼리만 연결해서 전체 관리 범위가 계속 늘어나는 구조는 아닙니다.
-
 이미 ID가 있는 파일을 옮길 때는 재발급하지 말고 [move-fix](moving-deleting.md)를
 씁니다. ID를 복사해 붙이거나 같은 관계를 양쪽 문서에 중복 선언하지 않습니다.
-

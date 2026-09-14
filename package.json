@@ -12,7 +12,8 @@
     "template",
     "setup-workstream",
     "APPLY.md",
-    "guide"
+    "guide",
+    "assets/doltap.jpg"
   ],
   "engines": {
     "node": ">=22"
