@@ -14,6 +14,8 @@ doltap archive-check .doltap/plans/workstreams/010-example
 
 check는 문서 구조와 관계를, archive-check는 지정 범위의 종료 전 선언을 확인합니다.
 둘 다 읽기 전용이고 archive-check 자체가 폴더를 옮기지는 않습니다.
+폴더 경로는 `--root`로 지정한 운영 루트(생략하면 현재 폴더)를 기준으로 해석합니다.
+`./`를 붙인 상대 경로와 루트 안의 절대 경로도 같은 폴더를 검사합니다.
 
 전제·열린 질문은 별도 ID 범위로 감싸고 상태를 하나 선언합니다.
 
@@ -61,4 +63,3 @@ doltap check .
 
 아카이브는 당시 기록입니다. 다음 작업의 현재 규칙을 알려면 활성 plans·rules를
 읽습니다. 나중에 보관 기록을 삭제하는 일은 [삭제 절차](moving-deleting.md)로 따로 다룹니다.
-

@@ -2,8 +2,8 @@
 // 문서 골격과 그래프 명령의 CLI 진입점.
 
 import { cp, mkdir, readdir, readFile, writeFile } from "node:fs/promises";
-import { existsSync } from "node:fs";
-import { basename, dirname, join, resolve } from "node:path";
+import { existsSync, lstatSync } from "node:fs";
+import { basename, dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { format } from "../lib/check.mjs";
@@ -37,7 +37,9 @@ const USAGE = `doltap — AI 코딩 에이전트와 일할 때 쓰는 문서 골
   doltap audit <경로> [--changed] [--include-legacy] [--budget 8000] [--json]
   doltap suggest <ID> --to ID --relation 유형 --evidence 근거 --as 반영|기각|보류 --why 이유 --actor 주체 [--apply]
 
-쓰기 명령은 기본 미리보기이며 --apply에서만 적용합니다. --root로 프로젝트를 지정합니다.
+쓰기 명령은 기본 미리보기이며 --apply에서 적용합니다.
+예외: init은 즉시 생성하고, recover --discard는 즉시 복구 자료를 정리합니다.
+그래프 명령은 --root로 프로젝트를 지정합니다.
 
 검사 옵션
 
@@ -170,8 +172,9 @@ function runGraph(command, args) {
     else if (command === 'context') output = context(graph, arg, { depth: numeric('depth'), budget: numeric('budget'), state: o.state, relation: o.relation });
     else if (command === 'audit') output = audit(root, result, records, arg ?? '.', { budget: numeric('budget'), changed: o.changed, includeLegacy: o['include-legacy'], relation: o.relation, state: o.state });
     else if (command === 'archive-check') {
-      if (!arg || !existsSync(safePath(root, arg))) throw new Error('검사할 워크스트림 경로가 필요합니다');
-      output = { problems: archiveCheck(graph, arg.replaceAll('\\', '/').replace(/\/$/, '')) };
+      const full = arg && safePath(root, arg.replaceAll('\\', '/'));
+      if (!full || !existsSync(full) || !lstatSync(full).isDirectory()) throw new Error('검사할 워크스트림 폴더가 필요합니다');
+      output = { problems: archiveCheck(graph, relative(root, full).replaceAll('\\', '/')) };
     }
     else if (command === 'delete') plan = () => {
       if (!arg || arg.startsWith('doltap-')) return deletePlan(root, inspect(root).graph, arg, { mode:o.mode, replacement:o.to, why:o.why });

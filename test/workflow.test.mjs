@@ -23,6 +23,95 @@ function project() {
 }
 const documentId = (result, path) => [...result.graph.byId.values()].find(n => n.path === path && n.kind === 'd').id;
 
+test('archive-check는 같은 폴더의 상대·절대 경로를 같은 범위로 검사한다', () => {
+  const scope = '.doltap/plans/workstreams/011-proof', path = scope + '/README.md';
+  const root = fixture({ 'AGENTS.md': '# 규칙', [path]: '# 작업\n\n- `전제` 확인 필요\n- `상태` 미해결' });
+  mutate(root, () => migratePlan(root));
+  const run = arg => spawnSync(process.execPath, [resolve('bin/doltap.mjs'), 'archive-check', arg, '--root', root, '--json'], { cwd: tmpdir(), encoding: 'utf8' });
+  const forms = [scope, './' + scope, scope + '/', scope + '/../011-proof', scope.replaceAll('/', '\\'), join(root, scope)];
+  for (const arg of forms) {
+    const result = run(arg);
+    assert.equal(result.status, 1, arg);
+    assert.match(JSON.parse(result.stdout).problems[0].message, /처리하지 않은/);
+  }
+  writeFileSync(join(root, path), readText(root, path).replace('미해결', '해결'));
+  for (const arg of forms) assert.equal(run(arg).status, 0, arg);
+  for (const arg of [path, scope + '/missing', '../outside']) assert.equal(run(arg).status, 1, arg);
+});
+
+test('비어 있는 기존 발급 대장은 살아 있는 ID의 누락을 보고한다', () => {
+  const root = project(), path = '.doltap/ids.md', before = readText(root, path);
+  assert.equal(fullCheck(root).problems.length, 0);
+  writeFileSync(join(root, path), before.split('\n').filter(l => !/^\| doltap-/.test(l)).join('\n'));
+  const result = inspect(root), missing = result.problems.filter(p => p.message.includes('발급 기록에 없는 ID'));
+  assert.equal(missing.length, [...result.graph.byId.values()].filter(n => n.path !== 'CLAUDE.md').length);
+  assert.ok(missing.length > 0);
+  writeFileSync(join(root, path), before);
+  assert.equal(fullCheck(root).problems.length, 0);
+});
+
+test('ID 삭제는 범위 밖 일반 링크가 있으면 모든 모드에서 쓰기 전에 멈춘다', () => {
+  const root = project(), path = '.doltap/plans/project.md';
+  mutate(root, () => idPlan(root, path, { kind: 's', at: '한 줄 요약' }));
+  const id = [...inspect(root).graph.byId.values()].find(n => n.path === path && n.kind === 's').id;
+  const agents = readText(root, 'AGENTS.md');
+  writeFileSync(join(root, 'AGENTS.md'), agents.replace('# 프로젝트 이름', `# 프로젝트 이름\n\n[요약](${path}#${id}-start)`));
+  const before = readText(root, path), registry = readText(root, '.doltap/ids.md');
+  const replacement = documentId(inspect(root), '.doltap/plans/ideas.md');
+  assert.equal(fullCheck(root).problems.length, 0);
+  for (const mode of ['purge', 'tombstone', 'replace']) {
+    const result = spawnSync(process.execPath, ['bin/doltap.mjs', 'delete', id, '--root', root, '--mode', mode, '--to', replacement, '--why', '검증', '--apply'], { encoding: 'utf8' });
+    assert.equal(result.status, 1);
+    assert.match(result.stderr, /일반 링크.*AGENTS.md:\d+/);
+    assert.equal(readText(root, path), before);
+    assert.equal(readText(root, '.doltap/ids.md'), registry);
+  }
+});
+
+test('절 삭제는 같은 문서의 외부 참조를 막고 내부·무관한 링크는 허용한다', () => {
+  const root = project(), path = '.doltap/plans/project.md';
+  mutate(root, () => idPlan(root, path, { kind: 's', at: '한 줄 요약' }));
+  const id = [...inspect(root).graph.byId.values()].find(n => n.path === path && n.kind === 's').id;
+  const before = readText(root, path), options = { mode: 'purge', why: '검증' };
+  writeFileSync(join(root, path), before.replace('## 한 줄 요약', `## 한 줄 요약\n\n[내부](#${id}-start)`));
+  const safe = readText(root, path);
+  writeFileSync(join(root, path), safe.replace('# 프로젝트', `# 프로젝트\n\n[같은 파일 밖](#${id}-start)`));
+  assert.throws(() => deletePlan(root, inspect(root).graph, id, options), /일반 링크/);
+  writeFileSync(join(root, path), safe.replace('# 프로젝트', `# 프로젝트\n\n[웹](https://example.com/#${id}-start)\n[문서](project.md)`));
+  mutate(root, () => deletePlan(root, inspect(root).graph, id, options));
+  assert.equal(fullCheck(root).problems.length, 0);
+});
+
+test('문서 삭제는 이름이 같은 다른 파일의 일반 링크를 막지 않는다', () => {
+  const root = project();
+  writeFileSync(join(root, 'notes.md'), '# 루트 메모');
+  writeFileSync(join(root, '.doltap/plans/notes.md'), '# 다른 메모');
+  mutate(root, () => idPlan(root, 'notes.md', { kind: 'd' }));
+  const id = readText(root, '.doltap/ids.md').split('\n').find(l => l.includes('| notes.md |')).split('|')[1].trim();
+  mutate(root, () => linkPlan(root, documentId(inspect(root), 'AGENTS.md'), id, 'indexes'));
+  mutate(root, () => migratePlan(root));
+  const path = '.doltap/plans/project.md';
+  writeFileSync(join(root, path), readText(root, path).replace('# 프로젝트', '# 프로젝트\n\n[다른 메모](notes.md)'));
+  const replacement = documentId(inspect(root), '.doltap/plans/ideas.md');
+  mutate(root, () => deletePlan(root, inspect(root).graph, id, { mode: 'replace', replacement, why: '통합' }));
+  assert.equal(fullCheck(root).problems.length, 0);
+  assert.match(readText(root, path), /\[다른 메모\]\(notes.md\)/);
+});
+
+test('문서 삭제는 ID 없는 파일 링크와 자식 ID 링크도 확인한다', () => {
+  const root = project(), path = '.doltap/plans/extra.md';
+  writeFileSync(join(root, path), '# 추가\n\n## 절\n본문');
+  mutate(root, () => idPlan(root, path, { kind: 'd' }));
+  mutate(root, () => idPlan(root, path, { kind: 's', at: '절' }));
+  const graph = inspect(root).graph, doc = [...graph.byId.values()].find(n => n.path === path && n.kind === 'd');
+  const child = [...graph.byId.values()].find(n => n.path === path && n.kind === 's');
+  const agents = readText(root, 'AGENTS.md');
+  for (const dest of [path, path + '#' + child.id + '-start']) {
+    writeFileSync(join(root, 'AGENTS.md'), agents.replace('# 프로젝트 이름', `# 프로젝트 이름\n\n[추가](${dest})`));
+    assert.throws(() => deletePlan(root, inspect(root).graph, doc.id, { mode: 'purge', why: '검증' }), /일반 링크/);
+  }
+});
+
 test('새 프로젝트에는 복구 자료가 복사되지 않는다',()=>{
   const root=fixture();
   const run=spawnSync(process.execPath,['bin/doltap.mjs','init',root],{encoding:'utf8'});
@@ -92,7 +181,7 @@ test('사용자 편집과 손상 백업은 복구가 덮어쓰지 않는다', ()
   const root = fixture({'a.md':'old'}); const {id}=transact(root,[change(root,'a.md','new')]);
   writeFileSync(join(root,'a.md'),'user'); assert.throws(()=>recover(root,id,{apply:true}),/충돌/); assert.equal(readText(root,'a.md'),'user');
 });
-test('프로젝트 밖 쓰기와 미리보기 이후 변경은 거부한다', () => {
+test('프로젝트 밖 쓰기와 같은 실행의 변경안 작성 이후 변경은 거부한다', () => {
   const root = fixture({'a.md':'old'}); assert.throws(()=>change(root,'../escape.md','bad'),/밖/);
   const c = change(root,'a.md','new'); writeFileSync(join(root,'a.md'),'other'); assert.throws(()=>transact(root,[c]),/바뀌었/);
 });
