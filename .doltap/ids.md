@@ -10,11 +10,13 @@
 | --- | --- | --- | --- | --- | --- |
 | doltap-b-js7yf5p8 | b | 활성 | .doltap/plans/decisions.md |  |  |
 | doltap-d-0c9e0fds | d | 활성 | .doltap/plans/project.md |  |  |
+| doltap-d-0hpzfjcz | d | 활성 | .doltap/plans/workstreams/012-ci-stability/README.md |  |  |
 | doltap-d-0kk90ace | d | 활성 | docs/trials/README.md |  |  |
 | doltap-d-0r8gvxp9 | d | 아카이브 | .doltap/archive/legacy/workstreams/004-safe-apply/findings.md |  |  |
 | doltap-d-2t7cwq04 | d | 아카이브 | .doltap/archive/workstreams/010-user-guide/decisions.md |  |  |
 | doltap-d-385jks6p | d | 아카이브 | .doltap/archive/legacy/workstreams/005-archive-scope/decisions.md |  |  |
 | doltap-d-3dakc346 | d | 아카이브 | .doltap/archive/legacy/workstreams/007-first-impression/README.md |  |  |
+| doltap-d-41hn3r92 | d | 활성 | .doltap/plans/workstreams/012-ci-stability/status.md |  |  |
 | doltap-d-4n18ze4a | d | 활성 | .doltap/reviews/2026.md |  |  |
 | doltap-d-4svrcedy | d | 아카이브 | .doltap/archive/legacy/workstreams/006-approval-boundary/README.md |  |  |
 | doltap-d-594dnf3v | d | 활성 | .doltap/rules/verification.md |  |  |

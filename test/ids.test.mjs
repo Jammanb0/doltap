@@ -156,12 +156,18 @@ test("쓰기가 끝나면 잠금 파일이 남지 않는다", () => {
   assert.deepEqual(left, [], `남은 파일: ${left.join(", ")}`);
 });
 
-test("죽은 프로세스가 남긴 잠금이 영원히 막지 않는다", () => {
+test("죽은 프로세스가 남긴 잠금이 영원히 막지 않는다", (t) => {
   const dir = project();
-  // 오래된 시각을 적어 두면 다음 실행이 걷어내야 한다.
-  writeFileSync(join(dir, OP, "ids.lock"), `999999 ${Date.now() - 60_000}\n`);
+  // 특정 PID가 비어 있다고 가정하지 않고 OS의 '프로세스 없음' 응답을 고정한다.
+  const ownerPid = 1234;
+  const probe = t.mock.method(process, "kill", () => {
+    throw Object.assign(new Error("프로세스 없음"), { code: "ESRCH" });
+  });
+  writeFileSync(join(dir, OP, "ids.lock"), `${ownerPid} ${Date.now() - 60_000}\n`);
   const id = allocate({ root: dir, operatingDir: OP, kind: "s", path: "AGENTS.md" });
   assert.match(id, ID_PATTERN);
+  assert.equal(probe.mock.callCount(), 1);
+  assert.deepEqual(probe.mock.calls[0].arguments, [ownerPid, 0]);
   assert.ok(!existsSync(join(dir, OP, "ids.lock")), "잠금이 남았습니다");
 });
 
@@ -232,16 +238,20 @@ test("빈 발급 기록도 읽힌다", () => {
   assert.deepEqual(readRegistry(dir, OP), []);
 });
 
-test("읽지 못한 잠금을 오래된 것으로 보지 않는다", () => {
+test("읽지 못한 잠금을 오래된 것으로 보지 않는다", (t) => {
   // 잠금은 만든 직후 내용을 쓰기 전까지 잠깐 비어 있다. 그 순간을 오래된 것으로
   // 읽으면 남이 쥔 잠금을 빼앗아 둘이 동시에 들어가고, 발급 줄을 잃는다.
   const now = Date.now();
+  // CI에 PID 1234가 존재해도 결과가 같아야 한다. 실제 OS 조회가 새어 나가면
+  // 살아 있다고 응답해 기존 실패를 재현하고, 호출 횟수로도 누출을 확인한다.
+  const probe = t.mock.method(process, "kill", () => true);
   assert.equal(isStaleLock("", now), false, "빈 잠금을 빼앗았습니다");
   assert.equal(isStaleLock("1234", now), false, "시각이 없는 잠금을 빼앗았습니다");
   assert.equal(isStaleLock("망가진 내용", now), false);
   assert.equal(isStaleLock(`1234 ${now - 1000}\n`, now), false, "방금 잡은 잠금을 빼앗았습니다");
-  // 시각을 읽을 수 있고 정말 오래됐을 때만 걷어낸다.
-  assert.equal(isStaleLock(`1234 ${now - 60_000}\n`, now), true);
+  // 시각이 오래됐고 주인이 없다는 조건을 명시해야 걷어낸다.
+  assert.equal(isStaleLock(`1234 ${now - 60_000}\n`, now, () => false), true);
+  assert.equal(probe.mock.callCount(), 0, "잠금 형식 시험이 실제 PID를 조회했습니다");
 });
 
 // --- 두 번째 검토에서 드러난 누락. 각각 재현한 뒤 고쳤다. ---
@@ -325,10 +335,22 @@ test("PID 를 읽을 수 없으면 빼앗지 않는다", () => {
   assert.equal(isStaleLock(`0 ${now - 60_000}`, now, () => false), false);
 });
 
-test("살아 있는 프로세스는 살아 있다고 본다", () => {
+test("프로세스 존재 여부는 신호 0의 성공·ESRCH·EPERM으로 판정한다", (t) => {
   assert.equal(pidAlive(process.pid), true);
-  // 있을 법하지 않은 PID. 없으면 false 여야 한다.
-  assert.equal(pidAlive(0x7ffffff), false);
+  // 없는 PID를 추측하지 않고 OS 응답을 고정한다. EPERM은 종료가 아니라
+  // 권한 부족이므로 살아 있는 주인의 잠금을 보호해야 한다.
+  let code;
+  const probe = t.mock.method(process, "kill", () => {
+    if (code) throw Object.assign(new Error(code), { code });
+    return true;
+  });
+  assert.equal(pidAlive(1234), true);
+  code = "ESRCH";
+  assert.equal(pidAlive(1234), false);
+  code = "EPERM";
+  assert.equal(pidAlive(1234), true);
+  assert.equal(probe.mock.callCount(), 3);
+  assert.deepEqual(probe.mock.calls.map(call => call.arguments), [[1234, 0], [1234, 0], [1234, 0]]);
 });
 
 test("잠금 내용을 쓰지 못하면 핸들과 불완전한 파일을 치운다", () => {
