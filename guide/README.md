@@ -13,6 +13,7 @@
 | --- | --- | --- |
 | 위치·개인 기록·Git 구성이 다를 때 적용하기 | [환경에 맞게 적용하기](adoption-layouts.md) | 조사·적용 계획 |
 | 문서나 주장 연결하기 | [ID와 관계](linking.md) | id, link |
+| 검사 결과를 읽고 고치기 | [검사 메시지](diagnostics.md) | check, context |
 | 옮기거나 지운 문서 정리하기 | [이동·삭제·복구](moving-deleting.md) | move-fix, delete, delete-fix, recover |
 | 변경 영향을 읽고 판단 남기기 | [검토](review.md) | review, suggest |
 | 작업을 마치고 보관하기 | [마무리](finishing.md) | archive-check, move-fix, check |

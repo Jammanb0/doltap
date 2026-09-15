@@ -17,6 +17,7 @@
 | test/delete-folder.test.mjs | 등록 문서 묶음 삭제·미등록 보존·복구 | [묶음 삭제](automated/delete-folder.md) |
 | test/delete-fix.test.mjs | 직접 삭제 사후 정리·범위·참조·복구 | [사후 삭제 정리](automated/delete-fix.md) |
 | test/check.test.mjs | 기존 문서 구조·색인·경로 | [구조 검사](automated/check.md) |
+| test/diagnostics.test.mjs | 진단 코드·위치·다음 행동·수정 후 재검사 | [검사 메시지](automated/diagnostics.md) |
 | test/graph.test.mjs | ID·범위·관계·도달성 | [그래프 파서](automated/graph.md) |
 | test/ids.test.mjs | 발급·중복·삭제 ID·동시 잠금 | [ID 발급](automated/ids.md) |
 | test/init.test.mjs | 초기화·이름 치환·기존 파일 보호 | [초기화](automated/init.md) |
@@ -28,6 +29,7 @@
 - [사용자 안내 실행 검증](guide.md): 가이드의 CLI 흐름·링크·패키지 확인.
 - [009 원격 CI](ci-009.md): Windows / Node 24 실패, 로컬 보완과 010 반영 뒤 원격 6개 환경 통과.
 - [012 CI 시험 안정화](ci-012.md): Ubuntu / Node 22의 PID 의존 실패를 재현·수정하고 원격 6개 환경 통과 확인.
+- [013 검사 메시지](check-diagnostics.md): 진단 위치·다음 행동·재검토 이유와 실제 CLI 출력 확인.
 - [패키지·문서·폴더 이동 실행](local-integration.md): 실제 CLI 실행과 해석 범위.
 - [이전 에이전트 행동 관찰](agent-behavior-2026-09-10.md): 2026-09-10 기록과 근거의 구분.
 

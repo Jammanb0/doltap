@@ -204,4 +204,24 @@ Git 없이 검사와 쓰기가 동작합니다. 운영 폴더가 Git에서 제�
 오류는 종료 코드 1, 확인만 있으면 0입니다. 훅은 선택적 예시·Stop 어댑터만 제공하고
 자동 설치하지 않습니다. 플랫폼 훅의 상세 절차는 사용 안내에서 관리합니다.
 
+## check 진단 출력
+
+check의 문제·확인 항목은 판정 지점에서 지정한 안정적인 code, 기존 where·message,
+구조화 위치 location, 다음 행동 hint, 관련 위치 배열 related를 가집니다.
+location은 검사 루트 기준 path와 선택적인 1부터 시작하는 line을, related의 각 항목은
+같은 위치 정보와 label을 가집니다. 행을 특정할 수 없으면 line을 생략합니다.
+관련 위치가 없으면 related는 빈 배열입니다. 동일 code·where·message를 골격 검사와
+그래프 검사가 함께 보고하면 최종 check에서는 한 번만 제공합니다.
+
+REVIEW_STALE은 reason으로 unreviewed·source-changed·target-changed·both-changed를
+구분합니다. 관계의 검토 만료 방향에 포함된 끝점만 비교하고, 대칭 관계도 선언한
+출발·도착 기준으로 변경 이유를 표시합니다. 해시가 달라졌다는 판정은 내용이
+틀렸다는 판정이나 검토·작업 승인이 아닙니다.
+
+JSON 이름 doltap.check.v1과 problems·notices·nodes·edges 및 where·message는
+유지합니다. 추가 필드를 허용하는 소비 도구와 호환되는 확장이며, 문구나 터미널의
+줄 배치에 의존하는 도구는 code와 구조화 위치로 전환해야 합니다.
+검사 시작 전의 옵션·대상 오류는 기존 CLI 오류 경로를 사용합니다.
+구체적인 읽는 법은 [검사 메시지](../guide/diagnostics.md)에 있습니다.
+
 <a name="doltap-d-wnzqqhyf-end" id="doltap-d-wnzqqhyf-end"></a>

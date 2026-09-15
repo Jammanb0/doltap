@@ -35,6 +35,11 @@ doltap audit .doltap/archive --include-legacy --json
 삭제 기록, 역방향 조회에 필요한 관계, 포함 관계와 파생 파일 관계를 제공합니다.
 `context`는 들어오고 나가는 관계와 부모·자식을 함께 탐색합니다.
 
+검사 항목은 코드·위치·다음 행동을 제공하고 관련 위치가 있으면 함께 표시합니다.
+`check --json`은 기존 `where`·`message`에 `code`·`location`·`hint`·`related`를
+추가하며, 재검토 항목에는 `reason`도 제공합니다. 읽는 법과 필드 정의는
+[검사 메시지](diagnostics.md)에 있습니다.
+
 `--budget`은 반환하는 **본문의 문자 수**입니다. JSON 키·ID·경로·관계 등 탐색
 메타데이터는 이 숫자 밖에 있으므로 전송 전체 크기나 토큰 수가 아닙니다. 루트 본문도
 한도를 넘으면 잘리고 `bodyTruncated`와 `omitted`에 표시됩니다. 깊이 2 이상은 제목과
