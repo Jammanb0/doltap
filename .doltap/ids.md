@@ -17,7 +17,7 @@
 | doltap-d-385jks6p | d | 아카이브 | .doltap/archive/legacy/workstreams/005-archive-scope/decisions.md |  |  |
 | doltap-d-3dakc346 | d | 아카이브 | .doltap/archive/legacy/workstreams/007-first-impression/README.md |  |  |
 | doltap-d-41hn3r92 | d | 아카이브 | .doltap/archive/workstreams/012-ci-stability/status.md |  |  |
-| doltap-d-459g1rfj | d | 활성 | .doltap/plans/workstreams/013-check-diagnostics/README.md |  |  |
+| doltap-d-459g1rfj | d | 아카이브 | .doltap/archive/workstreams/013-check-diagnostics/README.md |  |  |
 | doltap-d-4n18ze4a | d | 활성 | .doltap/reviews/2026.md |  |  |
 | doltap-d-4svrcedy | d | 아카이브 | .doltap/archive/legacy/workstreams/006-approval-boundary/README.md |  |  |
 | doltap-d-594dnf3v | d | 활성 | .doltap/rules/verification.md |  |  |
@@ -47,7 +47,7 @@
 | doltap-d-n0k25q71 | d | 아카이브 | .doltap/archive/workstreams/009-document-graph/README.md |  |  |
 | doltap-d-n72qk3vj | d | 아카이브 | .doltap/archive/workstreams/009-document-graph/status.md |  |  |
 | doltap-d-nb1zqwt1 | d | 아카이브 | .doltap/archive/workstreams/011-final-polish/README.md |  |  |
-| doltap-d-p2wrjxt3 | d | 활성 | .doltap/plans/workstreams/013-check-diagnostics/plan.md |  |  |
+| doltap-d-p2wrjxt3 | d | 아카이브 | .doltap/archive/workstreams/013-check-diagnostics/plan.md |  |  |
 | doltap-d-pptm6e2n | d | 활성 | .doltap/plans/current.md |  |  |
 | doltap-d-q2saepp4 | d | 활성 | .doltap/reviews/reviewed.md |  |  |
 | doltap-d-qzcaxr50 | d | 아카이브 | .doltap/archive/legacy/workstreams/007-first-impression/status.md |  |  |
@@ -68,7 +68,7 @@
 | doltap-d-y5rgen3m | d | 아카이브 | .doltap/archive/legacy/workstreams/003-verify-and-report/findings.md |  |  |
 | doltap-d-y6rvrj98 | d | 아카이브 | .doltap/archive/workstreams/009-document-graph/plan.md |  |  |
 | doltap-d-ypvp294p | d | 활성 | .doltap/ids.md |  |  |
-| doltap-d-z3vy01sh | d | 활성 | .doltap/plans/workstreams/013-check-diagnostics/status.md |  |  |
+| doltap-d-z3vy01sh | d | 아카이브 | .doltap/archive/workstreams/013-check-diagnostics/status.md |  |  |
 | doltap-d-zkdqf9se | d | 아카이브 | .doltap/archive/legacy/workstreams/002-document-roles/README.md |  |  |
 | doltap-s-7qpp5x4m | s | 아카이브 | .doltap/archive/workstreams/009-document-graph/README.md |  |  |
 

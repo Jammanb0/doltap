@@ -19,6 +19,7 @@
 | 2026-09-13~14 | 처음 쓰는 사람을 위한 안내 | 완료 — 사용 안내 12개와 환경별 적용 절차를 작성하고 Windows 잠금 보완을 원격 6개 환경에서 확인함 | `.doltap/archive/workstreams/010-user-guide/README.md` |
 | 2026-09-14 | 최종 점검 보완 | 완료 — 검사가 놓치던 경로 표기와 빈 ID 대장, 일반 링크가 남은 삭제를 고치고 미리보기 설명을 실제 동작에 맞춤. README 두 언어에 소개와 대표 이미지를 넣음 | `.doltap/archive/workstreams/011-final-polish/README.md` |
 | 2026-09-15 | CI 시험 안정화 | 완료 — 잠금 시험의 PID 환경 의존을 제거하고 Ubuntu·macOS·Windows × Node 22·24 원격 CI 통과를 확인함 | `.doltap/archive/workstreams/012-ci-stability/README.md` |
+| 2026-09-15 | 검사 메시지 개선 | 완료 — 진단 코드·위치·다음 행동·관련 위치와 재검토 이유를 보강하고 원격 6개 환경 통과를 확인함 | `.doltap/archive/workstreams/013-check-diagnostics/README.md` |
 <!-- 대작업을 마칠 때마다 한 줄씩 더합니다. 결과는 완료일 수도 취소일
      수도 있고, 어느 쪽이든 남깁니다.
      예) | 2026-09-02~03 | 초기 파이프라인 구축 | 완료 — 무엇이 가능해졌는지 한 줄 | `.doltap/archive/workstreams/001-initial-pipeline/README.md` |
@@ -47,5 +48,7 @@
 - `indexes` [최종 점검 보완](../archive/workstreams/011-final-polish/README.md#doltap-d-nb1zqwt1-start)
 
 - `indexes` [CI 시험 안정화](../archive/workstreams/012-ci-stability/README.md#doltap-d-0hpzfjcz-start)
+
+- `indexes` [검사 메시지 개선](../archive/workstreams/013-check-diagnostics/README.md#doltap-d-459g1rfj-start)
 
 <a name="doltap-d-9tgvms63-end" id="doltap-d-9tgvms63-end"></a>
