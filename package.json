@@ -1,0 +1,28 @@
+{
+  "name": "doltap",
+  "version": "1.0.0",
+  "description": "Checks relations between Markdown documents and keeps work in progress resumable across AI coding sessions",
+  "type": "module",
+  "bin": {
+    "doltap": "bin/doltap.mjs"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "template",
+    "APPLY.md",
+    "docs/guide",
+    "assets/doltap_long.png"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jammanb0/doltap.git"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs"
+  }
+}

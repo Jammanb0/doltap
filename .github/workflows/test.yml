@@ -1,0 +1,27 @@
+name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      # 경로 구분자와 줄바꿈 처리가 운영체제마다 달라서 셋 다 돌린다.
+      # init 이 만든 프로젝트가 곧바로 check 를 통과하는지까지 시험에 들어 있다.
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node: ["22", "24"]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm test
+      # 골격 자체가 검사를 통과하는지 확인한다.
+      - run: node bin/doltap.mjs check template
+      # 이 저장소는 자기 자신에게 doltap 을 적용해 운영하므로 함께 검사한다.
+      - run: node bin/doltap.mjs check .
