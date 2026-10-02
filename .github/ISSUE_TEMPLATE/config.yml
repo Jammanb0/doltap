@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 사용 안내 / User guide (Korean)
+    url: https://github.com/Jammanb0/doltap/blob/main/docs/guide/README.md
+    about: 시작하기, 명령, 검사 항목, 작업 기록 사용법

@@ -1,0 +1,52 @@
+name: 버그 제보 / Bug report
+description: doltap이 안내와 다르게 동작할 때 / Report unexpected behavior
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        다시 일으킬 수 있는 정보를 적어 주세요. 영어로 적어도 됩니다.
+        Please include enough detail to reproduce the problem. English is welcome.
+        보안 문제는 [Security and quality 탭](https://github.com/Jammanb0/doltap/security)의 비공개 제보를 이용해 주세요.
+        For security issues, choose Report a vulnerability there instead of filing a public issue.
+  - type: input
+    id: version
+    attributes:
+      label: doltap 버전 / Version
+      description: "`node bin/doltap.mjs --version`의 출력 / Output of this command"
+      placeholder: "1.0.0"
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Node 버전과 운영체제 / Node version and OS
+      placeholder: "Node v22.14.0, Windows 11"
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: 실행한 명령 / Command run
+      render: sh
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: 문제를 일으키는 가장 작은 Markdown 예시 / Minimal example
+      description: 문제가 되는 부분만 남기고 개인정보나 비밀은 지워 주세요. / Remove personal information and secrets.
+      render: markdown
+  - type: textarea
+    id: expected
+    attributes:
+      label: 기대한 결과 / Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: 실제 결과 / Actual behavior
+      description: 출력이나 오류 메시지를 붙여 넣어 주세요. / Paste the output or error message.
+    validations:
+      required: true
