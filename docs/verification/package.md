@@ -23,14 +23,16 @@
 
 ## 결과
 
-- 파일 33개, 묶음 641.0 kB, 풀었을 때 792.8 kB.
+- 파일 35개, 묶음 643.8 kB, 풀었을 때 803.3 kB.
 - 들어감: `bin/doltap.mjs`, `lib/` 14개, `template/` 3개(`AGENTS.md`, `.doltap/current.md`,
-  `.doltap/history.md`), `docs/guide/` 9개, `APPLY.md`, `README.md`, `README.en.md`, `LICENSE`,
-  `package.json`, `assets/doltap_long.png`. `docs/` 아래에는 `guide/`만 있습니다.
-- 빠짐: `test/`, `docs/verification/`, `docs/README.md`, `scripts/`, `.doltap/`, `.github/`.
+  `.doltap/history.md`), `docs/guide/` 11개(영어판 `docs/guide/en/` 2개 포함), `APPLY.md`,
+  `README.md`, `README.en.md`, `LICENSE`, `package.json`, `assets/doltap_long.png`. `docs/` 아래에는
+  `guide/`만 있습니다.
+- 빠짐: `test/`, `docs/verification/`, `docs/README.md`, `scripts/`, `.doltap/`, `.github/`,
+  `CONTRIBUTING.md`, `SECURITY.md`.
 - 묶음에서 실행: `--version`은 `1.0.0`, `init`과 그 결과의 `check`는 종료 코드 0(채우기 자리
   확인 항목만 있음).
-- 링크: 묶음 안 Markdown 15개의 상대 링크 65개가 모두 묶음 안의 파일을 가리킵니다. README 두
+- 링크: 묶음 안 Markdown 17개의 상대 링크 87개가 모두 묶음 안의 파일을 가리킵니다. README 두
   벌의 검증 기록 링크는 묶음에서 빠지는 문서를 가리키므로 GitHub 주소로 연결되어 있습니다.
 
 ## 적용 범위

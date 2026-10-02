@@ -30,7 +30,7 @@ doltap에 관심 가져 주셔서 고맙습니다. 버그 제보, 문서 개선,
 | `bin/doltap.mjs` | 명령줄 진입점 |
 | `lib/` | 표식 읽기, 관계 판정, 검사, 편집 보조의 구현 |
 | `template/` | `doltap init`이 사용자 프로젝트에 넣는 기본 구조 |
-| `docs/guide/` | 사용 안내. npm 패키지에도 함께 들어갑니다 |
+| `docs/guide/` | 사용 안내. 영어판은 `docs/guide/en/`에 일부 있고, npm 패키지에도 함께 들어갑니다 |
 | `docs/verification/` | 무엇을 어떻게 확인했는지 적은 검증 기록 |
 | `test/` | 시험 |
 | `AGENTS.md`, `.doltap/` | 이 저장소에서 일하는 사람과 AI 에이전트가 따르는 규칙과 작업 기록 |
@@ -106,7 +106,7 @@ messages are in Korean, so feel free to ask if anything is unclear.
 | `bin/doltap.mjs` | Command-line entry point |
 | `lib/` | Implementation of marker reading, relation checks, checks, and editing helpers |
 | `template/` | The basic structure that `doltap init` puts into a user's project |
-| `docs/guide/` | User guide (Korean). Also included in the npm package |
+| `docs/guide/` | User guide, with some pages in English under `docs/guide/en/`. Also included in the npm package |
 | `docs/verification/` | Verification records of what was checked and how (Korean) |
 | `test/` | Tests |
 | `AGENTS.md`, `.doltap/` | Rules and work records followed by people and AI agents working in this repository |

@@ -1,6 +1,10 @@
+<!-- doltap:start doltap-d-yw0hp9qg
+same-as: doltap-d-t2r1qkpf
+-->
+
 # 시작하기
 
-[사용 안내](README.md) · 다음: [표식과 관계](format.md)
+[사용 안내](README.md) · 다음: [표식과 관계](format.md) · [English](en/getting-started.md)
 
 이 문서에서는 새 프로젝트를 만들고, 한국어와 영어 설치 안내 두 문서를 "같은 내용을
 유지해야 하는 관계"로 이은 뒤, 한쪽을 고쳤을 때 doltap이 무엇을 알려 주는지 따라가
@@ -251,3 +255,5 @@ FreeBSD를 더하면 골격 문제는 사라지고, 두 절을 읽어 확인한 
 - 여러 날 이어지는 작업을 남기고 이어받는 방법: [작업 기록](workstreams.md)
 - AI 에이전트가 이 흐름을 따르게 하는 방법: [에이전트와 함께 쓰기](with-agents.md)
 - 모든 명령과 옵션: [명령 참고](commands.md)
+
+<!-- doltap:end doltap-d-yw0hp9qg -->

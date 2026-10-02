@@ -1,25 +1,45 @@
 {
   "version": 1,
   "relations": {
+    "doltap-d-fqq7wa3x same-as doltap-d-r9tfqq7c": {
+      "by": "agent",
+      "fingerprints": {
+        "doltap-d-fqq7wa3x": "00ca1195646d9409",
+        "doltap-d-r9tfqq7c": "c46f5a73482b13bc"
+      },
+      "method": 1,
+      "note": "한국어판과 영어판 사용 안내 목차를 처음부터 끝까지 대조함. 읽는 순서, 찾아보기 표 7줄, 명령 읽는 법의 사실과 구성이 같고, 영어판은 아직 옮기지 않은 문서와 CLI 메시지가 한국어라는 점을 밝힘",
+      "reviewedAt": "2026-10-02T08:35:36.066Z"
+    },
     "doltap-d-mvqg5d0w same-as doltap-d-yjg3k8w1": {
       "by": "agent",
       "fingerprints": {
-        "doltap-d-mvqg5d0w": "60ccd1c1ea838dbd",
-        "doltap-d-yjg3k8w1": "461977fd6ad9deee"
+        "doltap-d-mvqg5d0w": "b9be552f33a99ead",
+        "doltap-d-yjg3k8w1": "203028b4fbdfe2c3"
       },
       "method": 1,
-      "note": "사용 안내 경로를 docs/guide/로 바꾸고 맨 위 링크 줄과 확인할 수 있는 범위 끝에 검증 기록 링크를 더한 변경을 두 언어에서 대조함. 더한 링크와 문단의 위치와 뜻이 같고, 영어판은 검증 기록이 한국어임을 밝힘. 나머지 본문은 지난 검토 뒤 바뀌지 않음",
-      "reviewedAt": "2026-10-01T17:19:16.026Z"
+      "note": "영어 README의 사용 안내와 시작하기 링크를 영어판으로 바꾼 것을 대조함. 한국어 README는 한국어판, 영어 README는 영어판으로 이어져 뜻이 같음. 링크한 안내 문서에 범위 표식이 생겨 양쪽 지문이 함께 바뀌었고, 나머지 본문은 지난 검토 뒤 바뀌지 않음",
+      "reviewedAt": "2026-10-02T08:35:36.511Z"
+    },
+    "doltap-d-t2r1qkpf same-as doltap-d-yw0hp9qg": {
+      "by": "agent",
+      "fingerprints": {
+        "doltap-d-t2r1qkpf": "6ae0f7f7d492a5af",
+        "doltap-d-yw0hp9qg": "6370b00a798c9c0c"
+      },
+      "method": 1,
+      "note": "한국어판과 영어판 시작하기를 처음부터 끝까지 대조함. 준비부터 5단계까지의 명령, 예시 문서, CLI 출력 예시가 같고, 영어판은 출력이 한국어라는 점과 첫 검사 출력의 뜻을 풀어 적고 AI 요청문과 검토 메모를 영어로 씀",
+      "reviewedAt": "2026-10-02T08:35:36.290Z"
     },
     "doltap-s-68ncypqf same-as doltap-s-q0pnqk08": {
       "by": "agent",
       "fingerprints": {
-        "doltap-s-68ncypqf": "b798c57d22495772",
-        "doltap-s-q0pnqk08": "dff6ebbd0938c7ab"
+        "doltap-s-68ncypqf": "4d790f7fd0800c3a",
+        "doltap-s-q0pnqk08": "242c1d264ba3ffc5"
       },
       "method": 1,
-      "note": "한국어 절과 영어 절을 처음부터 끝까지 대조함. 참여 방법, 저장소 구성, 고친 뒤 확인, PR 요령, 에이전트 작업, 라이선스의 사실과 구성이 같고, 영어 절은 사용 안내와 CLI 메시지가 한국어라는 점을 밝힘",
-      "reviewedAt": "2026-10-02T08:24:16.065Z"
+      "note": "저장소 구성 표의 사용 안내 줄에 영어판 위치를 두 언어에서 함께 더한 것을 대조함. 뜻과 구성이 같음",
+      "reviewedAt": "2026-10-02T08:35:36.753Z"
     },
     "doltap-s-erjncca4 same-as doltap-s-vzx7yd82": {
       "by": "agent",

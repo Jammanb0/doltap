@@ -10,7 +10,7 @@ same-as: doltap-d-mvqg5d0w
 
 **Even when the session changes, there is a place to pick up where you left off.**
 
-[한국어](README.md) · [User guide (Korean)](docs/guide/README.md) · [Adopting it in an existing project (Korean)](APPLY.md) · [Verification records (Korean)](https://github.com/Jammanb0/doltap/blob/main/docs/verification/README.md)
+[한국어](README.md) · [User guide](docs/guide/en/README.md) · [Adopting it in an existing project (Korean)](APPLY.md) · [Verification records (Korean)](https://github.com/Jammanb0/doltap/blob/main/docs/verification/README.md)
 
 ## Does this sound familiar?
 
@@ -124,7 +124,7 @@ node bin/doltap.mjs check ../my-project
 The first command creates a `my-project` folder next to it with the basic structure, and the
 second checks that structure. At first it points out places still to be filled in for your
 project. To go on to connecting documents and recording a review, follow
-[getting started (Korean)](docs/guide/getting-started.md).
+[getting started](docs/guide/en/getting-started.md).
 
 ## Where documents live
 

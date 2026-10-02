@@ -13,7 +13,7 @@ import { classifyLines, findLinks, isExternal, resolveLocal, splitLines } from '
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const read = (path) => readFileSync(join(ROOT, path), 'utf8');
 const markdownIn = (dir) => (existsSync(join(ROOT, dir)) ? readdirSync(join(ROOT, dir)).filter((name) => name.endsWith('.md')).map((name) => `${dir}/${name}`) : []);
-const PUBLIC = ['README.md', 'README.en.md', 'APPLY.md', 'CONTRIBUTING.md', 'SECURITY.md', ...markdownIn('docs'), ...markdownIn('docs/guide'), ...markdownIn('docs/verification')];
+const PUBLIC = ['README.md', 'README.en.md', 'APPLY.md', 'CONTRIBUTING.md', 'SECURITY.md', ...markdownIn('docs'), ...markdownIn('docs/guide'), ...markdownIn('docs/guide/en'), ...markdownIn('docs/verification')];
 
 // 코드 블록과 주석을 뺀 글 줄.
 function textLines(path) {

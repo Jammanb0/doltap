@@ -1,4 +1,10 @@
+<!-- doltap:start doltap-d-r9tfqq7c
+same-as: doltap-d-fqq7wa3x
+-->
+
 # 사용 안내
+
+[English](en/README.md)
 
 doltap은 문서를 대신 써 주지 않습니다. 사람이나 함께 일하는 AI가 Markdown 문서를 평소처럼
 고치고, doltap은 그 뒤에 **어디가 어긋났는지, 무엇을 다시 확인해야 하는지, 지금 하던 일이
@@ -33,3 +39,5 @@ doltap은 문서를 대신 써 주지 않습니다. 사람이나 함께 일하�
 
 파일을 바꾸는 명령은 먼저 바뀔 내용만 보여 줍니다. 확인한 뒤 같은 명령에 `--apply`를
 붙이면 씁니다. `init`만 빈 폴더에 바로 만듭니다.
+
+<!-- doltap:end doltap-d-r9tfqq7c -->
