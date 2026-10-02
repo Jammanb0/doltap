@@ -10,6 +10,26 @@
       "method": 1,
       "note": "사용 안내 경로를 docs/guide/로 바꾸고 맨 위 링크 줄과 확인할 수 있는 범위 끝에 검증 기록 링크를 더한 변경을 두 언어에서 대조함. 더한 링크와 문단의 위치와 뜻이 같고, 영어판은 검증 기록이 한국어임을 밝힘. 나머지 본문은 지난 검토 뒤 바뀌지 않음",
       "reviewedAt": "2026-10-01T17:19:16.026Z"
+    },
+    "doltap-s-68ncypqf same-as doltap-s-q0pnqk08": {
+      "by": "agent",
+      "fingerprints": {
+        "doltap-s-68ncypqf": "b798c57d22495772",
+        "doltap-s-q0pnqk08": "dff6ebbd0938c7ab"
+      },
+      "method": 1,
+      "note": "한국어 절과 영어 절을 처음부터 끝까지 대조함. 참여 방법, 저장소 구성, 고친 뒤 확인, PR 요령, 에이전트 작업, 라이선스의 사실과 구성이 같고, 영어 절은 사용 안내와 CLI 메시지가 한국어라는 점을 밝힘",
+      "reviewedAt": "2026-10-02T08:24:16.065Z"
+    },
+    "doltap-s-erjncca4 same-as doltap-s-vzx7yd82": {
+      "by": "agent",
+      "fingerprints": {
+        "doltap-s-erjncca4": "395e931e0c18652d",
+        "doltap-s-vzx7yd82": "0d4e5ac47413d3af"
+      },
+      "method": 1,
+      "note": "두 절의 첫 문장을 '자격 증명을 읽지 않는다'에서 'API 키나 자격 증명 파일을 요구하지 않는다'로 함께 고친 것을 대조함. 뜻과 구성이 같음",
+      "reviewedAt": "2026-10-02T08:32:00.834Z"
     }
   }
 }
